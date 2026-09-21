@@ -1,0 +1,11 @@
+{
+  "name": "ruta-clf-c02",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Herramienta no oficial de estudio en español para el examen AWS CLF-C02 (aplicación estática).",
+  "scripts": {
+    "start": "npx --yes http-server -p 8080 -c-1 .",
+    "validate": "node scripts/validate.mjs"
+  }
+}

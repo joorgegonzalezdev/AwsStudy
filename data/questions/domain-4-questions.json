@@ -1,0 +1,349 @@
+[
+  {
+    "id": "D4-T4.1-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.1",
+    "topic": "Opciones de compra de cómputo",
+    "subtopic": "Instancias Spot",
+    "services": ["amazon-ec2"],
+    "concepts": ["spot"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo necesita procesar un lote grande de imágenes durante la noche. El trabajo puede detenerse y reanudarse sin problema, y el objetivo es el menor costo posible. ¿Qué opción de compra de EC2 encaja mejor?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Instancias Spot, con el mayor descuento, aptas para cargas interrumpibles." },
+      { "id": "o2", "text": "Instancias On-Demand, para garantizar continuidad absoluta." },
+      { "id": "o3", "text": "Instancias de Host dedicado, para cumplir licencias por núcleo." },
+      { "id": "o4", "text": "Reservas de capacidad On-Demand, para asegurar capacidad en una AZ." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Las instancias Spot ofrecen el mayor descuento (hasta ~90% respecto a On-Demand) porque AWS puede reclamarlas con un aviso de dos minutos. Son ideales para trabajos por lotes, flexibles e interrumpibles como este procesamiento nocturno.",
+    "optionExplanations": {
+      "o1": "Correcto: trabajo interrumpible + costo mínimo = Spot.",
+      "o2": "Incorrecto: On-Demand paga precio completo por una carga que no requiere continuidad garantizada.",
+      "o3": "Incorrecto: los Hosts dedicados sirven para control de licencias y cumplimiento, no para ahorrar en batch.",
+      "o4": "Incorrecto: las reservas de capacidad aseguran disponibilidad de capacidad, que no es el objetivo aquí."
+    },
+    "hint": "Si el trabajo puede interrumpirse, hay una opción de compra pensada exactamente para eso.",
+    "lessonId": "L-4.1",
+    "officialSources": [
+      { "title": "Amazon EC2: opciones de precios (Spot)", "url": "https://aws.amazon.com/ec2/pricing/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.1-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.1",
+    "topic": "Opciones de compra de cómputo",
+    "subtopic": "Instancias reservadas",
+    "services": ["amazon-ec2"],
+    "concepts": ["reserved-instances", "savings-plans"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa ejecuta una base de datos y un servidor web que funcionan las 24 horas del día, los 7 días de la semana, con una carga estable y predecible, y está dispuesta a comprometerse por 1 o 3 años. ¿Qué opción reduce más el costo?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Instancias Spot, porque son las más baratas siempre." },
+      { "id": "o2", "text": "Instancias Reservadas (o Savings Plans) por el compromiso de uso constante de 1 o 3 años." },
+      { "id": "o3", "text": "On-Demand, porque el tráfico es estable." },
+      { "id": "o4", "text": "Comprar servidores físicos y alojarlos en la oficina." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Para cargas estables y de larga duración, las Instancias Reservadas o los Savings Plans ofrecen descuentos significativos a cambio de comprometerse por 1 o 3 años. Es la opción clásica para carga predecible 24/7.",
+    "optionExplanations": {
+      "o1": "Incorrecto: Spot es para cargas interrumpibles; una base de datos de producción no debe interrumpirse.",
+      "o2": "Correcto: uso estable + compromiso de plazo = Reservadas/Savings Plans.",
+      "o3": "Incorrecto: On-Demand no ofrece descuento por compromiso; cuesta más a largo plazo para carga constante.",
+      "o4": "Incorrecto: comprar servidores contradice el escenario (están en AWS) y reintroduce CapEx."
+    },
+    "hint": "Uso constante + plazo de compromiso = descuento por reserva.",
+    "lessonId": "L-4.1",
+    "officialSources": [
+      { "title": "Amazon EC2: opciones de precios (Reserved)", "url": "https://aws.amazon.com/ec2/pricing/reserved-instances/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.1-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.1",
+    "topic": "Precios de transferencia de datos",
+    "subtopic": "Entrante vs saliente",
+    "services": [],
+    "concepts": ["transferencia-datos"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": false,
+    "question": "¿Cuál de las siguientes afirmaciones sobre los precios de transferencia de datos en AWS es correcta?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "La transferencia de datos entrante (hacia AWS) suele ser gratuita; la saliente hacia internet tiene costo." },
+      { "id": "o2", "text": "Toda transferencia de datos, entrante y saliente, cuesta lo mismo." },
+      { "id": "o3", "text": "La transferencia saliente hacia internet es siempre gratuita." },
+      { "id": "o4", "text": "AWS no cobra por transferencia de datos en ningún caso." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Como concepto general de precios, la transferencia entrante (inbound) hacia AWS es típicamente gratuita, mientras que la saliente (outbound) hacia internet y la transferencia entre Regiones pueden generar cargos. (Los importes exactos cambian; consulta la página oficial de precios.)",
+    "optionExplanations": {
+      "o1": "Correcto: entrante ≈ gratis, saliente = con costo es el patrón conceptual que evalúa el examen.",
+      "o2": "Incorrecto: no cuestan lo mismo; el modelo asimétrico es precisamente lo que hay que conocer.",
+      "o3": "Incorrecto: la salida de datos hacia internet es el principal cargo de transferencia.",
+      "o4": "Incorrecto: sí existen cargos de transferencia en varios escenarios."
+    },
+    "hint": "Subir a AWS vs bajar de AWS: ¿cuál suele costar?",
+    "lessonId": "L-4.1",
+    "officialSources": [
+      { "title": "Precios de AWS (transferencia de datos)", "url": "https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.1-004",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.1",
+    "topic": "Opciones de compra de cómputo",
+    "subtopic": "Spot vs dedicado",
+    "services": ["amazon-ec2"],
+    "concepts": ["spot"],
+    "difficulty": "basic",
+    "type": "truefalse",
+    "scenarioBased": false,
+    "question": "Afirma o refuta: \"Las instancias Spot son la opción adecuada para una base de datos crítica de producción que no puede permitirse interrupciones.\"",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "verdadero", "text": "Verdadero" },
+      { "id": "falso", "text": "Falso" }
+    ],
+    "correctAnswerIds": ["falso"],
+    "explanation": "Falso. Las instancias Spot pueden ser interrumpidas por AWS con un aviso de dos minutos, por lo que solo son adecuadas para cargas flexibles e interrumpibles. Una base de datos crítica de producción requiere capacidad estable (On-Demand, Reservadas o Savings Plans).",
+    "optionExplanations": {
+      "verdadero": "Incorrecto: el riesgo de interrupción de Spot lo descarta para cargas críticas.",
+      "falso": "Correcto: Spot = interrumpible; producción crítica = capacidad garantizada."
+    },
+    "hint": "¿Qué significa que AWS pueda \"reclamar\" la instancia?",
+    "lessonId": "L-4.1",
+    "officialSources": [
+      { "title": "Amazon EC2: opciones de precios", "url": "https://aws.amazon.com/ec2/pricing/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 45,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.2-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.2",
+    "topic": "Herramientas de costos",
+    "subtopic": "AWS Budgets",
+    "services": ["aws-budgets", "aws-cost-explorer"],
+    "concepts": ["presupuestos"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un gerente quiere recibir una alerta por email cuando el gasto mensual de su equipo supere los 500 USD. ¿Qué herramienta está diseñada específicamente para esto?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "AWS Budgets, que permite definir umbrales de presupuesto y alertas." },
+      { "id": "o2", "text": "AWS Pricing Calculator, que proyecta el gasto pasado." },
+      { "id": "o3", "text": "AWS CloudTrail, que registra las facturas emitidas." },
+      { "id": "o4", "text": "AWS Trusted Advisor, que congela el gasto al llegar al límite." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Budgets permite definir presupuestos de costo o uso y recibir alertas (email, SNS) cuando el gasto real o pronosticado supera los umbrales definidos.",
+    "optionExplanations": {
+      "o1": "Correcto: presupuesto + umbral + alerta es exactamente la función de AWS Budgets.",
+      "o2": "Incorrecto: el Pricing Calculator estima costos de arquitecturas futuras; no alerta sobre gasto real.",
+      "o3": "Incorrecto: CloudTrail registra acciones de API, no facturas.",
+      "o4": "Incorrecto: Trusted Advisor recomienda mejores prácticas; no congela ni alerta presupuestos."
+    },
+    "hint": "\"Umbral + alerta\" es el verbo de una herramienta específica.",
+    "lessonId": "L-4.2",
+    "officialSources": [
+      { "title": "AWS Budgets", "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.2-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.2",
+    "topic": "Herramientas de costos",
+    "subtopic": "AWS Pricing Calculator",
+    "services": ["aws-pricing-calculator"],
+    "concepts": ["estimacion"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Antes de implementar una nueva arquitectura (instancias EC2, S3 y CloudFront), un equipo quiere presentar a dirección una estimación del costo mensual. ¿Qué herramienta corresponde?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "AWS Pricing Calculator, para estimar costos antes de desplegar." },
+      { "id": "o2", "text": "AWS Cost Explorer, que analiza el costo de arquitecturas que aún no existen." },
+      { "id": "o3", "text": "AWS CloudTrail, que predice costos futuros." },
+      { "id": "o4", "text": "AWS Artifact, que calcula presupuestos regulatorios." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Pricing Calculator permite modelar y estimar el costo de una arquitectura antes de implementarla: se configuran los servicios previstos y se obtiene una proyección para presentar y comparar opciones.",
+    "optionExplanations": {
+      "o1": "Correcto: estimación previa al despliegue es la función del Pricing Calculator.",
+      "o2": "Incorrecto: Cost Explorer analiza el gasto ya incurrido y lo pronostica; no modela arquitecturas que no existen.",
+      "o3": "Incorrecto: CloudTrail registra acciones de API; no predice costos.",
+      "o4": "Incorrecto: Artifact entrega documentos de cumplimiento; no calcula presupuestos."
+    },
+    "hint": "\"Antes de implementar\" es la clave: ¿qué herramienta no necesita recursos reales?",
+    "lessonId": "L-4.2",
+    "officialSources": [
+      { "title": "AWS Pricing Calculator", "url": "https://calculator.aws/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.2-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.2",
+    "topic": "Etiquetas de asignación de costos",
+    "subtopic": "Asignación por proyecto",
+    "services": ["aws-organizations"],
+    "concepts": ["cost-allocation-tags"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa con una sola factura de AWS quiere saber cuánto gasta cada proyecto (marketing, finanzas, I+D) en recursos compartidos. ¿Qué mecanismo permite rastrear el gasto por proyecto?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Aplicar etiquetas de asignación de costos (p. ej., \"proyecto\": \"marketing\") a los recursos y analizar el gasto por etiqueta." },
+      { "id": "o2", "text": "Renombrar las instancias con el nombre del proyecto." },
+      { "id": "o3", "text": "Crear una cuenta de AWS separada por cada consulta de costo." },
+      { "id": "o4", "text": "Preguntar a cada empleado cuánto consumió." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Las etiquetas de asignación de costos son pares clave-valor que se aplican a los recursos; al activarlas para la facturación, herramientas como Cost Explorer pueden agrupar el gasto por proyecto, departamento u otra dimensión de negocio.",
+    "optionExplanations": {
+      "o1": "Correcto: las etiquetas de asignación de costos son el mecanismo estándar para rastrear gasto por dimensiones de negocio.",
+      "o2": "Incorrecto: el nombre visible del recurso no alimenta los reportes de facturación.",
+      "o3": "Incorrecto: dividir cuentas por cada consulta es exagerado; las etiquetas resuelven esto dentro de la misma cuenta u organización.",
+      "o4": "Incorrecto: el reporte de costos es automático y verificable, no basado en encuestas."
+    },
+    "hint": "Pares clave-valor en los recursos que llegan hasta la factura.",
+    "lessonId": "L-4.2",
+    "officialSources": [
+      { "title": "Etiquetas de asignación de costos de AWS", "url": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.3-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.3",
+    "topic": "Planes de soporte",
+    "subtopic": "Business Support",
+    "services": ["aws-support"],
+    "concepts": ["support-plans"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa ejecuta cargas de trabajo de producción críticas y necesita soporte técnico disponible 24 horas al día, los 7 días de la semana, con tiempos de respuesta rápidos. ¿Cuál es el plan de soporte MÍNIMO que incluye soporte las 24/7 para cargas de producción?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Soporte básico, incluido en todas las cuentas." },
+      { "id": "o2", "text": "AWS Developer Support, pensado para entornos de prueba." },
+      { "id": "o3", "text": "AWS Business Support, que añade soporte 24/7 para cargas de producción." },
+      { "id": "o4", "text": "AWS re:Post, que garantiza respuestas de AWS en una hora." }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "AWS Business Support es el plan mínimo que ofrece soporte técnico 24/7 con tiempos de respuesta reducidos para cargas de producción, además de acceso a orientación arquitectónica y otras ventajas. Developer Support está orientado a entornos de prueba y el soporte básico es solo documentación y comunidad.",
+    "optionExplanations": {
+      "o1": "Incorrecto: el soporte básico incluye documentación, whitepapers y comunidad, pero no soporte técnico 24/7.",
+      "o2": "Incorrecto: Developer Support es para entornos de prueba/desarrollo; no está orientado a producción 24/7.",
+      "o3": "Correcto: Business Support añade soporte 24/7 con SLA para cargas de producción.",
+      "o4": "Incorrecto: re:Post es una comunidad de conocimiento; no ofrece SLA de respuesta de AWS."
+    },
+    "hint": "Ordena los planes: básico → Developer → Business → Enterprise. ¿Cuál introduce producción 24/7?",
+    "lessonId": "L-4.3",
+    "officialSources": [
+      { "title": "Planes de soporte de AWS", "url": "https://aws.amazon.com/premiumsupport/plans/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.3-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 4,
+    "taskStatement": "4.3",
+    "topic": "Recursos técnicos y comunidad",
+    "subtopic": "Reportar abuso",
+    "services": [],
+    "concepts": ["trust-safety"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un cliente detecta que su dirección de correo y su marca están siendo utilizadas de forma fraudulenta por recursos de AWS que no le pertenecen. ¿A qué equipo debe reportar el abuso de recursos de AWS?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Al equipo de AWS Trust & Safety, que investiga el abuso de recursos de AWS." },
+      { "id": "o2", "text": "Al AWS Health Dashboard, para que detenga el abuso." },
+      { "id": "o3", "text": "A AWS Trusted Advisor, que bloquea a los infractores." },
+      { "id": "o4", "text": "A AWS Organizations, que elimina las cuentas abusivas automáticamente." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "El equipo de AWS Trust & Safety es el canal oficial para reportar abuso de recursos de AWS (spam, fraude, contenido ilícito, uso indebido de marcas). El formulario oficial está disponible aunque no seas cliente de AWS.",
+    "optionExplanations": {
+      "o1": "Correcto: Trust & Safety es el equipo encargado de investigar reportes de abuso.",
+      "o2": "Incorrecto: el Health Dashboard informa de eventos de servicio; no gestiona reportes de abuso.",
+      "o3": "Incorrecto: Trusted Advisor recomienda mejores prácticas; no bloquea infractores.",
+      "o4": "Incorrecto: Organizations gestiona tus propias cuentas; no elimina cuentas de terceros."
+    },
+    "hint": "Hay un equipo con un nombre muy literal para esto.",
+    "lessonId": "L-4.3",
+    "officialSources": [
+      { "title": "AWS Trust & Safety (reportar abuso)", "url": "https://aws.amazon.com/trust-and-safety/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  }
+]

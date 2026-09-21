@@ -1,0 +1,24 @@
+{
+  "id": 4,
+  "name": "Facturación, precios y soporte",
+  "nameEn": "Billing, Pricing, and Support",
+  "weight": 12,
+  "description": "Modelos de precios de AWS, herramientas de facturación, presupuestos y gestión de costos, y recursos técnicos y opciones de soporte.",
+  "tasks": [
+    {
+      "id": "4.1",
+      "title": "Comparar los modelos de precios de AWS",
+      "topics": ["Opciones de compra de cómputo", "Niveles de almacenamiento", "Precios de transferencia de datos"]
+    },
+    {
+      "id": "4.2",
+      "title": "Comprender los recursos para facturación, presupuestos y gestión de costos",
+      "topics": ["Herramientas de costos", "AWS Organizations", "Etiquetas de asignación de costos"]
+    },
+    {
+      "id": "4.3",
+      "title": "Identificar los recursos técnicos y las opciones de soporte de AWS",
+      "topics": ["Planes de soporte", "Recursos técnicos y comunidad", "Socios y AWS Marketplace"]
+    }
+  ]
+}

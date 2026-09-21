@@ -1,0 +1,29 @@
+{
+  "id": 1,
+  "name": "Conceptos de la nube",
+  "nameEn": "Cloud Concepts",
+  "weight": 24,
+  "description": "Beneficios de la nube de AWS, principios de diseño del AWS Well-Architected Framework, estrategias de migración y economía de la nube.",
+  "tasks": [
+    {
+      "id": "1.1",
+      "title": "Definir los beneficios de la nube de AWS",
+      "topics": ["Beneficios de la nube", "Infraestructura global", "Alta disponibilidad y elasticidad"]
+    },
+    {
+      "id": "1.2",
+      "title": "Identificar los principios de diseño de la nube de AWS",
+      "topics": ["AWS Well-Architected Framework", "Pilares del marco de trabajo"]
+    },
+    {
+      "id": "1.3",
+      "title": "Comprender los beneficios y las estrategias de migración a la nube de AWS",
+      "topics": ["AWS Cloud Adoption Framework", "Las 7 estrategias de migración", "Recursos de migración"]
+    },
+    {
+      "id": "1.4",
+      "title": "Comprender los conceptos de economía de la nube",
+      "topics": ["Costos fijos vs variables", "CapEx y OpEx", "Derechos de tamaño y licenciamiento"]
+    }
+  ]
+}

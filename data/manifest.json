@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "examGuide": "CLF-C02",
+  "examGuideVersion": "2023-06",
+  "language": "es",
+  "domains": [
+    "data/domains/domain-1.json",
+    "data/domains/domain-2.json",
+    "data/domains/domain-3.json",
+    "data/domains/domain-4.json"
+  ],
+  "lessons": [
+    "data/lessons/domain-1-lessons.json",
+    "data/lessons/domain-2-lessons.json",
+    "data/lessons/domain-3-lessons.json",
+    "data/lessons/domain-4-lessons.json"
+  ],
+  "questions": [
+    "data/questions/domain-1-questions.json",
+    "data/questions/domain-2-questions.json",
+    "data/questions/domain-3-questions.json",
+    "data/questions/domain-4-questions.json"
+  ],
+  "services": {
+    "inScope": "data/services/in-scope-services.json",
+    "outOfScope": "data/services/out-of-scope-services.json"
+  },
+  "glossary": "data/glossary/glossary-es.json"
+}

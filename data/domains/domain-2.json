@@ -1,0 +1,29 @@
+{
+  "id": 2,
+  "name": "Seguridad y cumplimiento",
+  "nameEn": "Security and Compliance",
+  "weight": 30,
+  "description": "Modelo de responsabilidad compartida, conceptos de seguridad, gobernanza y cumplimiento, gestión de accesos con IAM y componentes y recursos de seguridad.",
+  "tasks": [
+    {
+      "id": "2.1",
+      "title": "Comprender el modelo de responsabilidad compartida de AWS",
+      "topics": ["Responsabilidad compartida", "Responsabilidades del cliente", "Responsabilidades de AWS"]
+    },
+    {
+      "id": "2.2",
+      "title": "Comprender los conceptos de seguridad, gobernanza y cumplimiento de la nube de AWS",
+      "topics": ["Cumplimiento y AWS Artifact", "Cifrado", "Servicios de seguridad", "Gobernanza, monitoreo y auditoría"]
+    },
+    {
+      "id": "2.3",
+      "title": "Identificar las capacidades de gestión de accesos de AWS",
+      "topics": ["AWS IAM", "Protección del usuario raíz", "Principio de mínimo privilegio", "AWS IAM Identity Center"]
+    },
+    {
+      "id": "2.4",
+      "title": "Identificar componentes y recursos para la seguridad",
+      "topics": ["Servicios de protección", "Recursos de información de seguridad"]
+    }
+  ]
+}

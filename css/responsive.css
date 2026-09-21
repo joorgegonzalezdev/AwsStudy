@@ -1,0 +1,29 @@
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .app-header .container { padding-top: 8px; padding-bottom: 8px; }
+  .brand { font-size: 1rem; }
+  .main-nav { width: 100%; justify-content: flex-start; overflow-x: auto; }
+  .main-nav a { padding: 8px 10px; white-space: nowrap; }
+  h1 { font-size: 1.35rem; }
+  .score-hero .big { font-size: 2.1rem; }
+  .btn { width: 100%; }
+  .btn-row .btn { width: auto; flex: 1 1 auto; }
+  .hero-actions .btn { width: 100%; }
+  .table { font-size: .85rem; }
+  .table th, .table td { padding: 7px 6px; }
+  .bar-cell { min-width: 90px; }
+  .navigator button { width: 34px; height: 34px; }
+}
+@media (min-width: 861px) {
+  .quiz-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; }
+  .quiz-side { position: sticky; top: 76px; }
+}
+@media print {
+  .app-header, .app-footer, .btn, .btn-row, .navigator, .quiz-side { display: none !important; }
+  body { background: #fff; }
+}

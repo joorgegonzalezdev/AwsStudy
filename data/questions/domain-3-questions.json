@@ -1,0 +1,896 @@
+[
+  {
+    "id": "D3-T3.1-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.1",
+    "topic": "Infraestructura como código",
+    "subtopic": "AWS CloudFormation",
+    "services": ["aws-cloudformation"],
+    "concepts": ["iac"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo necesita crear el mismo entorno completo (red, instancias, bases de datos) en varios entornos de prueba de forma repetible y versionada. ¿Qué enfoque describe mejor la solución?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Crear los recursos manualmente en la consola en cada entorno." },
+      { "id": "o2", "text": "Usar AWS CloudFormation para definir la infraestructura en plantillas y desplegarla de forma repetible (infraestructura como código)." },
+      { "id": "o3", "text": "Documentar los pasos en un documento de Word y seguirlo a mano." },
+      { "id": "o4", "text": "Contratar más personal para crear los entornos más rápido." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "AWS CloudFormation permite describir la infraestructura en plantillas (JSON/YAML) y aprovisionarla de manera repetible, auditable y versionada: infraestructura como código. Es ideal para recrear entornos idénticos sin pasos manuales propensos a error.",
+    "optionExplanations": {
+      "o1": "Incorrecto: la creación manual es lenta, propensa a error y no repetible entre entornos.",
+      "o2": "Correcto: las plantillas de CloudFormation son la representación clásica de infraestructura como código en AWS.",
+      "o3": "Incorrecto: un documento manual no garantiza consistencia ni versionado de la infraestructura.",
+      "o4": "Incorrecto: más personal no resuelve la reproducibilidad; el problema es de método, no de recursos humanos."
+    },
+    "hint": "Repetible + versionado = un concepto con sigla conocida.",
+    "lessonId": "L-3.1",
+    "officialSources": [
+      { "title": "AWS CloudFormation (introducción)", "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.1-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.1",
+    "topic": "Formas de acceder a AWS",
+    "subtopic": "Consola vs CLI",
+    "services": ["aws-cli"],
+    "concepts": ["consola", "cli"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un administrador necesita revisar la configuración de un recurso puntual una sola vez, de forma visual. ¿Cuál es la forma más apropiada de hacerlo?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "La consola de administración de AWS, ideal para operaciones manuales y puntuales." },
+      { "id": "o2", "text": "Escribir un SDK personalizado para ese recurso." },
+      { "id": "o3", "text": "Abrir un caso en AWS Support para que lo revisen." },
+      { "id": "o4", "text": "Desplegar AWS Outposts en la oficina." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "La consola de administración de AWS es la interfaz gráfica, ideal para operaciones manuales, puntuales y de exploración. Para operaciones repetibles o automatizadas se prefieren la CLI, los SDK o la infraestructura como código.",
+    "optionExplanations": {
+      "o1": "Correcto: una revisión visual y única es el caso de uso típico de la consola.",
+      "o2": "Incorrecto: usar un SDK implica escribir código; es excesivo para una revisión puntual.",
+      "o3": "Incorrecto: abrir un caso de soporte no es necesario para consultar la configuración propia.",
+      "o4": "Incorrecto: Outposts es hardware local para cargas híbridas; no es una herramienta de revisión."
+    },
+    "hint": "Operación única y manual → interfaz gráfica.",
+    "lessonId": "L-3.1",
+    "officialSources": [
+      { "title": "AWS Management Console", "url": "https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.1-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.1",
+    "topic": "Modelos de despliegue",
+    "subtopic": "Híbrido",
+    "services": ["aws-outposts", "aws-vpn"],
+    "concepts": ["modelos-despliegue"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa mantiene parte de sus sistemas en su propio centro de datos y otras cargas en AWS, y necesita que ambos entornos funcionen conectados. ¿Cómo se denomina este modelo de despliegue?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Despliegue en la nube (todo en AWS)" },
+      { "id": "o2", "text": "Despliegue on-premises (todo local)" },
+      { "id": "o3", "text": "Despliegue híbrido, conectando infraestructura local con la nube" },
+      { "id": "o4", "text": "Despliegue multi-región" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "El despliegue híbrido combina infraestructura on-premises con recursos en la nube, conectados mediante VPN o Direct Connect (o con hardware de AWS en local, como Outposts). Es común durante migraciones graduales o por requisitos de latencia y regulación.",
+    "optionExplanations": {
+      "o1": "Incorrecto: el despliegue en la nube significa que todos los recursos están en AWS.",
+      "o2": "Incorrecto: on-premises puro significa que nada corre en la nube.",
+      "o3": "Correcto: local + nube conectados es la definición de despliegue híbrido.",
+      "o4": "Incorrecto: multi-región se refiere a varias Regiones de AWS, no a la combinación local + nube."
+    },
+    "hint": "Local + nube juntos tiene un nombre de mezcla.",
+    "lessonId": "L-3.1",
+    "officialSources": [
+      { "title": "AWS Outposts (despliegue híbrido)", "url": "https://aws.amazon.com/outposts/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.2-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.2",
+    "topic": "Regiones y Zonas de Disponibilidad",
+    "subtopic": "Jerarquía de la infraestructura",
+    "services": [],
+    "concepts": ["regiones", "az", "edge-locations"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": false,
+    "question": "¿Cuál describe correctamente la relación entre Regiones, Zonas de Disponibilidad (AZ) y ubicaciones de borde de AWS?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Cada Región contiene múltiples AZ aisladas entre sí; las ubicaciones de borde cachean contenido cerca de los usuarios." },
+      { "id": "o2", "text": "Cada AZ contiene varias Regiones que comparten un único punto de fallo." },
+      { "id": "o3", "text": "Las ubicaciones de borde son centros de datos donde se ejecutan las bases de datos de los clientes." },
+      { "id": "o4", "text": "Las Regiones y las AZ son sinónimos con nombres diferentes." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "La jerarquía es: cada Región geográfica contiene múltiples Zonas de Disponibilidad (uno o más centros de datos independientes, sin puntos únicos de fallo compartidos). Además, las ubicaciones de borde distribuyen contenido en caché cerca de los usuarios (CloudFront).",
+    "optionExplanations": {
+      "o1": "Correcto: Región → varias AZ independientes; bordes → caché de contenido para menor latencia.",
+      "o2": "Incorrecto: es al revés (una Región contiene AZ) y las AZ están diseñadas sin puntos únicos de fallo compartidos.",
+      "o3": "Incorrecto: las ubicaciones de borde cachean contenido; no ejecutan las cargas de los clientes.",
+      "o4": "Incorrecto: una AZ está dentro de una Región; no son equivalentes."
+    },
+    "hint": "Región ⊃ AZ; borde = caché cerca del usuario.",
+    "lessonId": "L-3.2",
+    "officialSources": [
+      { "title": "Infraestructura global de AWS", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.2-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.2",
+    "topic": "Arquitecturas multi-región",
+    "subtopic": "Residencia de datos",
+    "services": [],
+    "concepts": ["residencia-datos", "multi-region"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Por requisitos legales, una empresa debe garantizar que los datos de sus clientes europeos permanezcan almacenados en el territorio europeo. ¿Qué característica de AWS le permite cumplir este requisito?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "La posibilidad de elegir Regiones específicas donde desplegar y almacenar los datos." },
+      { "id": "o2", "text": "El hecho de que AWS replica automáticamente todos los datos a todo el mundo sin opción de control." },
+      { "id": "o3", "text": "El uso de instancias Spot para reducir el costo regulatorio." },
+      { "id": "o4", "text": "La obligación de usar el usuario raíz para almacenar datos." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS permite elegir en qué Región se despliegan los recursos y se almacenan los datos. Este control geográfico habilita la residencia y soberanía de datos, una de las razones principales para usar múltiples Regiones (junto con DR, continuidad y latencia).",
+    "optionExplanations": {
+      "o1": "Correcto: elegir la Región de despliegue es exactamente el control que exige la residencia de datos.",
+      "o2": "Incorrecto: AWS no replica los datos del cliente por todo el mundo sin control; el cliente elige dónde.",
+      "o3": "Incorrecto: las instancias Spot son un modelo de precios, sin relación con requisitos legales de ubicación.",
+      "o4": "Incorrecto: el usuario raíz no tiene ninguna relación con la ubicación de los datos."
+    },
+    "hint": "El control está en la elección de la ubicación geográfica.",
+    "lessonId": "L-3.2",
+    "officialSources": [
+      { "title": "Infraestructura global de AWS (Regiones)", "url": "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.2-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.2",
+    "topic": "Ubicaciones de borde",
+    "subtopic": "Entrega de contenido",
+    "services": ["amazon-cloudfront"],
+    "concepts": ["edge-locations", "cdn"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un sitio de noticias con lectores en todo el mundo carga las imágenes y videos desde el mismo servidor central y los usuarios lejanos experimentan lentitud. ¿Qué solución reduce la latencia para todos los lectores?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Usar Amazon CloudFront para cachear el contenido en ubicaciones de borde cercanas a los usuarios." },
+      { "id": "o2", "text": "Migrar las imágenes a una base de datos relacional." },
+      { "id": "o3", "text": "Contratar más ancho de banda en el servidor central." },
+      { "id": "o4", "text": "Pedir a los usuarios que se conecten en horas de menor tráfico." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon CloudFront es una red de entrega de contenido (CDN) que cachea contenido estático en ubicaciones de borde repartidas por el mundo, sirviéndolo desde el punto más cercano a cada usuario y reduciendo la latencia.",
+    "optionExplanations": {
+      "o1": "Correcto: cachear en bordes cerca del usuario es el propósito central de CloudFront.",
+      "o2": "Incorrecto: una base de datos relacional no acerca el contenido al usuario; el problema es la distancia.",
+      "o3": "Incorrecto: más ancho de banda en el origen no acorta la distancia física que recorren los datos.",
+      "o4": "Incorrecto: limitar horarios no es una solución técnica de latencia."
+    },
+    "hint": "Contenido cerca del usuario = ubicaciones de borde.",
+    "lessonId": "L-3.2",
+    "officialSources": [
+      { "title": "Amazon CloudFront", "url": "https://aws.amazon.com/cloudfront/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.3-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.3",
+    "topic": "Cómputo sin servidor",
+    "subtopic": "AWS Lambda",
+    "services": ["aws-lambda"],
+    "concepts": ["serverless"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una aplicación necesita ejecutar una función breve (unos segundos) cada vez que un usuario sube una foto. El tráfico es muy intermitente y el equipo no quiere administrar servidores. ¿Qué servicio es el más adecuado?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "AWS Lambda, que ejecuta el código por eventos sin administrar servidores." },
+      { "id": "o2", "text": "Una flota de instancias EC2 siempre encendidas esperando las fotos." },
+      { "id": "o3", "text": "Amazon Route 53 para procesar las imágenes." },
+      { "id": "o4", "text": "Amazon S3 Standard-IA para ejecutar el procesamiento." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Lambda ejecuta código en respuesta a eventos (como una subida a S3) sin administrar servidores y facturando solo por el tiempo de ejecución. Es ideal para tareas breves, intermitentes y orientadas a eventos.",
+    "optionExplanations": {
+      "o1": "Correcto: Lambda es cómputo sin servidor orientado a eventos, sin administración de infraestructura.",
+      "o2": "Incorrecto: mantener instancias encendidas 24/7 para trabajo intermitente desperdicia dinero y esfuerzo.",
+      "o3": "Incorrecto: Route 53 es DNS; no procesa imágenes.",
+      "o4": "Incorrecto: S3 almacena objetos; no ejecuta código de procesamiento."
+    },
+    "hint": "Eventos breves e intermitentes + sin servidores = un servicio sin servidor.",
+    "lessonId": "L-3.3",
+    "officialSources": [
+      { "title": "AWS Lambda", "url": "https://aws.amazon.com/lambda/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.3-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.3",
+    "topic": "Amazon EC2",
+    "subtopic": "Categorías de instancias",
+    "services": ["amazon-ec2"],
+    "concepts": ["familias-instancias"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una carga de trabajo necesita un rendimiento muy alto y constante de lectura y escritura secuencial en disco local, con grandes volúmenes de datos (por ejemplo, ciertas bases de datos NoSQL y almacenes de datos). ¿Qué categoría de instancia EC2 encaja mejor?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Instancias optimizadas en cómputo, enfocadas en procesadores más rápidos." },
+      { "id": "o2", "text": "Instancias optimizadas para almacenamiento, con alto rendimiento de disco local." },
+      { "id": "o3", "text": "Instancias de propósito general, equilibradas en todo." },
+      { "id": "o4", "text": "Instancias optimizadas para memoria, con más RAM." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Las instancias optimizadas para almacenamiento ofrecen acceso de lectura/escritura secuencial muy alto a grandes conjuntos de datos en almacenamiento local, y son adecuadas para ciertas bases de datos NoSQL y almacenes de datos distribuidos.",
+    "optionExplanations": {
+      "o1": "Incorrecto: las optimizadas en cómputo priorizan CPU para cargas de procesamiento intensivo, no E/S de disco.",
+      "o2": "Correcto: alto rendimiento secuencial de disco = instancias optimizadas para almacenamiento.",
+      "o3": "Incorrecto: las de propósito general equilibran recursos, sin maximizar E/S de disco.",
+      "o4": "Incorrecto: las optimizadas en memoria priorizan RAM para procesamiento en memoria."
+    },
+    "hint": "El cuello de botella aquí es el disco, no la CPU ni la RAM.",
+    "lessonId": "L-3.3",
+    "officialSources": [
+      { "title": "Tipos de instancias Amazon EC2", "url": "https://aws.amazon.com/ec2/instance-types/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.3-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.3",
+    "topic": "Contenedores",
+    "subtopic": "Amazon EKS",
+    "services": ["amazon-eks", "amazon-ecs"],
+    "concepts": ["contenedores", "kubernetes"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo de desarrollo ya gestiona sus aplicaciones con Kubernetes on-premises y quiere migrar a AWS manteniendo las mismas herramientas y configuraciones. ¿Qué servicio le conviene?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon EKS, el servicio de Kubernetes administrado de AWS." },
+      { "id": "o2", "text": "Amazon S3, que permite almacenar los archivos de configuración de Kubernetes." },
+      { "id": "o3", "text": "Amazon Route 53, para renombrar los contenedores." },
+      { "id": "o4", "text": "AWS Lambda, que ejecuta contenedores sin orquestador." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon EKS es el servicio administrado de Kubernetes en AWS: permite usar las herramientas, APIs y manifiestos de Kubernetes ya conocidos por el equipo, con el plano de control gestionado por AWS.",
+    "optionExplanations": {
+      "o1": "Correcto: Kubernetes administrado = EKS (ECS es la orquestación propia de AWS, no Kubernetes).",
+      "o2": "Incorrecto: S3 almacena objetos; no orquesta contenedores.",
+      "o3": "Incorrecto: Route 53 es DNS; no gestiona contenedores.",
+      "o4": "Incorrecto: Lambda ejecuta funciones por evento; no orquesta clústeres de Kubernetes."
+    },
+    "hint": "La palabra clave del enunciado es \"Kubernetes\".",
+    "lessonId": "L-3.3",
+    "officialSources": [
+      { "title": "Amazon EKS", "url": "https://aws.amazon.com/eks/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.4-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.4",
+    "topic": "Bases de datos NoSQL",
+    "subtopic": "Amazon DynamoDB",
+    "services": ["amazon-dynamodb"],
+    "concepts": ["nosql"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una aplicación móvil necesita guardar perfiles de usuario con estructura flexible (atributos que varían entre usuarios), soportar millones de solicitudes por segundo con latencia de milisegundos y escalar sin administrar servidores. ¿Qué servicio encaja mejor?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon DynamoDB, una base de datos NoSQL clave-valor sin servidor." },
+      { "id": "o2", "text": "Amazon RDS para Oracle, con esquemas rígidos y SQL tradicional." },
+      { "id": "o3", "text": "Amazon S3, guardando cada perfil como un objeto." },
+      { "id": "o4", "text": "Amazon ElastiCache, almacenando los perfiles de forma permanente." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "DynamoDB es una base de datos NoSQL clave-valor administrada, sin servidor, con latencia de milisegundos a cualquier escala y esquema flexible: ideal para perfiles con atributos variables y tráfico masivo.",
+    "optionExplanations": {
+      "o1": "Correcto: NoSQL clave-valor + escala + esquema flexible describe exactamente a DynamoDB.",
+      "o2": "Incorrecto: una base relacional tradicional tiene esquema rígido y requeriría administración adicional.",
+      "o3": "Incorrecto: S3 es almacenamiento de objetos; no ofrece consultas rápidas por atributo de perfil.",
+      "o4": "Incorrecto: ElastiCache es una caché volátil, no un almacenamiento duradero de perfiles."
+    },
+    "hint": "Esquema flexible + escala masiva + sin servidores = NoSQL.",
+    "lessonId": "L-3.3",
+    "officialSources": [
+      { "title": "Amazon DynamoDB", "url": "https://aws.amazon.com/dynamodb/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.4-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.4",
+    "topic": "Bases de datos relacionales",
+    "subtopic": "Amazon Aurora",
+    "services": ["amazon-aurora", "amazon-rds"],
+    "concepts": ["relacional"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa usa MySQL on-premises y quiere migrar a un motor relacional administrado en AWS con mayor rendimiento, alta disponibilidad automática y compatibilidad con MySQL, sin cambiar el código de la aplicación. ¿Qué servicio encaja?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon Aurora, compatible con MySQL/PostgreSQL y con rendimiento mejorado." },
+      { "id": "o2", "text": "Amazon DynamoDB, que acepta consultas MySQL si se configura." },
+      { "id": "o3", "text": "Amazon S3, almacenando las tablas como archivos." },
+      { "id": "o4", "text": "AWS SCT como base de datos de producción." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Aurora es un motor relacional administrado (dentro de la familia RDS) compatible con MySQL y PostgreSQL, con arquitectura que mejora el rendimiento y la disponibilidad; permite migrar sin reescribir la aplicación.",
+    "optionExplanations": {
+      "o1": "Correcto: Aurora ofrece compatibilidad MySQL/PostgreSQL, rendimiento mejorado y alta disponibilidad administrada.",
+      "o2": "Incorrecto: DynamoDB es NoSQL y no acepta consultas SQL de MySQL.",
+      "o3": "Incorrecto: S3 no es una base de datos relacional.",
+      "o4": "Incorrecto: SCT es una herramienta de conversión de esquemas, no una base de datos."
+    },
+    "hint": "Relacional + compatible MySQL + administrado + más rápido: hay un servicio con nombre propio.",
+    "lessonId": "L-3.3",
+    "officialSources": [
+      { "title": "Amazon Aurora", "url": "https://aws.amazon.com/rds/aurora/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.4-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.4",
+    "topic": "Caché y migración de bases de datos",
+    "subtopic": "AWS SCT vs AWS DMS",
+    "services": ["aws-sct", "aws-dms"],
+    "concepts": ["migracion-bases-datos"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Durante una migración de Oracle a Amazon Aurora, un ingeniero necesita convertir los esquemas, las tablas y el código almacenado (procedimientos) al motor de destino. ¿Qué herramienta corresponde a esta tarea?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "AWS Schema Conversion Tool (SCT), que convierte esquemas entre motores distintos." },
+      { "id": "o2", "text": "AWS DMS, que convierte los procedimientos almacenados en funciones Lambda." },
+      { "id": "o3", "text": "Amazon ElastiCache, que traduce las consultas automáticamente." },
+      { "id": "o4", "text": "AWS Glue, que reescribe la aplicación completa." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Schema Conversion Tool (SCT) convierte esquemas, tablas y objetos de código (procedimientos, funciones) entre motores de base de datos heterogéneos, como Oracle → Aurora. AWS DMS, por su parte, se encarga de mover/replicar los datos.",
+    "optionExplanations": {
+      "o1": "Correcto: SCT es la herramienta de conversión de esquemas entre motores diferentes.",
+      "o2": "Incorrecto: DMS migra datos; no convierte procedimientos en funciones Lambda.",
+      "o3": "Incorrecto: ElastiCache es una caché en memoria; no traduce esquemas.",
+      "o4": "Incorrecto: Glue prepara datos para analítica (ETL); no reescribe aplicaciones ni esquemas de BD transaccional."
+    },
+    "hint": "\"Convertir esquema\" ≠ \"mover datos\". Cada herramienta tiene su mitad del trabajo.",
+    "lessonId": "L-3.3",
+    "officialSources": [
+      { "title": "AWS Schema Conversion Tool", "url": "https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP_Welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.5-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.5",
+    "topic": "Grupos de seguridad y ACL de red",
+    "subtopic": "Security groups vs NACL",
+    "services": ["amazon-vpc"],
+    "concepts": ["security-groups", "nacl"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": false,
+    "question": "¿Cuál es la diferencia fundamental entre un grupo de seguridad y una ACL de red en Amazon VPC?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "El grupo de seguridad opera a nivel de instancia y es con estado; la ACL de red opera a nivel de subred y es sin estado." },
+      { "id": "o2", "text": "El grupo de seguridad opera a nivel de Región y la ACL a nivel de mundo." },
+      { "id": "o3", "text": "Son idénticos; se pueden usar indistintamente." },
+      { "id": "o4", "text": "La ACL de red cifra el tráfico y el grupo de seguridad lo comprime." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Los grupos de seguridad actúan a nivel de instancia (ENI) y son con estado: si permites tráfico entrante, la respuesta fluye automáticamente. Las ACL de red actúan a nivel de subred y son sin estado: el tráfico de respuesta debe permitirse explícitamente con reglas numeradas.",
+    "optionExplanations": {
+      "o1": "Correcto: instancia + stateful vs subred + stateless es la distinción clásica del examen.",
+      "o2": "Incorrecto: ambos operan dentro de una VPC; la distinción es instancia vs subred.",
+      "o3": "Incorrecto: tienen propósitos y niveles de operación distintos.",
+      "o4": "Incorrecto: ninguno cifra ni comprime tráfico; son filtros."
+    },
+    "hint": "Instancia vs subred; con estado vs sin estado.",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "Amazon VPC: comparación de grupos de seguridad y ACL de red", "url": "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.5-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.5",
+    "topic": "DNS y conectividad",
+    "subtopic": "Amazon Route 53",
+    "services": ["amazon-route-53"],
+    "concepts": ["dns"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa registró el dominio de su producto y necesita que ese nombre resuelva hacia su aplicación, con comprobaciones de estado y conmutación por error entre endpoints. ¿Qué servicio proporciona DNS administrado con estas capacidades?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon Route 53" },
+      { "id": "o2", "text": "Amazon S3" },
+      { "id": "o3", "text": "AWS IAM" },
+      { "id": "o4", "text": "Amazon Kinesis" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Route 53 es el servicio de DNS administrado de AWS: traduce nombres de dominio a direcciones IP, permite registrar dominios y ofrece enrutamiento con comprobaciones de estado y failover.",
+    "optionExplanations": {
+      "o1": "Correcto: Route 53 es el DNS administrado con registro de dominios y enrutamiento inteligente.",
+      "o2": "Incorrecto: S3 almacena objetos; no resuelve nombres de dominio.",
+      "o3": "Incorrecto: IAM gestiona permisos; no hace DNS.",
+      "o4": "Incorrecto: Kinesis procesa streams de datos; no resuelve dominios."
+    },
+    "hint": "Traducir \"midominio.com\" a una IP es trabajo de un servicio específico.",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "Amazon Route 53", "url": "https://aws.amazon.com/route53/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.5-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.5",
+    "topic": "DNS y conectividad",
+    "subtopic": "Direct Connect vs VPN",
+    "services": ["aws-direct-connect", "aws-vpn"],
+    "concepts": ["conectividad-hibrida"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa transfiere grandes volúmenes de datos entre su centro de datos y AWS cada día y necesita un ancho de banda consistente y predecible, con una conexión de red privada dedicada. ¿Qué solución encaja mejor?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "AWS Direct Connect, un enlace privado dedicado entre las instalaciones y AWS." },
+      { "id": "o2", "text": "Una conexión a internet doméstica del administrador." },
+      { "id": "o3", "text": "Amazon CloudFront para acelerar la conexión privada." },
+      { "id": "o4", "text": "AWS Budgets para limitar el tráfico." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Direct Connect proporciona una conexión de red privada y dedicada entre las instalaciones del cliente y AWS, con ancho de banda consistente. La VPN Site-to-Site es más rápida de configurar y cifra por internet, pero depende del internet público.",
+    "optionExplanations": {
+      "o1": "Correcto: enlace privado dedicado con ancho de banda predecible es la definición de Direct Connect.",
+      "o2": "Incorrecto: una conexión doméstica no ofrece dedicación, consistencia ni privacidad garantizada.",
+      "o3": "Incorrecto: CloudFront cachea contenido para usuarios finales; no crea enlaces privados de red.",
+      "o4": "Incorrecto: Budgets presupuesta costos; no gestiona tráfico de red."
+    },
+    "hint": "\"Privado + dedicado + predecible\" describe un tipo de enlace concreto.",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "AWS Direct Connect", "url": "https://aws.amazon.com/directconnect/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.6",
+    "topic": "Almacenamiento de objetos",
+    "subtopic": "Clases de S3",
+    "services": ["amazon-s3-glacier", "amazon-s3"],
+    "concepts": ["clases-s3"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa debe conservar registros legales durante 10 años. Casi nunca se consultan y, cuando se necesita uno, la recuperación puede tardar horas. ¿Qué clase de Amazon S3 minimiza el costo?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "S3 Standard, para acceso frecuente e inmediato." },
+      { "id": "o2", "text": "S3 Glacier Deep Archive, la clase más económica para archivo a largo plazo con recuperaciones en horas." },
+      { "id": "o3", "text": "Amazon EBS gp3, montado en una instancia EC2." },
+      { "id": "o4", "text": "S3 Standard-IA, para datos a los que se accede una vez al mes." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "S3 Glacier Deep Archive es la clase más económica de S3, pensada para archivado a largo plazo (años) de datos que casi nunca se consultan y donde la recuperación en horas es aceptable.",
+    "optionExplanations": {
+      "o1": "Incorrecto: S3 Standard es la más cara y está pensada para acceso frecuente; sería un desperdicio para un archivo.",
+      "o2": "Correcto: archivo de largo plazo + acceso rarísimo + recuperación en horas = Deep Archive.",
+      "o3": "Incorrecto: EBS es almacenamiento de bloques adjunto a una instancia, no un archivo económico.",
+      "o4": "Incorrecto: Standard-IA es para datos poco frecuentes pero con acceso inmediato; es más cara que Deep Archive."
+    },
+    "hint": "Casi nunca se toca + puede esperar horas = la clase más barata de archivo.",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "Clases de almacenamiento de Amazon S3", "url": "https://aws.amazon.com/s3/storage-classes/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.6",
+    "topic": "Almacenamiento de bloques",
+    "subtopic": "EBS vs instance store",
+    "services": ["amazon-ebs"],
+    "concepts": ["bloques"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo necesita un disco para su instancia EC2 cuyos datos persistan cuando la instancia se detiene y pueda separarse y volverse a adjuntar a otra instancia. ¿Qué opción corresponde?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon EBS, un volumen de bloques persistente e independiente del ciclo de vida de la instancia." },
+      { "id": "o2", "text": "El almacenamiento de instancia (instance store), que es efímero." },
+      { "id": "o3", "text": "Amazon Route 53, que guarda discos virtuales." },
+      { "id": "o4", "text": "AWS Budgets, que congela los datos cuando se detiene la instancia." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon EBS proporciona volúmenes de bloques persistentes: los datos sobreviven a la detención de la instancia y el volumen puede desconectarse y adjuntarse a otra instancia. El instance store es físico y efímero: sus datos se pierden al detener o terminar la instancia.",
+    "optionExplanations": {
+      "o1": "Correcto: persistencia + separabilidad describe exactamente a EBS.",
+      "o2": "Incorrecto: el instance store pierde los datos al detener/terminar la instancia.",
+      "o3": "Incorrecto: Route 53 es DNS; no almacena discos.",
+      "o4": "Incorrecto: Budgets gestiona presupuestos; nada tiene que ver con discos."
+    },
+    "hint": "\"Persiste al detener la instancia\" es la pista decisiva.",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "Amazon EBS", "url": "https://aws.amazon.com/ebs/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.6",
+    "topic": "Almacenamiento de archivos",
+    "subtopic": "Amazon EFS",
+    "services": ["amazon-efs"],
+    "concepts": ["archivos"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Varias instancias EC2 Linux deben leer y escribir simultáneamente en el mismo sistema de archivos compartido, con carpetas y permisos estándar POSIX, y que crezca automáticamente. ¿Qué servicio encaja mejor?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon EFS, un sistema de archivos elástico compartido para instancias Linux." },
+      { "id": "o2", "text": "Amazon S3, porque también se comparte entre muchos." },
+      { "id": "o3", "text": "Amazon EBS, adjuntando el mismo volumen a todas las instancias." },
+      { "id": "o4", "text": "AWS Shield, que sincroniza los archivos entre zonas." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon EFS es un sistema de archivos NFS elástico y compartido: muchas instancias pueden montarlo simultáneamente con semántica de archivos estándar (POSIX) y crece o se reduce automáticamente.",
+    "optionExplanations": {
+      "o1": "Correcto: sistema de archivos compartido, elástico y multi-instancia es la definición de EFS.",
+      "o2": "Incorrecto: S3 es almacenamiento de objetos con API; no se monta como sistema de archivos con POSIX.",
+      "o3": "Incorrecto: un volumen EBS se adjunta a una instancia a la vez; no es un recurso compartido multi-instancia.",
+      "o4": "Incorrecto: Shield protege contra DDoS; no sincroniza archivos."
+    },
+    "hint": "\"Muchas instancias + carpetas + POSIX\" apunta a almacenamiento de archivos.",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "Amazon EFS", "url": "https://aws.amazon.com/efs/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-004",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.6",
+    "topic": "Almacenamiento de bloques",
+    "subtopic": "Categorías de almacenamiento",
+    "services": ["amazon-ebs", "amazon-s3"],
+    "concepts": ["bloques", "objetos"],
+    "difficulty": "basic",
+    "type": "truefalse",
+    "scenarioBased": false,
+    "question": "Afirma o refuta: \"Amazon EBS es un servicio de almacenamiento de objetos similar a Amazon S3.\"",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "verdadero", "text": "Verdadero" },
+      { "id": "falso", "text": "Falso" }
+    ],
+    "correctAnswerIds": ["falso"],
+    "explanation": "Falso. Amazon EBS es almacenamiento de BLOQUES: discos virtuales que se adjuntan a instancias EC2. Amazon S3 es el servicio de almacenamiento de OBJETOS, con API HTTP y alcance global. Son categorías distintas con usos distintos.",
+    "optionExplanations": {
+      "verdadero": "Incorrecto: EBS no guarda objetos con API HTTP; es un disco de bloques para instancias.",
+      "falso": "Correcto: EBS = bloques; S3 = objetos. La distinción objeto/bloque/archivo es clave del examen."
+    },
+    "hint": "¿Disco duro virtual o repositorio de archivos con URL?",
+    "lessonId": "L-3.4",
+    "officialSources": [
+      { "title": "Amazon EBS", "url": "https://aws.amazon.com/ebs/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 45,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.7-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.7",
+    "topic": "Servicios de analítica",
+    "subtopic": "Amazon Athena",
+    "services": ["amazon-athena", "amazon-s3"],
+    "concepts": ["analitica"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un analista necesita ejecutar consultas SQL ad-hoc sobre archivos CSV almacenados en Amazon S3, sin aprovisionar ni administrar ningún servidor. ¿Qué servicio es el más adecuado?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon Athena, que consulta datos en S3 con SQL estándar de forma serverless." },
+      { "id": "o2", "text": "Amazon QuickSight, porque también trabaja con datos." },
+      { "id": "o3", "text": "Amazon Route 53, porque las consultas necesitan un dominio." },
+      { "id": "o4", "text": "AWS Lambda, porque toda consulta necesita una función." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Athena es un servicio de consulta interactivo sin servidor que permite analizar datos directamente en S3 usando SQL estándar, pagando solo por las consultas ejecutadas.",
+    "optionExplanations": {
+      "o1": "Correcto: SQL serverless sobre datos en S3 es exactamente el propósito de Athena.",
+      "o2": "Incorrecto: QuickSight visualiza datos (dashboards); Athena los consulta con SQL.",
+      "o3": "Incorrecto: Route 53 es DNS; no ejecuta consultas analíticas.",
+      "o4": "Incorrecto: Lambda es cómputo por eventos; no es la herramienta de consulta SQL sobre S3."
+    },
+    "hint": "SQL + datos en S3 + sin servidores.",
+    "lessonId": "L-3.5",
+    "officialSources": [
+      { "title": "Amazon Athena", "url": "https://aws.amazon.com/athena/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.7-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.7",
+    "topic": "Servicios de IA y ML",
+    "subtopic": "Amazon SageMaker AI",
+    "services": ["amazon-sagemaker"],
+    "concepts": ["machine-learning"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo de ciencia de datos necesita construir, entrenar y desplegar sus propios modelos de aprendizaje automático con control completo sobre el proceso. ¿Qué servicio proporciona esta plataforma?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon SageMaker AI" },
+      { "id": "o2", "text": "Amazon Lex, que entrena modelos generales del lenguaje." },
+      { "id": "o3", "text": "Amazon Connect, que ofrece modelos telefónicos." },
+      { "id": "o4", "text": "Amazon S3, que entrena los modelos al subir datos." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon SageMaker AI es la plataforma gestionada para construir, entrenar y desplegar modelos de aprendizaje automático propios, cubriendo todo el ciclo de vida del ML.",
+    "optionExplanations": {
+      "o1": "Correcto: SageMaker AI es la plataforma completa de ML de AWS.",
+      "o2": "Incorrecto: Lex sirve para crear chatbots con servicios listos; no es una plataforma de entrenamiento de modelos propios.",
+      "o3": "Incorrecto: Connect es un centro de contacto; no entrena modelos.",
+      "o4": "Incorrecto: S3 almacena datos; no entrena modelos."
+    },
+    "hint": "Plataforma para \"hacer\" ML ≠ servicios de ML \"listos para usar\".",
+    "lessonId": "L-3.5",
+    "officialSources": [
+      { "title": "Amazon SageMaker AI", "url": "https://aws.amazon.com/sagemaker/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.8-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.8",
+    "topic": "Integración de aplicaciones",
+    "subtopic": "SQS y SNS",
+    "services": ["amazon-sqs", "amazon-sns", "amazon-eventbridge"],
+    "concepts": ["mensajeria"],
+    "difficulty": "intermediate",
+    "type": "multiple",
+    "scenarioBased": true,
+    "question": "Una arquitectura necesita, por un lado, una cola que almacene pedidos hasta que los trabajadores los procesen (los consumidores consultan la cola), y por otro lado, un mecanismo que notifique simultáneamente a varios suscriptores (email, Lambda) cuando ocurre un evento. ¿Qué par de servicios corresponde a cada necesidad?",
+    "selectionInstruction": "Elige DOS respuestas.",
+    "options": [
+      { "id": "o1", "text": "Amazon SQS para la cola de pedidos consumida por los trabajadores." },
+      { "id": "o2", "text": "Amazon SNS para publicar el evento a varios suscriptores." },
+      { "id": "o3", "text": "Amazon Route 53 para enrutar los mensajes entre sistemas." },
+      { "id": "o4", "text": "AWS Step Functions para almacenar los pedidos permanentemente." }
+    ],
+    "correctAnswerIds": ["o1", "o2"],
+    "explanation": "Amazon SQS es una cola de mensajes: los productores encolan y los consumidores extraen (pull). Amazon SNS es publicar/suscribir: un mensaje se entrega (push) a todos los suscriptores. Son los dos patrones de mensajería fundamentales.",
+    "optionExplanations": {
+      "o1": "Correcto: cola con consumo por extracción = SQS.",
+      "o2": "Correcto: distribución push a múltiples suscriptores = SNS.",
+      "o3": "Incorrecto: Route 53 es DNS; no enruta mensajes de aplicación.",
+      "o4": "Incorrecto: Step Functions orquesta flujos de trabajo; no es una cola ni almacena pedidos."
+    },
+    "hint": "Uno es \"cola que se consulta\" y el otro \"aviso a muchos a la vez\".",
+    "lessonId": "L-3.5",
+    "officialSources": [
+      { "title": "Amazon SQS", "url": "https://aws.amazon.com/sqs/", "type": "docs", "accessedAt": "2026-09-21" },
+      { "title": "Amazon SNS", "url": "https://aws.amazon.com/sns/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 90,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.8-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 3,
+    "taskStatement": "3.8",
+    "topic": "Aplicaciones de negocio",
+    "subtopic": "Amazon Connect",
+    "services": ["amazon-connect", "amazon-ses"],
+    "concepts": ["aplicaciones-negocio"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa quiere implementar un centro de atención al cliente en la nube, con menús de voz (IVR), enrutamiento de llamadas a agentes y métricas de operación. ¿Qué servicio de AWS está diseñado para esto?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Amazon Connect" },
+      { "id": "o2", "text": "Amazon SES, porque gestiona las llamadas de voz." },
+      { "id": "o3", "text": "Amazon WorkSpaces, que transmite las llamadas al navegador." },
+      { "id": "o4", "text": "AWS IoT Core, que conecta los teléfonos como dispositivos." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Connect es el servicio de centro de contacto en la nube: IVR, enrutamiento de contactos, agentes y analítica de operación, con integración sencilla con otros servicios de AWS.",
+    "optionExplanations": {
+      "o1": "Correcto: Connect es el centro de contacto (call center) administrado de AWS.",
+      "o2": "Incorrecto: SES gestiona email, no llamadas de voz.",
+      "o3": "Incorrecto: WorkSpaces ofrece escritorios virtuales; no es un sistema de call center.",
+      "o4": "Incorrecto: IoT Core conecta dispositivos IoT; los teléfonos de un call center no funcionan así."
+    },
+    "hint": "\"Centro de contacto en la nube\" es la descripción literal de un servicio.",
+    "lessonId": "L-3.5",
+    "officialSources": [
+      { "title": "Amazon Connect", "url": "https://aws.amazon.com/connect/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  }
+]

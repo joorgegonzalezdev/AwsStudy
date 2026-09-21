@@ -1,0 +1,700 @@
+[
+  {
+    "id": "D1-T1.1-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.1",
+    "topic": "Beneficios de la nube",
+    "subtopic": "Infraestructura global",
+    "services": [],
+    "concepts": ["infraestructura-global", "agilidad"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": false,
+    "question": "¿Cuál es el principal beneficio de la infraestructura global de AWS en cuanto a la velocidad de despliegue de aplicaciones?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Permite aprovisionar recursos en nuevas Regiones en minutos, sin comprar ni instalar hardware físico." },
+      { "id": "o2", "text": "Elimina la necesidad de probar las aplicaciones antes de lanzarlas a producción." },
+      { "id": "o3", "text": "Garantiza que las aplicaciones nunca experimenten fallas ni interrupciones." },
+      { "id": "o4", "text": "Reduce el costo de desarrollo del código de las aplicaciones." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "La infraestructura global de AWS permite aprovisionar recursos (servidores, bases de datos, redes) en minutos y en múltiples Regiones del mundo, sin la inversión ni la espera asociadas a comprar e instalar hardware físico. Esto se traduce en agilidad y alcance global.",
+    "optionExplanations": {
+      "o1": "Correcto: la capacidad de crear recursos globalmente en minutos, sin inversión física previa, es el beneficio central de la infraestructura global en la nube.",
+      "o2": "Incorrecto: las pruebas siguen siendo una buena práctica necesaria; la nube no las elimina.",
+      "o3": "Incorrecto: ningún proveedor garantiza ausencia total de fallas; la nube ofrece herramientas (multi-AZ, multi-región) para tolerarlas.",
+      "o4": "Incorrecto: la infraestructura global afecta el despliegue de infraestructura, no el costo de escribir el código de la aplicación."
+    },
+    "hint": "Piensa en el contraste entre esperar semanas por hardware y crear un servidor en minutos.",
+    "lessonId": "L-1.1",
+    "officialSources": [
+      { "title": "AWS: ¿Qué es la computación en la nube?", "url": "https://aws.amazon.com/what-is-cloud-computing/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.1",
+    "topic": "Alta disponibilidad y elasticidad",
+    "subtopic": "Elasticidad",
+    "services": ["aws-auto-scaling"],
+    "concepts": ["elasticidad"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa tiene una aplicación de comercio electrónico cuyo tráfico se multiplica durante campañas de venta y cae a niveles muy bajos en la madrugada. La empresa quiere que la capacidad de cómputo se ajuste automáticamente, sin pagar por recursos ociosos. ¿Qué beneficio de la nube está solicitando?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Alta disponibilidad" },
+      { "id": "o2", "text": "Elasticidad" },
+      { "id": "o3", "text": "Agilidad" },
+      { "id": "o4", "text": "Recuperación ante desastres" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "La elasticidad es la capacidad de la infraestructura de crecer y reducirse automáticamente para adaptarse a la demanda real. AWS Auto Scaling puede agregar instancias durante los picos y eliminarlas cuando la demanda cae, de modo que la empresa paga solo por lo que usa.",
+    "optionExplanations": {
+      "o1": "Incorrecto: la alta disponibilidad busca mantener el sistema operativo ante fallas; no se relaciona con ajustar la capacidad al volumen de demanda.",
+      "o2": "Correcto: ajustar la capacidad automáticamente hacia arriba y hacia abajo según la demanda es exactamente la definición de elasticidad.",
+      "o3": "Incorrecto: la agilidad se refiere a la velocidad para innovar y desplegar cambios, no al ajuste automático de capacidad.",
+      "o4": "Incorrecto: la recuperación ante desastres trata sobre recuperarse de un fallo grave; aquí no hay fallo, solo variación de demanda."
+    },
+    "hint": "La palabra clave es \"ajuste automático según la demanda\".",
+    "lessonId": "L-1.1",
+    "officialSources": [
+      { "title": "Beneficios de la nube de AWS (whitepaper AWS Overview)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.1",
+    "topic": "Alta disponibilidad y elasticidad",
+    "subtopic": "Escalabilidad vs elasticidad",
+    "services": [],
+    "concepts": ["escalabilidad", "elasticidad"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": false,
+    "question": "¿Cuál es la diferencia fundamental entre escalabilidad y elasticidad?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "La escalabilidad es manual y la elasticidad siempre es manual." },
+      { "id": "o2", "text": "La escalabilidad es la capacidad de manejar más carga agregando recursos; la elasticidad además reduce los recursos automáticamente cuando la demanda baja." },
+      { "id": "o3", "text": "La escalabilidad se refiere a la seguridad del sistema y la elasticidad a su rendimiento." },
+      { "id": "o4", "text": "No hay diferencia: son dos nombres para el mismo concepto." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Escalabilidad es la capacidad de un sistema de manejar más carga agregando recursos (más o más grandes). Elasticidad incluye esa capacidad pero agrega el ajuste automático en ambas direcciones: crecer cuando la demanda sube y encogerse cuando baja, optimizando el costo.",
+    "optionExplanations": {
+      "o1": "Incorrecto: ambas pueden lograrse de forma manual o automática; esa no es la diferencia entre los conceptos.",
+      "o2": "Correcto: la elasticidad = escalabilidad + ajuste automático también hacia abajo según la demanda.",
+      "o3": "Incorrecto: ambos términos describen capacidad y dimensionamiento, no seguridad.",
+      "o4": "Incorrecto: están relacionados pero no son idénticos; la elasticidad implica un ajuste bidireccional y automático."
+    },
+    "hint": "Una de ellas incluye \"encogerse cuando la demanda baja\".",
+    "lessonId": "L-1.1",
+    "officialSources": [
+      { "title": "AWS Well-Architected Framework: Reliability Pillar (escalado)", "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-004",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.1",
+    "topic": "Alta disponibilidad y elasticidad",
+    "subtopic": "Alta disponibilidad",
+    "services": [],
+    "concepts": ["alta-disponibilidad", "tolerancia-a-fallos"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa exige que su aplicación siga operando incluso si un centro de datos completo deja de funcionar. ¿Qué arquitectura describe mejor ese objetivo?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Ejecutar toda la aplicación en una sola instancia con mucho poder de cómputo." },
+      { "id": "o2", "text": "Desplegar la aplicación en varias Zonas de Disponibilidad dentro de una Región." },
+      { "id": "o3", "text": "Guardar copias de la documentación técnica en Amazon S3." },
+      { "id": "o4", "text": "Usar una instancia más potente cada vez que aumenta el tráfico." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Las Zonas de Disponibilidad (AZ) están diseñadas para ser independientes entre sí, sin puntos únicos de fallo compartidos. Desplegar la aplicación en varias AZ permite que siga operando si una zona falla: eso es alta disponibilidad.",
+    "optionExplanations": {
+      "o1": "Incorrecto: una sola instancia, por potente que sea, es un punto único de fallo.",
+      "o2": "Correcto: varias AZ aíslan la aplicación de un fallo de un centro de datos, logrando alta disponibilidad.",
+      "o3": "Incorrecto: respaldar documentación no mantiene una aplicación en operación.",
+      "o4": "Incorrecto: aumentar el tamaño de la instancia aborda el rendimiento, no la continuidad ante un fallo de centro de datos."
+    },
+    "hint": "Busca la opción que elimina un punto único de fallo geográfico.",
+    "lessonId": "L-1.1",
+    "officialSources": [
+      { "title": "Infraestructura global de AWS", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-005",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.1",
+    "topic": "Beneficios de la nube",
+    "subtopic": "Alcance global",
+    "services": [],
+    "concepts": ["infraestructura-global"],
+    "difficulty": "basic",
+    "type": "truefalse",
+    "scenarioBased": false,
+    "question": "Afirma o refuta: \"Con AWS, una empresa puede desplegar su aplicación cerca de usuarios en varios continentes sin construir centros de datos propios en cada país.\"",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "verdadero", "text": "Verdadero" },
+      { "id": "falso", "text": "Falso" }
+    ],
+    "correctAnswerIds": ["verdadero"],
+    "explanation": "Verdadero. La infraestructura global de AWS (Regiones en varios continentes y ubicaciones de borde de CloudFront) permite desplegar y servir contenido cerca de usuarios de todo el mundo sin que la empresa invierta en centros de datos propios, logrando alcance global inmediato.",
+    "optionExplanations": {
+      "verdadero": "Correcto: este es uno de los beneficios clásicos de la nube: alcance global sin inversión física en cada país.",
+      "falso": "Incorrecto: precisamente la existencia de Regiones y ubicaciones de borde evita la necesidad de construir infraestructura propia."
+    },
+    "hint": "Recuerda para qué sirven las Regiones y las ubicaciones de borde.",
+    "lessonId": "L-1.1",
+    "officialSources": [
+      { "title": "Infraestructura global de AWS", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 45,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.2",
+    "topic": "Pilares del marco de trabajo",
+    "subtopic": "Optimización de costos",
+    "services": [],
+    "concepts": ["well-architected"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo revisa su arquitectura y decide eliminar servidores infrautilizados y pagar solo por la capacidad que realmente consume. ¿Qué pilar del AWS Well-Architected Framework representa esta mejora?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Excelencia operativa" },
+      { "id": "o2", "text": "Confiabilidad" },
+      { "id": "o3", "text": "Optimización de costos" },
+      { "id": "o4", "text": "Sostenibilidad" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "El pilar de Optimización de costos busca eliminar desperdicio: usar recursos del tamaño justo, evitar capacidad ociosa y pagar solo por lo que se consume. Eliminar servidores infrautilizados es un ejemplo típico.",
+    "optionExplanations": {
+      "o1": "Incorrecto: la Excelencia operativa se centra en ejecutar y monitorear sistemas, automatizar cambios y mejorar procesos continuamente.",
+      "o2": "Incorrecto: la Confiabilidad se centra en recuperarse de fallas y cumplir requisitos de disponibilidad.",
+      "o3": "Correcto: minimizar desperdicio y pagar solo por lo usado es la esencia de Optimización de costos.",
+      "o4": "Incorrecto: la Sostenibilidad se centra en reducir el impacto ambiental de las cargas de trabajo; el ahorro económico es consecuencia, no el pilar."
+    },
+    "hint": "El pilar trata de \"pagar solo por lo que se usa\".",
+    "lessonId": "L-1.2",
+    "officialSources": [
+      { "title": "AWS Well-Architected Framework", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.2",
+    "topic": "Pilares del marco de trabajo",
+    "subtopic": "Sostenibilidad",
+    "services": [],
+    "concepts": ["well-architected"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa quiere minimizar el impacto ambiental de sus cargas de trabajo: redujo instancias ociosas y eligió Regiones con energía renovable. ¿Qué pilar del Well-Architected Framework está aplicando?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Seguridad" },
+      { "id": "o2", "text": "Sostenibilidad" },
+      { "id": "o3", "text": "Eficiencia del rendimiento" },
+      { "id": "o4", "text": "Excelencia operativa" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "El pilar de Sostenibilidad se enfoca en minimizar el impacto ambiental de las cargas de trabajo: reducir el consumo de recursos, maximizar la utilización y preferir Regiones con energía limpia. Es el sexto pilar, añadido en 2021.",
+    "optionExplanations": {
+      "o1": "Incorrecto: el pilar de Seguridad protege información y sistemas, no aborda el impacto ambiental.",
+      "o2": "Correcto: reducir consumo, maximizar utilización y elegir energía renovable son prácticas del pilar de Sostenibilidad.",
+      "o3": "Incorrecto: la Eficiencia del rendimiento busca usar recursos computacionales de forma óptima para velocidad, no por impacto ambiental.",
+      "o4": "Incorrecto: la Excelencia operativa trata de procesos, automatización y mejora continua de la operación."
+    },
+    "hint": "La pista está en \"impacto ambiental\" y \"energía renovable\".",
+    "lessonId": "L-1.2",
+    "officialSources": [
+      { "title": "Sustainability Pillar – AWS Well-Architected Framework", "url": "https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.2",
+    "topic": "Pilares del marco de trabajo",
+    "subtopic": "Excelencia operativa",
+    "services": ["aws-cloudformation"],
+    "concepts": ["well-architected"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Un equipo quiere automatizar los cambios de su infraestructura, documentar los procedimientos y aprender continuamente de las fallas operativas. ¿Qué pilar guía estas prácticas?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Excelencia operativa" },
+      { "id": "o2", "text": "Optimización de costos" },
+      { "id": "o3", "text": "Seguridad" },
+      { "id": "o4", "text": "Confiabilidad" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "El pilar de Excelencia operativa trata sobre la capacidad de ejecutar y monitorear sistemas para entregar valor de negocio y mejorar continuamente los procesos: automatizar cambios, documentar operaciones y aprender de las fallas.",
+    "optionExplanations": {
+      "o1": "Correcto: automatización de cambios, procedimientos documentados y mejora continua son el núcleo de la Excelencia operativa.",
+      "o2": "Incorrecto: la Optimización de costos busca eliminar desperdicio económico, no mejorar procesos operativos.",
+      "o3": "Incorrecto: la Seguridad protege información, sistemas y activos mediante evaluaciones de riesgos.",
+      "o4": "Incorrecto: la Confiabilidad se centra en recuperación ante fallas y disponibilidad, no en la gestión de procesos operativos."
+    },
+    "hint": "Piensa en procesos, automatización y mejora continua de la operación.",
+    "lessonId": "L-1.2",
+    "officialSources": [
+      { "title": "Operational Excellence Pillar – AWS Well-Architected", "url": "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-004",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.2",
+    "topic": "AWS Well-Architected Framework",
+    "subtopic": "Los seis pilares",
+    "services": [],
+    "concepts": ["well-architected"],
+    "difficulty": "basic",
+    "type": "multiple",
+    "scenarioBased": false,
+    "question": "¿Cuáles de los siguientes son pilares del AWS Well-Architected Framework?",
+    "selectionInstruction": "Elige DOS respuestas.",
+    "options": [
+      { "id": "o1", "text": "Seguridad" },
+      { "id": "o2", "text": "Agilidad" },
+      { "id": "o3", "text": "Confiabilidad" },
+      { "id": "o4", "text": "Economías de escala" }
+    ],
+    "correctAnswerIds": ["o1", "o3"],
+    "explanation": "Los seis pilares del Well-Architected Framework son: Excelencia operativa, Seguridad, Confiabilidad, Eficiencia del rendimiento, Optimización de costos y Sostenibilidad. \"Seguridad\" y \"Confiabilidad\" son pilares; \"Agilidad\" y \"Economías de escala\" son beneficios/conceptos de la nube, no pilares.",
+    "optionExplanations": {
+      "o1": "Correcto: Seguridad es uno de los seis pilares.",
+      "o2": "Incorrecto: la agilidad es un beneficio de la nube (tarea 1.1), no un pilar del marco.",
+      "o3": "Correcto: Confiabilidad es uno de los seis pilares.",
+      "o4": "Incorrecto: las economías de escala son un concepto de economía de la nube (tarea 1.4), no un pilar."
+    },
+    "hint": "Recuerda la lista: Operativa, Seguridad, Confiabilidad, Rendimiento, Costos, Sostenibilidad.",
+    "lessonId": "L-1.2",
+    "officialSources": [
+      { "title": "AWS Well-Architected Framework: los seis pilares", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.3",
+    "topic": "Las 7 estrategias de migración",
+    "subtopic": "Rehost",
+    "services": ["aws-application-migration-service"],
+    "concepts": ["7rs"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa quiere mover sus servidores virtuales on-premises a AWS lo más rápido posible, sin cambiar el sistema operativo, el código ni la arquitectura de las aplicaciones. ¿Qué estrategia de migración le conviene?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Refactor / Re-arquitectura" },
+      { "id": "o2", "text": "Rehost (\"lift and shift\")" },
+      { "id": "o3", "text": "Retire" },
+      { "id": "o4", "text": "Repurchase" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Rehost (\"lift and shift\") consiste en mover aplicaciones a la nube sin realizar cambios significativos: se replican los servidores tal como están, típicamente en Amazon EC2. Es la estrategia más rápida y de menor riesgo inicial.",
+    "optionExplanations": {
+      "o1": "Incorrecto: refactorizar implica rediseñar la aplicación (p. ej., convertirla a microservicios), que es lo más lento y costoso.",
+      "o2": "Correcto: mover sin cambios es la definición de Rehost.",
+      "o3": "Incorrecto: Retire significa dar de baja aplicaciones que ya no se necesitan; aquí hay que moverlas.",
+      "o4": "Incorrecto: Repurchase implica abandonar una licencia existente y comprar una solución SaaS diferente."
+    },
+    "hint": "Sin cambios de código ni arquitectura = \"lift and shift\".",
+    "lessonId": "L-1.3",
+    "officialSources": [
+      { "title": "7 R's of migration (AWS Prescriptive Guidance)", "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-database-migration/overview.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.3",
+    "topic": "Las 7 estrategias de migración",
+    "subtopic": "Repurchase",
+    "services": [],
+    "concepts": ["7rs"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa opera un sistema de gestión de relaciones con clientes (CRM) en sus propios servidores con una licencia perpetua. Para modernizarse, decide abandonar ese sistema y contratar una solución CRM como servicio (SaaS). ¿Qué estrategia de migración representa esta decisión?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Replatform" },
+      { "id": "o2", "text": "Relocate" },
+      { "id": "o3", "text": "Repurchase" },
+      { "id": "o4", "text": "Retain" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "Repurchase consiste en abandonar un producto con licencia existente y comprar uno nuevo, típicamente pasando a un modelo SaaS. El ejemplo clásico es reemplazar un CRM on-premises por un CRM como servicio.",
+    "optionExplanations": {
+      "o1": "Incorrecto: Replatform mueve la misma aplicación a la nube con pequeños cambios (p. ej., cambiar la base de datos por una administrada); no se cambia de producto.",
+      "o2": "Incorrecto: Relocate mueve servidores físicos o hipervisores (p. ej., VMware Cloud on AWS) sin cambiar nada; no aplica a pasar a SaaS.",
+      "o3": "Correcto: sustituir el producto por una versión SaaS es Repurchase.",
+      "o4": "Incorrecto: Retain significa mantener la aplicación donde está (por regulación o prioridad), no reemplazarla."
+    },
+    "hint": "Clave: \"abandonar la licencia y comprar un SaaS\".",
+    "lessonId": "L-1.3",
+    "officialSources": [
+      { "title": "AWS Cloud Adoption Framework: perspectives and outcomes", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-cloud-adoption-framework/welcome.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.3",
+    "topic": "Las 7 estrategias de migración",
+    "subtopic": "Replatform",
+    "services": ["amazon-aurora", "aws-dms"],
+    "concepts": ["7rs", "migracion-bases-datos"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Durante la migración, una empresa decide mover su base de datos Oracle a Amazon Aurora, aprovechando que la réplica de datos se puede realizar con herramientas de migración, sin reescribir el resto de la aplicación. ¿Qué estrategia representa este pequeño cambio de plataforma?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Rehost" },
+      { "id": "o2", "text": "Replatform (\"lift, tinker and shift\")" },
+      { "id": "o3", "text": "Relocate" },
+      { "id": "o4", "text": "Retire" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Replatform implica realizar cambios pequeños y de bajo riesgo durante la migración — como sustituir la base de datos por una administrada (Aurora), a menudo usando AWS DMS para replicar los datos — sin cambiar la arquitectura central de la aplicación.",
+    "optionExplanations": {
+      "o1": "Incorrecto: Rehost sería mover la base de datos exactamente igual (mismo motor) sin ningún cambio.",
+      "o2": "Correcto: cambiar el motor de base de datos por uno administrado es un cambio pequeño típico de Replatform.",
+      "o3": "Incorrecto: Relocate aplica a mover hipervisores o hardware sin cambios, no a cambiar el motor de BD.",
+      "o4": "Incorrecto: Retire es dar de baja una aplicación; aquí la base de datos se moderniza, no se elimina."
+    },
+    "hint": "Un cambio pequeño y de bajo riesgo durante la migración (motor de BD administrado) tiene nombre propio.",
+    "lessonId": "L-1.3",
+    "officialSources": [
+      { "title": "AWS Database Migration Service", "url": "https://aws.amazon.com/dms/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-004",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.3",
+    "topic": "AWS Cloud Adoption Framework",
+    "subtopic": "Perspectivas del CAF",
+    "services": [],
+    "concepts": ["aws-caf"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "En una empresa que adopta la nube, el área de recursos humanos necesita un marco para evaluar la cultura, el liderazgo y la preparación del personal. ¿Qué perspectiva del AWS Cloud Adoption Framework (CAF) aborda estos aspectos?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Perspectiva de Gobernanza" },
+      { "id": "o2", "text": "Perspectiva de Plataforma" },
+      { "id": "o3", "text": "Perspectiva de Personas" },
+      { "id": "o4", "text": "Perspectiva de Operaciones" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "Las seis perspectivas del AWS CAF son: Negocios, Personas, Gobernanza, Plataforma, Seguridad y Operaciones. La perspectiva de Personas se centra en la cultura organizacional, el liderazgo, los recursos humanos y la preparación del personal para el cambio.",
+    "optionExplanations": {
+      "o1": "Incorrecto: Gobernanza alinea la estrategia de la nube con los procesos de negocio, riesgos y presupuesto.",
+      "o2": "Incorrecto: Plataforma se centra en las soluciones tecnológicas y la arquitectura de la nube.",
+      "o3": "Correcto: cultura, liderazgo y preparación del personal corresponden a la perspectiva de Personas.",
+      "o4": "Incorrecto: Operaciones se centra en cómo operar y soportar las cargas de trabajo día a día."
+    },
+    "hint": "La perspectiva cuyo tema es el personal y la cultura tiene un nombre muy directo.",
+    "lessonId": "L-1.3",
+    "officialSources": [
+      { "title": "AWS Cloud Adoption Framework (People perspective)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-cloud-adoption-framework/people-perspective.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-001",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.4",
+    "topic": "Costos fijos vs variables",
+    "subtopic": "CapEx y OpEx",
+    "services": [],
+    "concepts": ["capex", "opex"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa solía comprar servidores cada tres años con una gran inversión inicial. Ahora paga a AWS solo por los recursos que consume cada mes. ¿Cómo se describe esta transformación económica?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Convierte gastos operativos (OpEx) en gastos de capital (CapEx)." },
+      { "id": "o2", "text": "Convierte gastos de capital (CapEx) en gastos operativos (OpEx)." },
+      { "id": "o3", "text": "Elimina todos los costos de tecnología de la empresa." },
+      { "id": "o4", "text": "Convierte un costo variable en un costo fijo mensual." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Comprar servidores es un gasto de capital (CapEx): inversión inicial en activos físicos. Pagar por consumo mensual en la nube es un gasto operativo (OpEx). Migrar a la nube típicamente convierte CapEx en OpEx y transforma costos fijos en variables.",
+    "optionExplanations": {
+      "o1": "Incorrecto: es exactamente al revés: se reemplaza la inversión en activos (CapEx) por pago por uso (OpEx).",
+      "o2": "Correcto: pasar de comprar hardware a pagar por consumo es la conversión CapEx → OpEx.",
+      "o3": "Incorrecto: los costos de tecnología no desaparecen; cambian de naturaleza y se vuelven variables.",
+      "o4": "Incorrecto: la transformación va de costo fijo (inversión) a costo variable (pago por consumo)."
+    },
+    "hint": "¿Invertir por adelantado o pagar por lo consumido?",
+    "lessonId": "L-1.4",
+    "officialSources": [
+      { "title": "Six advantages of cloud computing (whitepaper AWS Overview)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-002",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.4",
+    "topic": "Costos fijos vs variables",
+    "subtopic": "Economías de escala",
+    "services": [],
+    "concepts": ["economias-de-escala"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": false,
+    "question": "¿Cómo contribuyen las economías de escala a que la nube de AWS reduzca los costos para sus clientes?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "AWS agrega la demanda de cientos de miles de clientes, compra infraestructura a gran escala y logra costos unitarios más bajos que cada cliente podría obtener por sí solo." },
+      { "id": "o2", "text": "AWS transfiere a los clientes sus costos de operación de centros de datos sin ningún beneficio." },
+      { "id": "o3", "text": "AWS exige contratos de varios años para poder ofrecer precios." },
+      { "id": "o4", "text": "AWS reduce costos eliminando redundancias de seguridad y disponibilidad." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Las economías de escala surgen porque AWS agrega la demanda de un enorme número de clientes: compra hardware, energía y ancho de banda a gran escala, obtiene precios menores y comparte esa eficiencia con los clientes, que pagan menos de lo que costaría una infraestructura propia equivalente.",
+    "optionExplanations": {
+      "o1": "Correcto: esa agregación de demanda y compras masivas es la definición de economías de escala aplicada a la nube.",
+      "o2": "Incorrecto: el beneficio es que los clientes pagan menos por unidad; no se les transfiere más costo.",
+      "o3": "Incorrecto: gran parte del consumo de AWS es bajo demanda, sin contratos a plazo.",
+      "o4": "Incorrecto: la redundancia de seguridad y disponibilidad es una razón de los costos de AWS, no algo que se elimine."
+    },
+    "hint": "\"Comprar al por mayor y compartir la eficiencia\".",
+    "lessonId": "L-1.4",
+    "officialSources": [
+      { "title": "AWS: ¿Qué es la computación en la nube? (economía)", "url": "https://aws.amazon.com/what-is-cloud-computing/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 60,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-003",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.4",
+    "topic": "Derechos de tamaño y licenciamiento",
+    "subtopic": "Rightsizing",
+    "services": ["aws-compute-optimizer"],
+    "concepts": ["rightsizing"],
+    "difficulty": "basic",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa detecta que sus instancias EC2 usan solo el 15% de la CPU y la memoria contratada durante la mayor parte del día. ¿Qué acción de optimización de costos debería aplicar?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Cambiar a instancias de un tamaño menor acorde al uso real (rightsizing)." },
+      { "id": "o2", "text": "Duplicar el tamaño de las instancias para prepararse a picos futuros." },
+      { "id": "o3", "text": "Mantener el tamaño actual y pagar la capacidad ociosa por precaución." },
+      { "id": "o4", "text": "Adquirir más licencias de software para las instancias." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Rightsizing es ajustar el tamaño de los recursos a la demanda real. Una utilización del 15% indica sobreaprovisionamiento: reducir a instancias más pequeñas (con ayuda de herramientas como AWS Compute Optimizer) reduce el costo sin afectar el rendimiento requerido.",
+    "optionExplanations": {
+      "o1": "Correcto: ajustar la capacidad al uso real es exactamente el objetivo del rightsizing.",
+      "o2": "Incorrecto: duplicar el tamaño incrementaría el desperdicio y el costo, no lo optimiza.",
+      "o3": "Incorrecto: pagar por capacidad ociosa contradice el principio de pagar solo por lo que se necesita.",
+      "o4": "Incorrecto: comprar más licencias no resuelve el sobreaprovisionamiento de cómputo."
+    },
+    "hint": "15% de utilización = capacidad de más.",
+    "lessonId": "L-1.4",
+    "officialSources": [
+      { "title": "AWS Compute Optimizer", "url": "https://aws.amazon.com/compute-optimizer/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-004",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.4",
+    "topic": "Derechos de tamaño y licenciamiento",
+    "subtopic": "BYOL vs licencia incluida",
+    "services": ["aws-license-manager"],
+    "concepts": ["byol"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una empresa ya posee licencias de software de base de datos compradas para sus servidores on-premises y planea migrar esas cargas a AWS. ¿Qué modelo de licenciamiento puede ayudarle a reducir el costo total en la nube?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "BYOL (Bring Your Own License): reutilizar sus licencias existentes en la nube." },
+      { "id": "o2", "text": "Licencia incluida: pagar el software incluido en el precio horario de la instancia." },
+      { "id": "o3", "text": "Comprar licencias nuevas con cada instancia que cree." },
+      { "id": "o4", "text": "Operar sin ningún tipo de licenciamiento de software." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "BYOL permite reutilizar en AWS las licencias de software ya adquiridas, en lugar de pagar por instancias con la licencia incluida. Para empresas con inversiones previas en licencias, esto puede reducir el costo total de la migración.",
+    "optionExplanations": {
+      "o1": "Correcto: BYOL reutiliza licencias existentes y evita pagar dos veces por el mismo software.",
+      "o2": "Incorrecto: la licencia incluida cobra el software dentro del precio horario, lo que duplicaría el gasto para quien ya tiene licencias.",
+      "o3": "Incorrecto: comprar licencias nuevas innecesariamente no reduce el costo.",
+      "o4": "Incorrecto: operar software comercial sin licenciamiento no es legal ni posible."
+    },
+    "hint": "La empresa YA tiene licencias: debe aprovecharlas.",
+    "lessonId": "L-1.4",
+    "officialSources": [
+      { "title": "AWS License Manager", "url": "https://aws.amazon.com/license-manager/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-005",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domain": 1,
+    "taskStatement": "1.4",
+    "topic": "Costos fijos vs variables",
+    "subtopic": "Servicios administrados y automatización",
+    "services": ["aws-lambda"],
+    "concepts": ["servicios-administrados"],
+    "difficulty": "intermediate",
+    "type": "single",
+    "scenarioBased": true,
+    "question": "Una startup procesa imágenes que los usuarios suben a su sitio web. El procesamiento toma pocos segundos por imagen y el tráfico es impredecible. ¿Por qué un servicio administrado y sin servidor como AWS Lambda suele reducir costos en este caso?",
+    "selectionInstruction": "Elige UNA respuesta.",
+    "options": [
+      { "id": "o1", "text": "Porque factura solo por las ejecuciones y el tiempo de cómputo efectivamente usado, sin servidores ociosos." },
+      { "id": "o2", "text": "Porque elimina la necesidad de cifrar los datos." },
+      { "id": "o3", "text": "Porque garantiza un costo mensual fijo sin importar el uso." },
+      { "id": "o4", "text": "Porque el código se ejecuta más rápido que en cualquier otro servicio." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Los servicios administrados y sin servidor como Lambda eliminan la capacidad ociosa: se factura por invocación y por duración. Para cargas intermitentes e impredecibles, esto evita pagar por servidores encendidos todo el día, y además reduce el esfuerzo operativo (no hay SO que parchear).",
+    "optionExplanations": {
+      "o1": "Correcto: pagar solo por ejecución real y evitar servidores ociosos es el beneficio económico clave del modelo sin servidor.",
+      "o2": "Incorrecto: el cifrado sigue siendo responsabilidad del cliente; Lambda no lo elimina.",
+      "o3": "Incorrecto: el modelo sin servidor es justamente de costo variable, no fijo.",
+      "o4": "Incorrecto: la velocidad de ejecución no está garantizada como la mayor posible; el beneficio es económico y operativo."
+    },
+    "hint": "¿Qué pasa con los costos cuando no hay servidores encendidos esperando trabajo?",
+    "lessonId": "L-1.4",
+    "officialSources": [
+      { "title": "AWS Lambda", "url": "https://aws.amazon.com/lambda/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 75,
+    "createdAt": "2026-09-21",
+    "lastReviewedAt": "2026-09-21"
+  }
+]

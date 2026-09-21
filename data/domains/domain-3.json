@@ -1,0 +1,49 @@
+{
+  "id": 3,
+  "name": "Tecnología y servicios de la nube",
+  "nameEn": "Cloud Technology and Services",
+  "weight": 34,
+  "description": "Métodos de despliegue y operación, infraestructura global y los servicios de AWS por categoría: cómputo, bases de datos, redes, almacenamiento, IA/ML, analítica, integración y otros.",
+  "tasks": [
+    {
+      "id": "3.1",
+      "title": "Definir métodos de despliegue y operación en la nube de AWS",
+      "topics": ["Formas de acceder a AWS", "Infraestructura como código", "Modelos de despliegue"]
+    },
+    {
+      "id": "3.2",
+      "title": "Definir la infraestructura global de AWS",
+      "topics": ["Regiones y Zonas de Disponibilidad", "Ubicaciones de borde", "Arquitecturas multi-región"]
+    },
+    {
+      "id": "3.3",
+      "title": "Identificar servicios de cómputo de AWS",
+      "topics": ["Amazon EC2", "Contenedores", "Cómputo sin servidor", "Escalado y balanceo"]
+    },
+    {
+      "id": "3.4",
+      "title": "Identificar servicios de bases de datos de AWS",
+      "topics": ["Bases de datos relacionales", "Bases de datos NoSQL", "Caché y migración de bases de datos"]
+    },
+    {
+      "id": "3.5",
+      "title": "Identificar servicios de red de AWS",
+      "topics": ["Amazon VPC", "Grupos de seguridad y ACL de red", "DNS y conectividad"]
+    },
+    {
+      "id": "3.6",
+      "title": "Identificar servicios de almacenamiento de AWS",
+      "topics": ["Almacenamiento de objetos", "Almacenamiento de bloques", "Almacenamiento de archivos", "Respaldos y ciclo de vida"]
+    },
+    {
+      "id": "3.7",
+      "title": "Identificar servicios de IA, aprendizaje automático y analítica de AWS",
+      "topics": ["Servicios de IA y ML", "Servicios de analítica"]
+    },
+    {
+      "id": "3.8",
+      "title": "Identificar servicios de otras categorías dentro del alcance",
+      "topics": ["Integración de aplicaciones", "Aplicaciones de negocio", "Herramientas de desarrollador", "Cómputo de usuario final y frontend"]
+    }
+  ]
+}

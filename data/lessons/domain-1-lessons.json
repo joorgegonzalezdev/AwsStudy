@@ -1,0 +1,181 @@
+[
+  {
+    "id": "L-1.1",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domainId": 1,
+    "taskStatements": ["1.1"],
+    "title": "Beneficios de la nube de AWS",
+    "summary": "La nube ofrece alcance global, alta disponibilidad, elasticidad y agilidad: aprovisionas recursos en minutos y pagas por uso, sin comprar hardware.",
+    "explanation": "Imagina que en lugar de comprar un edificio para tu negocio, alquilas un local en cualquier ciudad del mundo y pagas solo por los días que lo ocupas. Eso hace la nube con la infraestructura tecnológica.\n\nAWS tiene Regiones (conjuntos de centros de datos) en varios continentes. Desde la consola, puedes crear un servidor en minutos en cualquier Región, sin comprar ni instalar nada físico: eso es agilidad y alcance global.\n\nDos conceptos se confunden a menudo. Escalabilidad es poder manejar más carga agregando recursos. Elasticidad es además ajustarlos automáticamente en ambas direcciones: crecer cuando la demanda sube y encogerse cuando baja. La alta disponibilidad significa que el sistema sigue operativo incluso si falla una parte (por ejemplo, ejecutando la aplicación en varias Zonas de Disponibilidad). La tolerancia a fallos va más allá: el sistema sigue funcionando correctamente pese a los fallos. Y la recuperación ante desastres (DR) es la estrategia para recuperarse de un fallo grave, a veces replicando en otra Región.",
+    "examRelevance": "La tarea 1.1 pide distinguir explícitamente escalabilidad, elasticidad, alta disponibilidad, resiliencia, agilidad y tolerancia a fallos. Las preguntas suelen ser escenarios donde debes elegir el término correcto.",
+    "awsExample": "Una tienda en línea usa AWS Auto Scaling: durante el Black Friday agrega automáticamente instancias EC2 y las elimina al terminar la campaña, pagando solo lo consumido.",
+    "keyTerms": [
+      { "term": "Agilidad", "definition": "Velocidad para crear, probar y lanzar cambios sin esperar hardware." },
+      { "term": "Elasticidad", "definition": "Ajuste automático de capacidad según la demanda, hacia arriba y hacia abajo." },
+      { "term": "Alta disponibilidad", "definition": "El sistema permanece operativo ante fallos parciales (multi-AZ)." },
+      { "term": "Tolerancia a fallos", "definition": "Seguir operando correctamente pese a fallos de componentes." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Escalabilidad vs elasticidad", "difference": "Escalabilidad = soportar más carga con más recursos; elasticidad = además, ajuste automático también a la baja." },
+      { "withWhat": "Alta disponibilidad vs tolerancia a fallos", "difference": "HA minimiza interrupciones; tolerancia a fallos mantiene el servicio funcionando pese a fallos activos." },
+      { "withWhat": "Agilidad vs elasticidad", "difference": "Agilidad es velocidad de cambio/negocio; elasticidad es ajuste de capacidad." }
+    ],
+    "comparisons": [
+      {
+        "title": "Beneficios de la nube a un vistazo",
+        "rows": [
+          { "aspect": "Aprovisionar en minutos", "a": "Agilidad", "b": "vs semanas de compra física" },
+          { "aspect": "Crecer y encoger con la demanda", "a": "Elasticidad", "b": "vs capacidad fija" },
+          { "aspect": "Sobrevivir fallo de un centro de datos", "a": "Alta disponibilidad (multi-AZ)", "b": "vs punto único de fallo" },
+          { "aspect": "Servir usuarios en todo el mundo", "a": "Alcance global (Regiones + bordes)", "b": "vs un solo sitio" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D1-T1.1-001", "D1-T1.1-002", "D1-T1.1-003", "D1-T1.1-004"],
+    "relatedServiceIds": ["aws-auto-scaling"],
+    "estimatedMinutes": 12,
+    "sources": [
+      { "title": "Six advantages of cloud computing (whitepaper)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21",
+    "reviewer": "equipo-contenido",
+    "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-1.2",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domainId": 1,
+    "taskStatements": ["1.2"],
+    "title": "AWS Well-Architected Framework: los seis pilares",
+    "summary": "El marco de trabajo de AWS define seis pilares para diseñar cargas de trabajo de calidad: Excelencia operativa, Seguridad, Confiabilidad, Eficiencia del rendimiento, Optimización de costos y Sostenibilidad.",
+    "explanation": "El AWS Well-Architected Framework es como una lista de verificación de \"buenas prácticas\" para diseñar sistemas en la nube. Tiene seis pilares y el examen espera que sepas identificar cuál corresponde a cada escenario.\n\nExcelencia operativa: ejecutar y operar sistemas bien — automatizar cambios, documentar, aprender de las fallas. Seguridad: proteger datos, sistemas e identidades. Confiabilidad: recuperarse de fallos y cumplir los requisitos de disponibilidad. Eficiencia del rendimiento: usar los recursos computacionales óptimos para cada necesidad. Optimización de costos: eliminar desperdicio y pagar solo lo necesario. Sostenibilidad: minimizar el impacto ambiental (menos recursos ociosos, Regiones con energía limpia).\n\nTruco de estudio: cuando el escenario hable de dinero/desperdicio → Optimización de costos; de fallos y recuperación → Confiabilidad; de procesos y automatización de operación → Excelencia operativa; de medio ambiente → Sostenibilidad.",
+    "examRelevance": "La tarea 1.2 requiere reconocer los seis pilares, sus diferencias y los escenarios asociados a cada uno. Es un tema muy directo: aprender la lista y su \"palabra clave\".",
+    "awsExample": "El AWS Well-Architected Tool evalúa una arquitectura contra los seis pilares y sugiere mejoras, como eliminar instancias ociosas (Optimización de costos).",
+    "keyTerms": [
+      { "term": "Pilar", "definition": "Cada una de las 6 áreas de diseño del marco Well-Architected." },
+      { "term": "Excelencia operativa", "definition": "Automatización, documentación y mejora continua de la operación." },
+      { "term": "Optimización de costos", "definition": "Pagar solo por lo necesario; evitar capacidad ociosa." },
+      { "term": "Sostenibilidad", "definition": "Minimizar el impacto ambiental de las cargas de trabajo." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Optimización de costos vs Sostenibilidad", "difference": "Costos ahorra dinero; Sostenibilidad reduce impacto ambiental (a menudo ambos a la vez, pero el pilar es otro)." },
+      { "withWhat": "Confiabilidad vs Excelencia operativa", "difference": "Confiabilidad = recuperarse de fallos; Excelencia operativa = cómo operas y mejoras el día a día." }
+    ],
+    "comparisons": [
+      {
+        "title": "Los seis pilares y su palabra clave",
+        "rows": [
+          { "aspect": "Procesos, runbooks, mejora continua", "a": "Excelencia operativa", "b": "" },
+          { "aspect": "Proteger datos e identidades", "a": "Seguridad", "b": "" },
+          { "aspect": "Recuperarse de fallos", "a": "Confiabilidad", "b": "" },
+          { "aspect": "Elegir recursos óptimos para el rendimiento", "a": "Eficiencia del rendimiento", "b": "" },
+          { "aspect": "Eliminar desperdicio económico", "a": "Optimización de costos", "b": "" },
+          { "aspect": "Reducir impacto ambiental", "a": "Sostenibilidad", "b": "" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D1-T1.2-001", "D1-T1.2-002", "D1-T1.2-003", "D1-T1.2-004"],
+    "relatedServiceIds": [],
+    "estimatedMinutes": 10,
+    "sources": [
+      { "title": "AWS Well-Architected Framework", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21",
+    "reviewer": "equipo-contenido",
+    "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-1.3",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domainId": 1,
+    "taskStatements": ["1.3"],
+    "title": "Migración a la nube: AWS CAF y las 7 estrategias",
+    "summary": "El AWS CAF guía la adopción con 6 perspectivas (Negocios, Personas, Gobernanza, Plataforma, Seguridad, Operaciones). Las 7 estrategias de migración (7 Rs) definen cómo mover cada carga: Rehost, Replatform, Refactor, Repurchase, Relocate, Retain, Retire.",
+    "explanation": "El AWS Cloud Adoption Framework (CAF) organiza la transición a la nube en seis perspectivas. Las tres orientadas al negocio: Negocios (justifica la inversión y resultados), Personas (cultura, liderazgo, formación) y Gobernanza (procesos, riesgos, presupuesto). Las tres orientadas a la tecnología: Plataforma (arquitectura y soluciones), Seguridad (proteger la carga) y Operaciones (cómo operar día a día).\n\nPara mover aplicaciones, AWS describe siete estrategias (las \"7 Rs\"): Rehost — mover tal cual (\"lift and shift\", lo más rápido). Replatform — pequeños cambios útiles, como cambiar la base de datos por Amazon Aurora. Refactor/Re-architect — rediseñar (microservicios, sin servidor); lo más costoso pero lo más beneficio a largo plazo. Repurchase — abandonar la licencia y comprar un SaaS (p. ej., un CRM como servicio). Relocate — mover hipervisores/hardware tal cual (p. ej., VMware Cloud on AWS). Retain — mantener donde está por ahora. Retire — dar de baja lo que ya no sirve.\n\nTrucos: \"sin cambios\" = Rehost; \"cambiar de producto a SaaS\" = Repurchase; \"cambiar el motor de BD\" = Replatform; \"dejar de usar\" = Retire.",
+    "examRelevance": "La tarea 1.3 pide identificar la estrategia de migración de un escenario y asociar responsabilidades a las perspectivas del CAF. Aparece con frecuencia en forma de escenarios de una frase.",
+    "awsExample": "Al migrar a AWS, una empresa replica sus VMs con AWS Application Migration Service (Rehost), convierte su Oracle a Aurora con SCT + DMS (Replatform) y da de baja dos aplicaciones que nadie usa (Retire).",
+    "keyTerms": [
+      { "term": "AWS CAF", "definition": "Marco con 6 perspectivas para planificar la adopción de la nube." },
+      { "term": "Rehost", "definition": "Migrar sin cambios (lift and shift)." },
+      { "term": "Repurchase", "definition": "Cambiar a un producto SaaS distinto." },
+      { "term": "Replatform", "definition": "Migrar con pequeños cambios de plataforma (p. ej., BD administrada)." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Rehost vs Replatform vs Refactor", "difference": "Nada cambia / cambio pequeño (BD administrada) / rediseño profundo." },
+      { "withWhat": "Repurchase vs Relocate", "difference": "Repurchase cambia de producto (SaaS); Relocate mueve el hipervisor/hardware tal cual." },
+      { "withWhat": "CAF vs Well-Architected", "difference": "CAF guía la adopción (perspectivas organizativas); Well-Architected evalúa el diseño técnico (pilares)." }
+    ],
+    "comparisons": [
+      {
+        "title": "Las 7 Rs con su escenario típico",
+        "rows": [
+          { "aspect": "Mover VMs tal cual", "a": "Rehost", "b": "lo más rápido" },
+          { "aspect": "Cambiar Oracle por Aurora", "a": "Replatform", "b": "cambio pequeño" },
+          { "aspect": "Rediseñar como microservicios", "a": "Refactor", "b": "mayor esfuerzo" },
+          { "aspect": "CRM propio → CRM SaaS", "a": "Repurchase", "b": "cambia el producto" },
+          { "aspect": "Mover hipervisor VMware tal cual", "a": "Relocate", "b": "" },
+          { "aspect": "Queda on-premises por regulación", "a": "Retain", "b": "" },
+          { "aspect": "Aplicación que nadie usa", "a": "Retire", "b": "" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D1-T1.3-001", "D1-T1.3-002", "D1-T1.3-003", "D1-T1.3-004"],
+    "relatedServiceIds": ["aws-dms", "aws-sct", "aws-migration-hub", "aws-application-discovery-service", "aws-application-migration-service"],
+    "estimatedMinutes": 14,
+    "sources": [
+      { "title": "AWS Cloud Adoption Framework", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-cloud-adoption-framework/welcome.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21",
+    "reviewer": "equipo-contenido",
+    "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-1.4",
+    "version": 1,
+    "status": "verified",
+    "language": "es",
+    "domainId": 1,
+    "taskStatements": ["1.4"],
+    "title": "Economía de la nube",
+    "summary": "La nube convierte inversión en hardware (CapEx, costo fijo) en pago por uso (OpEx, costo variable). Las economías de escala, el rightsizing y los servicios administrados reducen aún más el costo total.",
+    "explanation": "Comprar servidores es gasto de capital (CapEx): una gran inversión inicial en activos que se deprecian. Pagar por consumo en AWS es gasto operativo (OpEx): un costo variable que sigue a la demanda real. Migrar a la nube convierte CapEx en OpEx — y de paso eliminas los costos ocultos del datacenter: energía, refrigeración, espacio, personal físico.\n\nLas economías de escala son la ventaja del \"comprador gigante\": AWS agrega la demanda de millones de clientes, compra hardware y energía a precios imposibles para una sola empresa y comparte esa eficiencia.\n\nEl rightsizing es ajustar cada recurso a su demanda real: una instancia al 15% de CPU está pagando por aire. Y los servicios administrados (RDS, Lambda) reducen el costo total porque eliminan el trabajo operativo: no parcheas, no administras servidores; y los modelos sin servidor facturan solo por ejecución real, sin capacidad ociosa.\n\nEn licenciamiento, BYOL (Bring Your Own License) permite reutilizar licencias ya compradas; la licencia incluida cobra el software dentro del precio horario.",
+    "examRelevance": "La tarea 1.4 pide comparar costo fijo vs variable, reconocer CapEx/OpEx, economías de escala, rightsizing, automatización y BYOL. Preguntas típicas: escenarios de \"empresa reemplaza compra de hardware por pago por uso\".",
+    "awsExample": "AWS Compute Optimizer revisa la utilización real de tus instancias y recomienda tamaños menores cuando hay sobreaprovisionamiento (rightsizing).",
+    "keyTerms": [
+      { "term": "CapEx", "definition": "Inversión de capital en activos físicos." },
+      { "term": "OpEx", "definition": "Gasto operativo por consumo." },
+      { "term": "Rightsizing", "definition": "Ajustar recursos a la demanda real." },
+      { "term": "BYOL", "definition": "Reutilizar licencias propias en la nube." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Economías de escala vs rightsizing", "difference": "Economía de escala = eficiencia del proveedor que baja precios; rightsizing = tu ajuste fino de recursos." },
+      { "withWhat": "CapEx vs OpEx", "difference": "CapEx = invertir por adelantado en activos; OpEx = pagar por consumo continuo." }
+    ],
+    "comparisons": [
+      {
+        "title": "On-premises vs nube (perspectiva económica)",
+        "rows": [
+          { "aspect": "Inversión inicial", "a": "On-prem: alta (CapEx)", "b": "Nube: mínima" },
+          { "aspect": "Costo ocioso", "a": "On-prem: pagas capacidad sin usar", "b": "Nube: escala con la demanda" },
+          { "aspect": "Costos ocultos", "a": "On-prem: energía, refrigeración, personal", "b": "Nube: incluidos en el precio por uso" },
+          { "aspect": "Previsibilidad", "a": "On-prem: ciclo de compra de años", "b": "Nube: variable, medible con Cost Explorer" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D1-T1.4-001", "D1-T1.4-002", "D1-T1.4-003", "D1-T1.4-004", "D1-T1.4-005"],
+    "relatedServiceIds": ["aws-compute-optimizer", "aws-license-manager"],
+    "estimatedMinutes": 12,
+    "sources": [
+      { "title": "Six advantages of cloud computing (whitepaper)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html", "type": "whitepaper", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21",
+    "reviewer": "equipo-contenido",
+    "examGuideVersion": "CLF-C02"
+  }
+]
