@@ -262,11 +262,27 @@ async function boot() {
     await loadContent(isLang(preferred) ? preferred : 'es');
   } catch (e) {
     $outlet().innerHTML = `
-      <div class="card">
+      <div class="card score-hero">
         <h1>${t('boot.loadFail')}</h1>
         <p class="muted">${String(e.message || e)}</p>
         <p class="small muted">${t('boot.loadFailHint')}</p>
+        <div class="btn-row" style="justify-content:center">
+          <button type="button" class="btn primary" id="boot-retry">${t('boot.retry')}</button>
+        </div>
       </div>`;
+    document.getElementById('boot-retry')?.addEventListener('click', async () => {
+      try {
+        document.getElementById('boot-retry').disabled = true;
+        await loadContent(isLang(preferred) ? preferred : 'es');
+        applyStaticI18n();
+        initQuizEngine();
+        registerRoutes();
+        initRouter(document.getElementById('outlet'));
+      } catch (e2) {
+        document.getElementById('boot-retry').disabled = false;
+      }
+    });
+    document.getElementById('boot-retry')?.focus();
     return;
   }
   applyStaticI18n();

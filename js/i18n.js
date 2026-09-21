@@ -5,10 +5,25 @@ const LANGS = ['es', 'en'];
 const dicts = { es: null, en: null };
 let lang = 'es';
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* fetch con reintentos (GitHub Pages puede devolver 503 ante ráfagas). */
 async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`No se pudo cargar ${url}`);
-  return res.json();
+  let lastStatus = 0;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const res = await fetch(url);
+      lastStatus = res.status;
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (e) {
+      if (attempt < 4 && (lastStatus === 0 || lastStatus >= 500 || lastStatus === 429)) {
+        await sleep(400 * 2 ** (attempt - 1));
+        continue;
+      }
+      throw new Error(`No se pudo cargar ${url} (HTTP ${lastStatus || '?'})`);
+    }
+  }
 }
 
 export async function initI18n(preferred) {

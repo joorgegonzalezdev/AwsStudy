@@ -5,10 +5,44 @@
 const cache = new Map(); // lang -> content
 let activeLang = 'es';
 
+const RETRYABLE = (status) => status >= 500 || status === 429 || status === 0;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* fetch con reintentos y retroceso exponencial (GitHub Pages devuelve
+   503/429 ocasionales ante ráfagas de peticiones). */
 async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`No se pudo cargar ${url} (HTTP ${res.status})`);
-  return res.json();
+  let lastStatus = 0;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const res = await fetch(url);
+      lastStatus = res.status;
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (e) {
+      const status = Number(e.message.match(/HTTP (\d+)/)?.[1] || 0);
+      if (attempt < 4 && (lastStatus === 0 || RETRYABLE(lastStatus))) {
+        await sleep(400 * 2 ** (attempt - 1));
+        continue;
+      }
+      throw new Error(`No se pudo cargar ${url} (HTTP ${lastStatus || '?'})`);
+    }
+  }
+}
+
+/* Ejecuta fetches limitando la concurrencia para no disparar
+   ráfagas que GitHub Pages puede limitar (503). */
+async function fetchPool(urls, limit = 4) {
+  const results = new Array(urls.length);
+  let next = 0;
+  const worker = async () => {
+    while (true) {
+      const i = next++;
+      if (i >= urls.length) return;
+      results[i] = await fetchJSON(urls[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, urls.length) }, worker));
+  return results;
 }
 
 export function getContent() {
@@ -30,9 +64,9 @@ export async function loadContent(lang = 'es') {
   const manifest = await fetchJSON('data/manifest.json');
   const paths = manifest.content[lang] || manifest.content[manifest.defaultLanguage || 'es'];
   const [domains, lessons, questions, inScope, outOfScope, glossary, comparisons] = await Promise.all([
-    Promise.all(paths.domains.map(fetchJSON)),
-    Promise.all(paths.lessons.map(fetchJSON)),
-    Promise.all(paths.questions.map(fetchJSON)),
+    fetchPool(paths.domains),
+    fetchPool(paths.lessons),
+    fetchPool(paths.questions),
     fetchJSON(paths.inScopeServices),
     fetchJSON(manifest.outOfScopeServices),
     fetchJSON(paths.glossary),
