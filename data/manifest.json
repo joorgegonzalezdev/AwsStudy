@@ -4,7 +4,10 @@
   "examGuide": "CLF-C02",
   "examGuideVersion": "2023-06",
   "defaultLanguage": "es",
-  "languages": ["es", "en"],
+  "languages": [
+    "es",
+    "en"
+  ],
   "content": {
     "es": {
       "domains": [
@@ -26,7 +29,8 @@
         "data/questions/domain-4-questions.json"
       ],
       "inScopeServices": "data/services/in-scope-services.json",
-      "glossary": "data/glossary/glossary-es.json"
+      "glossary": "data/glossary/glossary-es.json",
+      "comparisons": "data/comparisons/comparisons-es.json"
     },
     "en": {
       "domains": [
@@ -48,7 +52,8 @@
         "data/questions/en/domain-4-questions.json"
       ],
       "inScopeServices": "data/services/in-scope-services-en.json",
-      "glossary": "data/glossary/glossary-en.json"
+      "glossary": "data/glossary/glossary-en.json",
+      "comparisons": "data/comparisons/comparisons-en.json"
     }
   },
   "outOfScopeServices": "data/services/out-of-scope-services.json"

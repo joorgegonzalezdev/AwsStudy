@@ -11,8 +11,10 @@ import { renderExamStart } from './exam-simulator.js';
 import { renderResults } from './scoring.js';
 import { renderReview, renderBookmarks } from './review.js';
 import { renderDashboard } from './dashboard.js';
-import { renderLibrary, renderLesson, renderServices, renderGlossary } from './library.js';
+import { renderLibrary, renderLesson, renderServices, renderGlossary, renderComparisons, renderComparison, renderFlashcards } from './library.js';
 import { renderSettings } from './settings.js';
+import { renderLearnHome, renderLessonReader } from './learn.js';
+import { renderRecommendations, getRecommendations } from './recommend.js';
 
 const $outlet = () => document.getElementById('outlet');
 
@@ -49,6 +51,10 @@ function renderHome() {
         ${escapeHtml(t('home.unfinished', { label: t(`mode.${unfinished.mode}`) }))}
         <a href="#/${unfinished.mode === 'exam' ? 'exam/session' : unfinished.mode === 'quiz' ? 'quiz/session' : 'study/session'}">${escapeHtml(t('home.resume'))}</a>
       </div>` : ''}
+      <div class="card inner mt" id="home-recommendations" style="box-shadow:none;border-style:dashed">
+        <h3 style="margin-top:0">${escapeHtml(t('homeExtra.continueLearning'))}</h3>
+        <div id="rec-strip"></div>
+      </div>
       <div class="mt">
         <b>${escapeHtml(t('home.overall', { pct: overall }))}</b> · ${escapeHtml(t('home.masteredOf', { mastered, total: verifiedTotal }))}
         <div class="progress-track"><div class="progress-fill" style="width:${overall}%"></div></div>
@@ -73,7 +79,8 @@ function renderHome() {
     <div class="card">
       <h2>${escapeHtml(t('home.howTitle'))}</h2>
       <div class="hero-actions">
-        <a class="btn primary" href="#/study">${escapeHtml(t('home.actionStudy'))}</a>
+        <a class="btn primary" href="#/learn">${escapeHtml(t('home.actionLearn'))}</a>
+        <a class="btn" href="#/study">${escapeHtml(t('home.actionStudy'))}</a>
         <a class="btn" href="#/quiz">${escapeHtml(t('home.actionQuiz'))}</a>
         <a class="btn" href="#/exam">${escapeHtml(t('home.actionExam'))}</a>
       </div>
@@ -85,6 +92,8 @@ function renderHome() {
       </div>
       ${s.stats.lastStudiedAt ? `<p class="small muted">${escapeHtml(t('home.lastSession', { date: formatDate(s.stats.lastStudiedAt) }))}</p>` : ''}
     </div>`;
+
+  renderRecommendations(document.getElementById('rec-strip'), 3);
 }
 
 /* ---------- Pantalla de dominio ---------- */
@@ -190,6 +199,10 @@ function registerRoutes() {
   register('/', renderHome);
   register('/domain/:id', renderDomain);
 
+  register('/learn', renderLearnHome);
+  register('/lesson/:id', (params) => renderLessonReader(params.id));
+  register('/comparison/:id', (params) => renderComparison(params.id));
+
   register('/study', renderStudyConfig);
   register('/study/session', () => {
     const id = state.getCurrentAttemptId();
@@ -232,6 +245,8 @@ function registerRoutes() {
   register('/progress', renderDashboard);
   register('/library', renderLibrary);
   register('/library/lesson/:id', (params) => renderLesson(params.id));
+  register('/library/comparisons', renderComparisons);
+  register('/library/flashcards', renderFlashcards);
   register('/library/services', renderServices);
   register('/library/glossary', renderGlossary);
   register('/settings', renderSettings);

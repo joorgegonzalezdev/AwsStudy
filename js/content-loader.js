@@ -29,13 +29,14 @@ export async function loadContent(lang = 'es') {
   if (cache.has(lang)) { activeLang = lang; return cache.get(lang); }
   const manifest = await fetchJSON('data/manifest.json');
   const paths = manifest.content[lang] || manifest.content[manifest.defaultLanguage || 'es'];
-  const [domains, lessons, questions, inScope, outOfScope, glossary] = await Promise.all([
+  const [domains, lessons, questions, inScope, outOfScope, glossary, comparisons] = await Promise.all([
     Promise.all(paths.domains.map(fetchJSON)),
     Promise.all(paths.lessons.map(fetchJSON)),
     Promise.all(paths.questions.map(fetchJSON)),
     fetchJSON(paths.inScopeServices),
     fetchJSON(manifest.outOfScopeServices),
     fetchJSON(paths.glossary),
+    fetchJSON(paths.comparisons),
   ]);
 
   const flatLessons = lessons.flat();
@@ -90,6 +91,8 @@ export async function loadContent(lang = 'es') {
     servicesById,
     outOfScope,
     glossary: glossary.terms || [],
+    comparisons: comparisons.comparisons || [],
+    comparisonsById: new Map((comparisons.comparisons || []).map((c) => [c.id, c])),
     indexes: { byDomain, byTask, byTopic, byService },
   };
   cache.set(lang, content);

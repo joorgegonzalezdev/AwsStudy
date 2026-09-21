@@ -1,6 +1,6 @@
 {
   "app": { "title": "Ruta CLF-C02 — Preparación no oficial para CLF-C02", "badge": "No oficial", "skip": "Saltar al contenido principal" },
-  "nav": { "home": "Inicio", "study": "Estudiar", "quiz": "Quiz", "library": "Biblioteca", "progress": "Progreso", "settings": "Ajustes" },
+  "nav": { "home": "Inicio", "learn": "Aprender", "study": "Estudiar", "quiz": "Quiz", "library": "Biblioteca", "progress": "Progreso", "settings": "Ajustes" },
   "footer": {
     "disclaimer": "Ruta CLF-C02 es una herramienta de estudio no oficial para el examen AWS Certified Cloud Practitioner. No está afiliada a, patrocinada por ni respaldada por Amazon Web Services. \"AWS\" y los nombres de servicios de AWS son marcas de Amazon.com, Inc. o sus afiliadas.",
     "local": "Tu progreso se guarda únicamente en este navegador (localStorage) y no se envía a ningún servidor."
@@ -29,6 +29,7 @@
     "overall": "Progreso general: {pct}%", "masteredOf": "{mastered} preguntas dominadas de {total}",
     "weight": "Peso oficial:", "practicePct": "{pct}% de acierto en tu práctica", "noPractice": "Sin práctica todavía",
     "howTitle": "¿Cómo quieres estudiar hoy?",
+    "actionLearn": "🎓 Aprender",
     "actionStudy": "📖 Modo estudio", "actionQuiz": "⚡ Quiz rápido", "actionExam": "⏱ Simulacro de examen",
     "actionReview": "🔁 Repasar errores", "actionBookmarks": "☆ Marcadores", "actionLibrary": "📚 Biblioteca", "actionProgress": "📈 Progreso",
     "lastSession": "Última sesión: {date}"
@@ -182,5 +183,70 @@
   "boot": {
     "loadFail": "No se pudo cargar el contenido",
     "loadFailHint": "Si abres los archivos directamente desde el disco, sirve la aplicación con un servidor local, por ejemplo: npx http-server o python -m http.server."
+  },
+  "learn": {
+    "title": "Aprender",
+    "intro": "Ruta: aprender → comprobar → practicar → repasar errores → repetir. Elige un dominio y avanza lección a lección.",
+    "allDomains": "Todos los dominios",
+    "path": "Ruta de aprendizaje",
+    "status": {
+      "notStarted": "Sin empezar", "inProgress": "En curso", "checkPending": "Comprobación pendiente",
+      "needsReview": "Para repasar", "completed": "Completada", "mastered": "Dominada"
+    },
+    "startLesson": "Empezar", "resumeLesson": "Continuar", "reviewLesson": "Repasar", "retryCheck": "Repetir comprobación",
+    "objective": "Objetivo de aprendizaje", "prerequisites": "Requisitos previos",
+    "prereqPending": "Recomendación: completa antes \"{title}\".",
+    "examClues": "Pistas y palabras clave de examen",
+    "knowledgeCheck": "Comprobación de conocimientos",
+    "checkIntro": "Responde {n} preguntas sobre esta lección. Necesitas {pct}% para superarla.",
+    "startCheck": "Iniciar comprobación",
+    "checkPassed": "✔ ¡Comprobación superada!",
+    "checkFailed": "✘ Aún no superas el umbral ({pct}%)",
+    "checkScore": "Acertaste {n} de {total} ({pct}%)",
+    "checkReviewNote": "Repasa las explicaciones de arriba antes de reintentar.",
+    "markVisitedNote": "Leer la lección no equivale a dominarla: suprema la comprobación y acierta las preguntas en varios días para dominarla.",
+    "nextLesson": "Siguiente lección recomendada",
+    "backToPath": "← Volver a la ruta",
+    "questionsOfLesson": "Preguntas de esta lección"
+  },
+  "recommend": {
+    "title": "Recomendado para ti",
+    "empty": "Todo al día. ¡Sigue así!",
+    "prereq": "Completa primero el requisito: {title}",
+    "reviewLesson": "Repasa: {title}",
+    "topicErrors": "Errores repetidos en \"{topic}\" — repasa la lección",
+    "comparison": "¿Dudas entre {a} y {b}? Consulta la comparación",
+    "mistakeReview": "Repasa tus {n} errores",
+    "nextLesson": "Sigue con la lección: {title}",
+    "domainReview": "Precisión baja en D{d} ({pct}%) — repasa el dominio",
+    "open": "Abrir"
+  },
+  "comparison": {
+    "tab": "Comparaciones", "title": "Guías de comparación",
+    "subtitle": "Cómo elegir el concepto o servicio correcto según el escenario.",
+    "whenToUse": "Úsala cuando…", "avoidWhen": "Evítala cuando…",
+    "keyDifferences": "Diferencias clave", "examClue": "Pista de examen", "relatedLessons": "Lecciones relacionadas",
+    "back": "← Comparaciones", "notFound": "Comparación no encontrada."
+  },
+  "flashcards": {
+    "tab": "Tarjetas", "title": "Tarjetas de estudio",
+    "subtitle": "Términos clave generados a partir de las lecciones. Gira la tarjeta y comprueba tu memoria.",
+    "reveal": "Ver definición", "know": "✔ La sé", "again": "↻ Repasar",
+    "done": "¡Sesión completada! Repasaste {n} tarjetas.", "restart": "Otra ronda", "count": "{i} de {n}"
+  },
+  "dashboardLessons": {
+    "title": "Lecciones",
+    "summary": "Completadas: {completed} · Dominadas: {mastered} · Para repasar: {review} · Empezadas: {inProgress}",
+    "toReview": "Lecciones para repasar",
+    "continuePath": "Continuar la ruta de aprendizaje"
+  },
+  "settingsExtra": {
+    "learning": "Aprendizaje",
+    "checkThreshold": "Umbral para superar la comprobación de una lección (%)",
+    "reviewDays": "Días sin repasar antes de marcar una lección \"para repasar\"",
+    "domainThreshold": "Precisión mínima por dominio para recomendaciones (%)"
+  },
+  "homeExtra": {
+    "continueLearning": "Continuar aprendiendo"
   }
 }

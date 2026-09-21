@@ -1,0 +1,272 @@
+{
+  "language": "es",
+  "lastReviewedAt": "2026-09-21",
+  "comparisons": [
+    {
+      "id": "cmp-scalability-elasticity",
+      "title": "Escalabilidad vs elasticidad",
+      "question": "¿El escenario pide soportar más carga o ajustar la capacidad automáticamente con la demanda?",
+      "options": [
+        { "id": "o1", "name": "Escalabilidad", "useWhen": "El sistema debe soportar más carga agregando recursos (más o más grandes).", "avoidWhen": "La clave del escenario es el ajuste automático según la demanda variable." },
+        { "id": "o2", "name": "Elasticidad", "useWhen": "La capacidad debe crecer y encogerse automáticamente según la demanda real.", "avoidWhen": "El escenario solo habla de tolerar más carga, sin mencionar ajuste automático." }
+      ],
+      "differences": [
+        { "aspect": "Ajuste automático", "a": "No requerido", "b": "Sí, en ambas direcciones" },
+        { "aspect": "Dirección", "a": "Crecer", "b": "Crecer y encoger" },
+        { "aspect": "Beneficio principal", "a": "Soportar crecimiento", "b": "Pagar solo por lo usado" }
+      ],
+      "examClue": "Si el enunciado dice \"automáticamente según la demanda\", es elasticidad. Si solo dice \"más usuarios/carga\", es escalabilidad.",
+      "services": [], "relatedLessons": ["L-1.1"], "relatedTasks": ["1.1"]
+    },
+    {
+      "id": "cmp-ha-fault-tolerance",
+      "title": "Alta disponibilidad vs tolerancia a fallos",
+      "question": "¿El sistema debe seguir operativo ante fallos parciales o seguir funcionando correctamente pese a fallos activos?",
+      "options": [
+        { "id": "o1", "name": "Alta disponibilidad", "useWhen": "El objetivo es minimizar interrupciones (p. ej., varias AZ).", "avoidWhen": "Se exige operar sin degradación incluso durante el fallo." },
+        { "id": "o2", "name": "Tolerancia a fallos", "useWhen": "El sistema debe seguir funcionando correctamente pese a componentes caídos.", "avoidWhen": "Basta con reducir el tiempo de inactividad." }
+      ],
+      "differences": [
+        { "aspect": "Objetivo", "a": "Minimizar tiempo de inactividad", "b": "Cero impacto funcional" },
+        { "aspect": "Ejemplo típico", "a": "Multi-AZ con failover", "b": "Redundancia activa-activa" },
+        { "aspect": "Costo", "a": "Medio", "b": "Alto" }
+      ],
+      "examClue": "\"Sigue funcionando aunque falle X\" = tolerancia a fallos; \"se recupera rápido\" = alta disponibilidad.",
+      "services": [], "relatedLessons": ["L-1.1"], "relatedTasks": ["1.1"]
+    },
+    {
+      "id": "cmp-region-az-edge",
+      "title": "Región vs Zona de Disponibilidad vs ubicación de borde",
+      "question": "¿Qué nivel de la infraestructura global resuelve cada necesidad?",
+      "options": [
+        { "id": "o1", "name": "Región", "useWhen": "Elegir dónde viven tus recursos y datos (geografía, residencia de datos).", "avoidWhen": "El problema es un fallo de un centro de datos o latencia de contenido estático." },
+        { "id": "o2", "name": "Zona de Disponibilidad", "useWhen": "Aislar la aplicación del fallo de un centro de datos (alta disponibilidad).", "avoidWhen": "El requisito es supervivencia a fallo de Región completa (usa multi-región)." },
+        { "id": "o3", "name": "Ubicación de borde", "useWhen": "Cachear contenido cerca del usuario final (CloudFront).", "avoidWhen": "Necesitas ejecutar tu aplicación o base de datos: los bordes no alojan cargas." }
+      ],
+      "differences": [
+        { "aspect": "Jerarquía", "a": "Región contiene varias AZ", "b": "Bordes: puntos de caché globales" },
+        { "aspect": "Protege ante", "a": "Fallo de AZ (multi-AZ)", "b": "No es protección: es caché" },
+        { "aspect": "Uso típico", "a": "Despliegue de recursos", "b": "CDN / contenido estático" }
+      ],
+      "examClue": "\"Cachear cerca del usuario\" = borde; \"sobrevivir fallo de datacenter\" = multi-AZ; \"datos en un país\" = Región.",
+      "services": ["amazon-cloudfront"], "relatedLessons": ["L-3.2"], "relatedTasks": ["3.2"]
+    },
+    {
+      "id": "cmp-ec2-lambda-containers",
+      "title": "EC2 vs Lambda vs contenedores (ECS/EKS + Fargate)",
+      "question": "¿Máquina virtual, funciones por eventos o contenedores para tu carga?",
+      "options": [
+        { "id": "o1", "name": "Amazon EC2 (VM)", "useWhen": "Control total del SO, cargas continuas y personalizadas.", "avoidWhen": "Tareas breves por eventos o el equipo no quiere operar servidores." },
+        { "id": "o2", "name": "AWS Lambda (serverless)", "useWhen": "Funciones breves e intermitentes activadas por eventos, sin administrar nada.", "avoidWhen": "Procesos muy largos o de uso continuo alto." },
+        { "id": "o3", "name": "Contenedores (ECS/EKS/Fargate)", "useWhen": "Empaquetar la app con sus dependencias y orquestar varias instancias; Fargate evita administrar servidores.", "avoidWhen": "Una función simple por evento (Lambda es más simple) o control total del SO (EC2)." }
+      ],
+      "differences": [
+        { "aspect": "Administración", "a": "EC2: alta · Contenedores: media · Fargate/Lambda: mínima", "b": "" },
+        { "aspect": "Facturación", "a": "EC2: por tiempo encendido", "b": "Lambda: por ejecución" },
+        { "aspect": "Orquestador", "a": "ECS (propio de AWS) vs EKS (Kubernetes)", "b": "Fargate = motor de ejecución" }
+      ],
+      "examClue": "\"Sin servidores\" + eventos breves = Lambda; \"Kubernetes\" = EKS; control del SO = EC2.",
+      "services": ["amazon-ec2", "aws-lambda", "amazon-ecs", "amazon-eks", "aws-fargate"], "relatedLessons": ["L-3.3"], "relatedTasks": ["3.3"]
+    },
+    {
+      "id": "cmp-ecs-eks",
+      "title": "Amazon ECS vs Amazon EKS",
+      "question": "¿Orquestación propia de AWS o Kubernetes administrado?",
+      "options": [
+        { "id": "o1", "name": "Amazon ECS", "useWhen": "Quieres orquestación de contenedores sencilla y profundamente integrada con AWS.", "avoidWhen": "El equipo ya usa herramientas y manifiestos de Kubernetes." },
+        { "id": "o2", "name": "Amazon EKS", "useWhen": "Migrar cargas Kubernetes existentes o necesidad de portabilidad con el estándar.", "avoidWhen": "No hay experiencia previa con Kubernetes ni requisito de usarlo." }
+      ],
+      "differences": [
+        { "aspect": "API y herramientas", "a": "Propias de AWS", "b": "Estándar de Kubernetes" },
+        { "aspect": "Curva de aprendizaje", "a": "Menor si ya estás en AWS", "b": "Mayor si no conoces K8s" },
+        { "aspect": "Palabra clave del examen", "a": "—", "b": "Kubernetes → EKS" }
+      ],
+      "examClue": "El enunciado menciona Kubernetes casi siempre cuando la respuesta es EKS.",
+      "services": ["amazon-ecs", "amazon-eks"], "relatedLessons": ["L-3.3"], "relatedTasks": ["3.3"]
+    },
+    {
+      "id": "cmp-s3-ebs-efs",
+      "title": "S3 vs EBS vs EFS",
+      "question": "¿Objetos con URL, disco de una instancia o sistema de archivos compartido?",
+      "options": [
+        { "id": "o1", "name": "Amazon S3 (objetos)", "useWhen": "Archivos estáticos, respaldos, data lakes, acceso por URL/API.", "avoidWhen": "Necesitas montar un disco o un sistema de archivos POSIX." },
+        { "id": "o2", "name": "Amazon EBS (bloques)", "useWhen": "Disco persistente para UNA instancia (SO, bases de datos, arranque).", "avoidWhen": "Varias instancias deben compartir los archivos a la vez." },
+        { "id": "o3", "name": "Amazon EFS (archivos)", "useWhen": "Sistema de archivos compartido entre MUCHAS instancias Linux (POSIX, elástico).", "avoidWhen": "Solo un disco por instancia (EBS) o almacenamiento de objetos (S3)." }
+      ],
+      "differences": [
+        { "aspect": "Tipo", "a": "Objetos", "b": "Bloques / Archivos" },
+        { "aspect": "Compartido", "a": "S3: sí (por API)", "b": "EBS: no · EFS: sí (montado)" },
+        { "aspect": "Persistencia al detener", "a": "S3: n/a · EBS: sí", "b": "Instance store: no" }
+      ],
+      "examClue": "\"Muchas instancias comparten carpetas\" = EFS; \"disco de una instancia\" = EBS; \"archivos con URL\" = S3.",
+      "services": ["amazon-s3", "amazon-ebs", "amazon-efs"], "relatedLessons": ["L-3.4"], "relatedTasks": ["3.6"]
+    },
+    {
+      "id": "cmp-rds-dynamodb",
+      "title": "RDS/Aurora vs DynamoDB",
+      "question": "¿Relacional con SQL o NoSQL clave-valor a escala?",
+      "options": [
+        { "id": "o1", "name": "Amazon RDS / Aurora", "useWhen": "Esquema relacional, joins, transacciones SQL, compatibilidad MySQL/PostgreSQL.", "avoidWhen": "Esquema flexible con tráfico masivo y latencia de milisegundos a cualquier escala." },
+        { "id": "o2", "name": "Amazon DynamoDB", "useWhen": "NoSQL clave-valor, esquema flexible, escala masiva sin servidores.", "avoidWhen": "Necesitas joins y consultas SQL tradicionales." }
+      ],
+      "differences": [
+        { "aspect": "Esquema", "a": "Rígido (relacional)", "b": "Flexible (clave-valor)" },
+        { "aspect": "Consultas", "a": "SQL con joins", "b": "Acceso por clave/índice" },
+        { "aspect": "Escala", "a": "Vertical + réplicas", "b": "Horizontal masiva" }
+      ],
+      "examClue": "\"Perfiles, sesiones, catálogo flexible, millones de solicitudes\" = DynamoDB; \"consultas SQL/relacional\" = RDS.",
+      "services": ["amazon-rds", "amazon-dynamodb"], "relatedLessons": ["L-3.3"], "relatedTasks": ["3.4"]
+    },
+    {
+      "id": "cmp-sg-nacl",
+      "title": "Grupos de seguridad vs ACL de red",
+      "question": "¿Filtro con estado a nivel de instancia o sin estado a nivel de subred?",
+      "options": [
+        { "id": "o1", "name": "Grupo de seguridad", "useWhen": "Controlar tráfico a nivel de instancia; por defecto y con estado (la respuesta fluye sola).", "avoidWhen": "Necesitas reglas explícitas de ida y vuelta a nivel de subred." },
+        { "id": "o2", "name": "ACL de red", "useWhen": "Filtro a nivel de subred, sin estado, con reglas numeradas y orden de evaluación.", "avoidWhen": "Solo necesitas el firewall por defecto por instancia." }
+      ],
+      "differences": [
+        { "aspect": "Nivel", "a": "Instancia", "b": "Subred" },
+        { "aspect": "Estado", "a": "Con estado (stateful)", "b": "Sin estado (stateless)" },
+        { "aspect": "Reglas", "a": "Permitir solo (implícitamente deniega)", "b": "Permitir y denegar, numeradas" }
+      ],
+      "examClue": "\"Nivel de subred\" o \"sin estado\" = NACL; \"a nivel de instancia\" o \"con estado\" = grupo de seguridad.",
+      "services": ["amazon-vpc"], "relatedLessons": ["L-3.4"], "relatedTasks": ["3.5"]
+    },
+    {
+      "id": "cmp-cloudwatch-cloudtrail-config",
+      "title": "CloudWatch vs CloudTrail vs Config",
+      "question": "¿Métricas de rendimiento, auditoría de API o historial de configuración?",
+      "options": [
+        { "id": "o1", "name": "Amazon CloudWatch", "useWhen": "Monitorear rendimiento y salud: métricas, logs de aplicaciones, alarmas.", "avoidWhen": "La pregunta es \"¿quién hizo qué y cuándo?\" o \"¿cómo estaba configurado?\"." },
+        { "id": "o2", "name": "AWS CloudTrail", "useWhen": "Auditar acciones y llamadas de API: quién, qué, cuándo, desde dónde.", "avoidWhen": "Se buscan métricas de rendimiento del sistema." },
+        { "id": "o3", "name": "AWS Config", "useWhen": "Rastrear configuraciones de recursos y su historial, evaluando reglas de cumplimiento.", "avoidWhen": "Se buscan métricas en vivo o registros de acciones de usuarios." }
+      ],
+      "differences": [
+        { "aspect": "Pregunta que responde", "a": "¿Cómo rinde?", "b": "¿Quién hizo qué? / ¿Cómo está configurado y si cambió?" },
+        { "aspect": "Tipo de dato", "a": "Métricas y logs", "b": "Registros de API / snapshots de configuración" }
+      ],
+      "examClue": "Rendimiento = CloudWatch; \"quién creó/eliminó\" = CloudTrail; \"configuración cambió\" = Config.",
+      "services": ["amazon-cloudwatch", "aws-cloudtrail", "aws-config"], "relatedLessons": ["L-2.2"], "relatedTasks": ["2.2"]
+    },
+    {
+      "id": "cmp-sns-sqs-eventbridge",
+      "title": "SNS vs SQS vs EventBridge",
+      "question": "¿Notificar a muchos, encolar trabajo o enrutar eventos con reglas?",
+      "options": [
+        { "id": "o1", "name": "Amazon SNS", "useWhen": "Publicar un mensaje a MUCHOS suscriptores a la vez (push): email, SMS, Lambda.", "avoidWhen": "Un consumidor debe procesar mensajes uno a uno desde una cola." },
+        { "id": "o2", "name": "Amazon SQS", "useWhen": "Cola: productores encolan y consumidores extraen (polling); desacoplar y absorber picos.", "avoidWhen": "Se requiere entrega push simultánea a varios suscriptores." },
+        { "id": "o3", "name": "Amazon EventBridge", "useWhen": "Bus de eventos con enrutamiento por reglas y filtrado avanzado entre servicios.", "avoidWhen": "Solo se necesita una cola simple o una notificación directa." }
+      ],
+      "differences": [
+        { "aspect": "Modelo", "a": "Pub/sub push", "b": "Cola pull / eventos con reglas" },
+        { "aspect": "Consumidores", "a": "Todos los suscriptores", "b": "Uno por mensaje (SQS) / según reglas (EventBridge)" },
+        { "aspect": "Filtrado", "a": "Básico por tema", "b": "SQS: no · EventBridge: avanzado por patrones" }
+      ],
+      "examClue": "\"Notificar a muchos\" = SNS; \"cola que se consulta\" = SQS; \"enrutar eventos por reglas\" = EventBridge.",
+      "services": ["amazon-sns", "amazon-sqs", "amazon-eventbridge"], "relatedLessons": ["L-3.5"], "relatedTasks": ["3.8"]
+    },
+    {
+      "id": "cmp-shield-waf",
+      "title": "AWS Shield vs AWS WAF",
+      "question": "¿Ataque volumétrico de red (DDoS) o exploits de aplicación web (HTTP)?",
+      "options": [
+        { "id": "o1", "name": "AWS Shield", "useWhen": "Proteger contra DDoS: saturación de red/recursos. Standard incluido gratis.", "avoidWhen": "El ataque es a nivel de aplicación: SQLi, XSS, solicitudes HTTP maliciosas." },
+        { "id": "o2", "name": "AWS WAF", "useWhen": "Filtrar solicitudes HTTP con reglas (inyección SQL, XSS, geobloqueos).", "avoidWhen": "El problema es un flood volumétrico de red." }
+      ],
+      "differences": [
+        { "aspect": "Capa", "a": "Red/transporte", "b": "Aplicación (HTTP, capa 7)" },
+        { "aspect": "Amenaza", "a": "DDoS", "b": "Exploits web" },
+        { "aspect": "Funcionan juntos", "a": "Sí: Shield mitiga el flood, WAF filtra las solicitudes", "b": "" }
+      ],
+      "examClue": "DDoS → Shield; SQLi/XSS → WAF. Aparecen juntos a menudo como distractores.",
+      "services": ["aws-shield", "aws-waf"], "relatedLessons": ["L-2.2"], "relatedTasks": ["2.2", "2.4"]
+    },
+    {
+      "id": "cmp-guardduty-inspector-macie",
+      "title": "GuardDuty vs Inspector vs Macie",
+      "question": "¿Amenazas activas, vulnerabilidades de software o datos sensibles en S3?",
+      "options": [
+        { "id": "o1", "name": "Amazon GuardDuty", "useWhen": "Detectar comportamiento anómalo y amenazas activas (accesos sospechosos, uso anómalo de API).", "avoidWhen": "Se buscan vulnerabilidades de software o datos sensibles." },
+        { "id": "o2", "name": "Amazon Inspector", "useWhen": "Escanear vulnerabilidades de software sin parchear y exposiciones de red.", "avoidWhen": "La preocupación son amenazas en curso o datos sensibles." },
+        { "id": "o3", "name": "Amazon Macie", "useWhen": "Descubrir y alertar sobre datos personales/sensibles almacenados en S3.", "avoidWhen": "Se busca detección de intrusiones o escaneo de vulnerabilidades." }
+      ],
+      "differences": [
+        { "aspect": "Verbo", "a": "Detectar amenazas", "b": "Evaluar vulnerabilidades / descubrir datos sensibles" },
+        { "aspect": "Objeto analizado", "a": "Eventos de cuenta y red", "b": "Software de instancias / objetos de S3" }
+      ],
+      "examClue": "Amenaza activa = GuardDuty; vulnerabilidad = Inspector; datos personales en S3 = Macie.",
+      "services": ["aws-guardduty", "amazon-inspector", "amazon-macie"], "relatedLessons": ["L-2.2"], "relatedTasks": ["2.2", "2.4"]
+    },
+    {
+      "id": "cmp-budgets-explorer-calculator",
+      "title": "Budgets vs Cost Explorer vs Pricing Calculator",
+      "question": "¿Alertar, analizar el gasto real o estimar antes de desplegar?",
+      "options": [
+        { "id": "o1", "name": "AWS Budgets", "useWhen": "Definir presupuestos y recibir alertas al superar (o pronosticar superar) un umbral.", "avoidWhen": "Se quiere analizar tendencias del gasto ya incurrido." },
+        { "id": "o2", "name": "AWS Cost Explorer", "useWhen": "Visualizar, agrupar y pronosticar el gasto real (pasado y presente).", "avoidWhen": "La arquitectura aún no existe y se necesita una cotización." },
+        { "id": "o3", "name": "AWS Pricing Calculator", "useWhen": "Estimar el costo de una arquitectura ANTES de implementarla.", "avoidWhen": "Se busca alertar presupuestos o analizar gasto real." }
+      ],
+      "differences": [
+        { "aspect": "Cuándo", "a": "Antes de desplegar", "b": "Durante/después del gasto" },
+        { "aspect": "Función", "a": "Estimar", "b": "Alertar / analizar y pronosticar" },
+        { "aspect": "Datos", "a": "Modelo hipotético", "b": "Facturación real" }
+      ],
+      "examClue": "\"Antes de implementar\" = Pricing Calculator; \"alerta por umbral\" = Budgets; \"dónde se va el dinero\" = Cost Explorer.",
+      "services": ["aws-budgets", "aws-cost-explorer", "aws-pricing-calculator"], "relatedLessons": ["L-4.2"], "relatedTasks": ["4.2"]
+    },
+    {
+      "id": "cmp-pricing-models",
+      "title": "On-Demand vs Reserved/Savings Plans vs Spot vs Dedicated Hosts",
+      "question": "¿Qué opción de compra según la estabilidad e interrumpibilidad de la carga?",
+      "options": [
+        { "id": "o1", "name": "On-Demand", "useWhen": "Cargas nuevas, variables o de corto plazo, sin compromiso.", "avoidWhen": "Uso estable y predecible de larga duración (paga más)." },
+        { "id": "o2", "name": "Reserved / Savings Plans", "useWhen": "Uso constante y predecible con compromiso de 1-3 años.", "avoidWhen": "La carga es intermitente o puede interrumpirse." },
+        { "id": "o3", "name": "Spot", "useWhen": "Trabajos flexibles e interrumpibles (batch, pruebas) con el mayor descuento.", "avoidWhen": "Cargas críticas que no toleran interrupciones." },
+        { "id": "o4", "name": "Dedicated Hosts", "useWhen": "Requisitos de licencias por socket/núcleo o cumplimiento físico.", "avoidWhen": "Solo se busca ahorro o control lógico de aislamiento." }
+      ],
+      "differences": [
+        { "aspect": "Compromiso", "a": "Ninguno (On-Demand/Spot)", "b": "1-3 años (Reserved/Savings)" },
+        { "aspect": "Interrumpible", "a": "Spot: sí (2 min de aviso)", "b": "Otros: no" },
+        { "aspect": "Aislamiento físico", "a": "Hosts: servidor completo dedicado", "b": "Otros: no dedicado" }
+      ],
+      "examClue": "Interrumpible + ahorro máximo = Spot; estable 24/7 = Reserved/Savings; licencias físicas = Dedicated Host.",
+      "services": ["amazon-ec2"], "relatedLessons": ["L-4.1"], "relatedTasks": ["4.1"]
+    },
+    {
+      "id": "cmp-rehost-replatform-refactor",
+      "title": "Rehost vs Replatform vs Refactor",
+      "question": "¿Cuánto cambia la aplicación durante la migración?",
+      "options": [
+        { "id": "o1", "name": "Rehost (lift and shift)", "useWhen": "Migrar rápido sin cambios: replicas servidores tal cual.", "avoidWhen": "Hay tiempo u obligación de modernizar la plataforma." },
+        { "id": "o2", "name": "Replatform (lift, tinker and shift)", "useWhen": "Cambios pequeños y de bajo riesgo: p. ej., pasar la BD a Aurora con DMS.", "avoidWhen": "Se exige cero cambios o se busca un rediseño completo." },
+        { "id": "o3", "name": "Refactor / Re-architect", "useWhen": "Rediseñar para maximizar beneficios cloud (microservicios, sin servidor).", "avoidWhen": "La prioridad es velocidad y bajo riesgo de la migración." }
+      ],
+      "differences": [
+        { "aspect": "Cambio", "a": "Ninguno / pequeño", "b": "Rediseño profundo" },
+        { "aspect": "Velocidad", "a": "Rápida", "b": "Lenta" },
+        { "aspect": "Beneficio a largo plazo", "a": "Menor", "b": "Mayor" }
+      ],
+      "examClue": "\"Sin cambios\" = Rehost; \"cambia el motor de BD\" = Replatform; \"microservicios/rediseño\" = Refactor.",
+      "services": [], "relatedLessons": ["L-1.3"], "relatedTasks": ["1.3"]
+    },
+    {
+      "id": "cmp-support-plans",
+      "title": "Planes de soporte de AWS",
+      "question": "¿Qué plan según la criticidad y el tamaño del entorno?",
+      "options": [
+        { "id": "o1", "name": "Soporte básico", "useWhen": "Documentación, whitepapers, foros y re:Post. Incluido gratis.", "avoidWhen": "Necesitas soporte técnico de personas de AWS." },
+        { "id": "o2", "name": "Developer Support", "useWhen": "Entornos de prueba/desarrollo: ayuda por email en horario laboral.", "avoidWhen": "Cargas de producción que exigen soporte 24/7." },
+        { "id": "o3", "name": "Business Support", "useWhen": "Producción: soporte 24/7 por teléfono/chat con tiempos de respuesta rápidos.", "avoidWhen": "Cargas críticas masivas que requieren TAM." },
+        { "id": "o4", "name": "Enterprise / On-Ramp", "useWhen": "Cargas críticas grandes: TAM, respuestas en minutos y concierge.", "avoidWhen": "Presupuestos pequeños o cargas no críticas." }
+      ],
+      "differences": [
+        { "aspect": "Disponibilidad", "a": "Básico: documentación · Developer: horario laboral", "b": "Business/Enterprise: 24/7" },
+        { "aspect": "Producción", "a": "Business es el mínimo", "b": "" },
+        { "aspect": "TAM", "a": "Solo Enterprise/On-Ramp", "b": "" }
+      ],
+      "examClue": "\"Producción 24/7 mínimo\" = Business; \"TAM/respuesta en minutos\" = Enterprise.",
+      "services": ["aws-support"], "relatedLessons": ["L-4.3"], "relatedTasks": ["4.3"]
+    }
+  ]
+}

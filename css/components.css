@@ -164,3 +164,22 @@
 
 /* Toast / anuncios */
 #announcer { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Sistema de aprendizaje */
+.rec-item {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border); padding: 9px 2px;
+}
+.rec-item:last-child { border-bottom: none; }
+.rec-item .rec-text { flex: 1 1 240px; }
+.card.inner { background: var(--surface-2); }
+
+.flashcard {
+  background: var(--surface-2); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 28px 20px; max-width: 520px;
+  margin: 10px auto; text-align: center; cursor: pointer;
+  transition: border-color .15s;
+}
+.flashcard:hover { border-color: var(--primary); }
+.fc-term { font-size: 1.3rem; font-weight: 800; }
+.fc-def { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); color: var(--text-muted); }

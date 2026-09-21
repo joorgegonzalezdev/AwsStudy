@@ -6,6 +6,7 @@ import * as state from './state.js';
 import { escapeHtml, pct, formatDate, formatTime } from './utils.js';
 import { t } from './i18n.js';
 import { setsEqual } from './scoring.js';
+import { lessonStatusCounts, getLessonDisplayStatus, renderRecommendations } from './recommend.js';
 
 export function renderDashboard() {
   const c = getContent();
@@ -46,6 +47,8 @@ export function renderDashboard() {
     .sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
 
   const recent = state.listAttempts().slice(0, 5);
+  const lessonCounts = lessonStatusCounts();
+  const toReview = getContent().lessons.filter((l) => getLessonDisplayStatus(l.id) === 'needsReview');
 
   outlet.innerHTML = `
     <h1>${escapeHtml(t('dashboard.title'))}</h1>
@@ -65,6 +68,31 @@ export function renderDashboard() {
         <p class="small">${escapeHtml(t('dashboard.recorded'))} <b>${s.stats.totalAnswered}</b> · ${escapeHtml(t('dashboard.accuracy'))} <b>${pct(s.stats.totalCorrect, s.stats.totalAnswered)}%</b></p>
         <p class="small muted">${escapeHtml(t('dashboard.lastSession', { date: formatDate(s.stats.lastStudiedAt) }))} · ${escapeHtml(t('dashboard.totalTime', { time: formatTime(s.stats.totalTimeSeconds) }))}</p>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>${escapeHtml(t('dashboardLessons.title'))}</h2>
+      <p class="small">${escapeHtml(t('dashboardLessons.summary', {
+        completed: lessonCounts.completed, mastered: lessonCounts.mastered,
+        review: lessonCounts.needsReview, inProgress: lessonCounts.inProgress + lessonCounts.checkPending,
+      }))}</p>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct(lessonCounts.completed + lessonCounts.mastered, getContent().lessons.length)}%"></div></div>
+      <div class="btn-row mt">
+        <a class="btn small primary" href="#/learn">${escapeHtml(t('dashboardLessons.continuePath'))}</a>
+      </div>
+      ${toReview.length ? `
+        <h3 class="mt">${escapeHtml(t('dashboardLessons.toReview'))}</h3>
+        ${toReview.slice(0, 5).map((l) => `
+          <div class="rec-item">
+            <span aria-hidden="true">🔁</span>
+            <span class="rec-text">📖 <a href="#/lesson/${l.id}">${escapeHtml(l.title)}</a></span>
+            <a class="btn small" href="#/lesson/${l.id}">${escapeHtml(t('learn.reviewLesson'))}</a>
+          </div>`).join('')}` : ''}
+    </div>
+
+    <div class="card">
+      <h3>${escapeHtml(t('recommend.title'))}</h3>
+      <div id="rec-strip"></div>
     </div>
 
     <div class="card">
@@ -121,4 +149,6 @@ export function renderDashboard() {
         </tbody>
       </table>` : `<p class="muted">${escapeHtml(t('dashboard.noQuizzes'))}</p>`}
     </div>`;
+
+  renderRecommendations(document.getElementById('rec-strip'), 4);
 }

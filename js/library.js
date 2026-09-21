@@ -2,7 +2,7 @@
    tarjetas de servicio con nivel de aprendizaje y glosario con búsqueda. */
 
 import { getContent, getLesson } from './content-loader.js';
-import { escapeHtml } from './utils.js';
+import { escapeHtml, shuffle } from './utils.js';
 import { t } from './i18n.js';
 import { createAttempt } from './quiz-engine.js';
 import { navigate } from './router.js';
@@ -14,6 +14,8 @@ export function renderLibrary() {
     <h1>${escapeHtml(t('library.title'))}</h1>
     <div class="btn-row">
       <a class="btn toggled" href="#/library">${escapeHtml(t('library.tabLessons'))}</a>
+      <a class="btn" href="#/library/comparisons">${escapeHtml(t('comparison.tab'))}</a>
+      <a class="btn" href="#/library/flashcards">${escapeHtml(t('flashcards.tab'))}</a>
       <a class="btn" href="#/library/services">${escapeHtml(t('library.tabServices'))}</a>
       <a class="btn" href="#/library/glossary">${escapeHtml(t('library.tabGlossary'))}</a>
     </div>
@@ -27,7 +29,7 @@ export function renderLibrary() {
             <div class="mt">
               <b>${escapeHtml(tk.id)} · ${escapeHtml(tk.title)}</b>
               ${lessons.map((l) => `
-                <p style="margin:6px 0 0 0">📖 <a href="#/library/lesson/${l.id}">${escapeHtml(l.title)}</a>
+                <p style="margin:6px 0 0 0">📖 <a href="#/lesson/${l.id}">${escapeHtml(l.title)}</a>
                 <span class="muted small">· ${escapeHtml(t('lesson.readingTime', { n: l.estimatedMinutes }))} · ${escapeHtml(t('library.related', { n: l.knowledgeCheckQuestionIds?.length || 0 }))}</span></p>`).join('')}
             </div>`;
         }).join('')}
@@ -141,5 +143,111 @@ export function renderGlossary() {
       : `<p class="muted">${escapeHtml(t('glossary.noResults'))}</p>`;
   }
   input.addEventListener('input', draw);
+  draw();
+}
+
+/* ---------- Guías de comparación ---------- */
+
+export function renderComparisons() {
+  const c = getContent();
+  const outlet = document.getElementById('outlet');
+  outlet.innerHTML = `
+    <p><a href="#/library">${escapeHtml(t('lesson.back'))}</a></p>
+    <h1>${escapeHtml(t('comparison.title'))}</h1>
+    <p class="muted small">${escapeHtml(t('comparison.subtitle'))}</p>
+    <div class="grid grid-2">
+      ${c.comparisons.map((cmp) => `
+        <a class="card domain-card" href="#/comparison/${cmp.id}" style="margin-bottom:0">
+          <h3>⚖️ ${escapeHtml(cmp.title)}</h3>
+          <p class="small muted" style="margin:0">${escapeHtml(cmp.question)}</p>
+        </a>`).join('')}
+    </div>`;
+}
+
+export function renderComparison(comparisonId) {
+  const c = getContent();
+  const outlet = document.getElementById('outlet');
+  const cmp = c.comparisonsById.get(comparisonId);
+  if (!cmp) {
+    outlet.innerHTML = `<div class="card"><p>${escapeHtml(t('comparison.notFound'))}</p><a class="btn primary" href="#/library/comparisons">${escapeHtml(t('comparison.back'))}</a></div>`;
+    return;
+  }
+  outlet.innerHTML = `
+    <p><a href="#/library/comparisons">${escapeHtml(t('comparison.back'))}</a></p>
+    <div class="card lesson-body">
+      <h1>⚖️ ${escapeHtml(cmp.title)}</h1>
+      <p class="muted"><b>${escapeHtml(cmp.question)}</b></p>
+      <div class="grid grid-2">
+        ${cmp.options.map((o) => `
+          <div class="card" style="margin-bottom:0">
+            <h3>${escapeHtml(o.name)}</h3>
+            <p><b>${escapeHtml(t('comparison.whenToUse'))}</b> ${escapeHtml(o.useWhen)}</p>
+            <p class="small muted"><b>${escapeHtml(t('comparison.avoidWhen'))}</b> ${escapeHtml(o.avoidWhen)}</p>
+          </div>`).join('')}
+      </div>
+      <h3>${escapeHtml(t('comparison.keyDifferences'))}</h3>
+      <table class="table">
+        <thead><tr>${Object.keys(cmp.differences[0]).map((k) => `<th>${escapeHtml(k)}</th>`).join('')}</tr></thead>
+        <tbody>${cmp.differences.map((r) => `<tr>${Object.values(r).map((v) => `<td>${escapeHtml(v)}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table>
+      <div class="confusion mt"><b>${escapeHtml(t('comparison.examClue'))}:</b> ${escapeHtml(cmp.examClue)}</div>
+      ${(cmp.relatedLessons || []).length ? `
+        <h3>${escapeHtml(t('comparison.relatedLessons'))}</h3>
+        ${cmp.relatedLessons.map((lid) => {
+          const l = c.lessonsById.get(lid);
+          return l ? `<p style="margin:4px 0">📖 <a href="#/lesson/${l.id}">${escapeHtml(l.title)}</a></p>` : '';
+        }).join('')}` : ''}
+    </div>`;
+}
+
+/* ---------- Tarjetas de estudio (flashcards) ---------- */
+
+export function renderFlashcards() {
+  const c = getContent();
+  const outlet = document.getElementById('outlet');
+  const cards = shuffle(c.lessons.flatMap((l) => (l.keyTerms || []).map((kt) => ({ term: kt.term, definition: kt.definition }))));
+  let i = 0;
+
+  outlet.innerHTML = `
+    <p><a href="#/library">${escapeHtml(t('lesson.back'))}</a></p>
+    <h1>${escapeHtml(t('flashcards.title'))}</h1>
+    <p class="muted small">${escapeHtml(t('flashcards.subtitle'))}</p>
+    <div class="card score-hero" id="flashcard-zone"></div>`;
+
+  const zone = outlet.querySelector('#flashcard-zone');
+  function draw() {
+    if (i >= cards.length) {
+      zone.innerHTML = `
+        <p class="big" style="font-size:1.6rem">🎉</p>
+        <p><b>${escapeHtml(t('flashcards.done', { n: cards.length }))}</b></p>
+        <button type="button" class="btn primary" id="fc-restart">${escapeHtml(t('flashcards.restart'))}</button>`;
+      zone.querySelector('#fc-restart').addEventListener('click', () => renderFlashcards());
+      return;
+    }
+    const card = cards[i];
+    zone.innerHTML = `
+      <p class="small muted">${escapeHtml(t('flashcards.count', { i: i + 1, n: cards.length }))}</p>
+      <div class="flashcard" id="fc-card" tabindex="0" role="button" aria-label="${escapeHtml(t('flashcards.reveal'))}">
+        <div class="fc-term">${escapeHtml(card.term)}</div>
+        <div class="fc-def" hidden>${escapeHtml(card.definition)}</div>
+      </div>
+      <p class="small muted">${escapeHtml(t('flashcards.reveal'))}</p>
+      <div class="btn-row" style="justify-content:center">
+        <button type="button" class="btn" id="fc-again">${escapeHtml(t('flashcards.again'))}</button>
+        <button type="button" class="btn primary" id="fc-know" disabled>${escapeHtml(t('flashcards.know'))}</button>
+      </div>`;
+    const defEl = zone.querySelector('.fc-def');
+    const knowBtn = zone.querySelector('#fc-know');
+    const reveal = () => { defEl.hidden = false; knowBtn.disabled = false; };
+    zone.querySelector('#fc-card').addEventListener('click', reveal);
+    zone.querySelector('#fc-card').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); reveal(); }
+    });
+    knowBtn.addEventListener('click', () => { i += 1; draw(); });
+    zone.querySelector('#fc-again').addEventListener('click', () => {
+      cards.push(cards.splice(i, 1)[0]);
+      draw();
+    });
+  }
   draw();
 }

@@ -13,9 +13,13 @@ export function defaults() {
       reducedMotion: false,
       defaultQuizSize: 10,        // 10 | 20 | 30
       language: 'es',             // 'es' | 'en'
+      checkThreshold: 80,         // % para superar la comprobación de la lección
+      reviewDays: 14,             // días sin repasar -> lección "needs review"
+      domainThreshold: 70,        // % de precisión mínima por dominio
     },
     session: { currentAttemptId: null },
     questionStates: {},           // qid -> { seenCount, correctCount, incorrectCount, consecutiveCorrect, separateCorrectDates:[], mastery, lastResult, lastAttemptAt, bookmarked, difficult, note, hintUsedCount }
+    lessonStates: {},             // lessonId -> { startedAt, lastVisitAt, checkAttempts, lastCheckAt, lastCheckPct, checksPassed }
     attempts: {},                 // attemptId -> attempt
     stats: {
       totalTimeSeconds: 0,
@@ -53,6 +57,7 @@ function sanitize(state) {
     settings: { ...d.settings, ...(state.settings || {}) },
     session: { ...d.session, ...(state.session || {}) },
     questionStates: state.questionStates && typeof state.questionStates === 'object' ? state.questionStates : {},
+    lessonStates: state.lessonStates && typeof state.lessonStates === 'object' ? state.lessonStates : {},
     attempts: state.attempts && typeof state.attempts === 'object' ? state.attempts : {},
     stats: { ...d.stats, ...(state.stats || {}) },
   };

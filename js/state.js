@@ -129,6 +129,45 @@ export function setNote(qid, note) {
   });
 }
 
+/* ---------- Estado por lección (sistema de aprendizaje) ---------- */
+
+function emptyLessonState() {
+  return {
+    startedAt: null,
+    lastVisitAt: null,
+    checkAttempts: 0,
+    lastCheckAt: null,
+    lastCheckPct: null,
+    checksPassed: false,
+  };
+}
+
+export function getLessonState(lessonId) {
+  return state.lessonStates[lessonId] || null;
+}
+
+/* Marca la lección como iniciada/visitada. Abrir NO equivale a dominar. */
+export function touchLesson(lessonId) {
+  update((s) => {
+    const ls = s.lessonStates[lessonId] || emptyLessonState();
+    const now = new Date().toISOString();
+    if (!ls.startedAt) ls.startedAt = now;
+    ls.lastVisitAt = now;
+    s.lessonStates[lessonId] = ls;
+  });
+}
+
+export function recordLessonCheck(lessonId, { pct, passed }) {
+  update((s) => {
+    const ls = s.lessonStates[lessonId] || emptyLessonState();
+    ls.checkAttempts += 1;
+    ls.lastCheckAt = new Date().toISOString();
+    ls.lastCheckPct = pct;
+    if (passed) ls.checksPassed = true;
+    s.lessonStates[lessonId] = ls;
+  });
+}
+
 /* ---------- Intentos ---------- */
 export function saveAttempt(attempt) {
   update((s) => { s.attempts[attempt.id] = attempt; });

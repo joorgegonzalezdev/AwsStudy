@@ -1,6 +1,6 @@
 {
   "app": { "title": "Ruta CLF-C02 — Unofficial CLF-C02 exam prep", "badge": "Unofficial", "skip": "Skip to main content" },
-  "nav": { "home": "Home", "study": "Study", "quiz": "Quiz", "library": "Library", "progress": "Progress", "settings": "Settings" },
+  "nav": { "home": "Home", "learn": "Learn", "study": "Study", "quiz": "Quiz", "library": "Library", "progress": "Progress", "settings": "Settings" },
   "footer": {
     "disclaimer": "Ruta CLF-C02 is an unofficial study tool for the AWS Certified Cloud Practitioner exam. It is not affiliated with, sponsored by, or endorsed by Amazon Web Services. \"AWS\" and AWS service names are trademarks of Amazon.com, Inc. or its affiliates.",
     "local": "Your progress is stored only in this browser (localStorage) and is never sent to any server."
@@ -29,6 +29,7 @@
     "overall": "Overall progress: {pct}%", "masteredOf": "{mastered} mastered questions out of {total}",
     "weight": "Official weight:", "practicePct": "{pct}% accuracy in your practice", "noPractice": "No practice yet",
     "howTitle": "How do you want to study today?",
+    "actionLearn": "🎓 Learn",
     "actionStudy": "📖 Study Mode", "actionQuiz": "⚡ Quick Quiz", "actionExam": "⏱ Exam Simulation",
     "actionReview": "🔁 Review Mistakes", "actionBookmarks": "☆ Bookmarks", "actionLibrary": "📚 Library", "actionProgress": "📈 Progress",
     "lastSession": "Last session: {date}"
@@ -182,5 +183,70 @@
   "boot": {
     "loadFail": "Content could not be loaded",
     "loadFailHint": "If you opened the files directly from disk, serve the app with a local server, e.g.: npx http-server or python -m http.server."
+  },
+  "learn": {
+    "title": "Learn",
+    "intro": "Cycle: learn → check understanding → practice → review mistakes → repeat. Pick a domain and advance lesson by lesson.",
+    "allDomains": "All domains",
+    "path": "Learning path",
+    "status": {
+      "notStarted": "Not started", "inProgress": "In progress", "checkPending": "Check pending",
+      "needsReview": "Needs review", "completed": "Completed", "mastered": "Mastered"
+    },
+    "startLesson": "Start", "resumeLesson": "Continue", "reviewLesson": "Review", "retryCheck": "Retry check",
+    "objective": "Learning objective", "prerequisites": "Prerequisites",
+    "prereqPending": "Recommendation: complete \"{title}\" first.",
+    "examClues": "Exam clues and scenario keywords",
+    "knowledgeCheck": "Knowledge check",
+    "checkIntro": "Answer {n} questions about this lesson. You need {pct}% to pass.",
+    "startCheck": "Start knowledge check",
+    "checkPassed": "✔ Knowledge check passed!",
+    "checkFailed": "✘ Not above the {pct}% threshold yet",
+    "checkScore": "You got {n} of {total} ({pct}%)",
+    "checkReviewNote": "Review the explanations above before retrying.",
+    "markVisitedNote": "Reading the lesson does not equal mastering it: pass the check and answer correctly across separate days to master it.",
+    "nextLesson": "Next recommended lesson",
+    "backToPath": "← Back to the path",
+    "questionsOfLesson": "Questions from this lesson"
+  },
+  "recommend": {
+    "title": "Recommended for you",
+    "empty": "All caught up. Keep it up!",
+    "prereq": "Complete the prerequisite first: {title}",
+    "reviewLesson": "Review: {title}",
+    "topicErrors": "Repeated mistakes in \"{topic}\" — review the lesson",
+    "comparison": "Confusing {a} and {b}? See the comparison",
+    "mistakeReview": "Review your {n} mistakes",
+    "nextLesson": "Continue with the lesson: {title}",
+    "domainReview": "Low accuracy in D{d} ({pct}%) — review the domain",
+    "open": "Open"
+  },
+  "comparison": {
+    "tab": "Comparisons", "title": "Comparison guides",
+    "subtitle": "How to choose the right concept or service for a scenario.",
+    "whenToUse": "Use it when…", "avoidWhen": "Avoid it when…",
+    "keyDifferences": "Key differences", "examClue": "Exam clue", "relatedLessons": "Related lessons",
+    "back": "← Comparisons", "notFound": "Comparison not found."
+  },
+  "flashcards": {
+    "tab": "Flashcards", "title": "Flashcards",
+    "subtitle": "Key terms generated from the lessons. Flip the card and test your memory.",
+    "reveal": "Reveal definition", "know": "✔ I know it", "again": "↻ Review again",
+    "done": "Session completed! You reviewed {n} cards.", "restart": "Another round", "count": "{i} of {n}"
+  },
+  "dashboardLessons": {
+    "title": "Lessons",
+    "summary": "Completed: {completed} · Mastered: {mastered} · Needs review: {review} · In progress: {inProgress}",
+    "toReview": "Lessons needing review",
+    "continuePath": "Continue the learning path"
+  },
+  "settingsExtra": {
+    "learning": "Learning",
+    "checkThreshold": "Threshold to pass a lesson's knowledge check (%)",
+    "reviewDays": "Days without review before a lesson is marked \"needs review\"",
+    "domainThreshold": "Minimum per-domain accuracy for recommendations (%)"
+  },
+  "homeExtra": {
+    "continueLearning": "Continue learning"
   }
 }

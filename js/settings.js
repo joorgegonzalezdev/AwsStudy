@@ -38,6 +38,25 @@ export function renderSettings() {
           ${[10, 20, 30].map((n) => `<option value="${n}" ${s.defaultQuizSize === n ? 'selected' : ''}>${escapeHtml(t('settings.nQuestions', { n }))}</option>`).join('')}
         </select>
       </div>
+      <h2>${escapeHtml(t('settingsExtra.learning'))}</h2>
+      <div class="field">
+        <label for="set-threshold">${escapeHtml(t('settingsExtra.checkThreshold'))}</label>
+        <select id="set-threshold">
+          ${[70, 80, 90, 100].map((n) => `<option value="${n}" ${s.checkThreshold === n ? 'selected' : ''}>${n}%</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label for="set-reviewdays">${escapeHtml(t('settingsExtra.reviewDays'))}</label>
+        <select id="set-reviewdays">
+          ${[7, 14, 30].map((n) => `<option value="${n}" ${s.reviewDays === n ? 'selected' : ''}>${n}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label for="set-domainthreshold">${escapeHtml(t('settingsExtra.domainThreshold'))}</label>
+        <select id="set-domainthreshold">
+          ${[60, 70, 80].map((n) => `<option value="${n}" ${s.domainThreshold === n ? 'selected' : ''}>${n}%</option>`).join('')}
+        </select>
+      </div>
     </div>
 
     <div class="card">
@@ -78,6 +97,15 @@ export function renderSettings() {
   });
   outlet.querySelector('#set-quizsize').addEventListener('change', (e) => {
     state.updateSettings({ defaultQuizSize: Number(e.target.value) });
+  });
+  outlet.querySelector('#set-threshold').addEventListener('change', (e) => {
+    state.updateSettings({ checkThreshold: Number(e.target.value) });
+  });
+  outlet.querySelector('#set-reviewdays').addEventListener('change', (e) => {
+    state.updateSettings({ reviewDays: Number(e.target.value) });
+  });
+  outlet.querySelector('#set-domainthreshold').addEventListener('change', (e) => {
+    state.updateSettings({ domainThreshold: Number(e.target.value) });
   });
 
   outlet.querySelector('#export-btn').addEventListener('click', () => {

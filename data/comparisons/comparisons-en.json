@@ -1,0 +1,271 @@
+{
+  "language": "en",
+  "comparisons": [
+    {
+      "id": "cmp-scalability-elasticity",
+      "title": "Scalability vs elasticity",
+      "question": "Does the workload need to support more load, or adjust capacity automatically with demand?",
+      "options": [
+        { "id": "o1", "name": "Scalability", "useWhen": "Handling more load by adding resources (more or bigger ones).", "avoidWhen": "The scenario asks for automatic adjustment to variable demand." },
+        { "id": "o2", "name": "Elasticity", "useWhen": "Capacity must grow and shrink automatically with real demand.", "avoidWhen": "The scenario only mentions supporting growth, no automatic adjustment." }
+      ],
+      "differences": [
+        { "aspect": "Automatic adjustment", "a": "Not required", "b": "Yes, both directions" },
+        { "aspect": "Direction", "a": "Grow", "b": "Grow and shrink" },
+        { "aspect": "Main benefit", "a": "Handle growth", "b": "Pay only for what is used" }
+      ],
+      "examClue": "\"Automatically according to demand\" = elasticity; just \"more users/load\" = scalability.",
+      "services": [], "relatedLessons": ["L-1.1"], "relatedTasks": ["1.1"]
+    },
+    {
+      "id": "cmp-ha-fault-tolerance",
+      "title": "High availability vs fault tolerance",
+      "question": "Must the system stay operational through partial failures, or keep working correctly despite active failures?",
+      "options": [
+        { "id": "o1", "name": "High availability", "useWhen": "Minimizing downtime (e.g., multiple AZs).", "avoidWhen": "Zero functional impact is required even during the failure." },
+        { "id": "o2", "name": "Fault tolerance", "useWhen": "The system must keep working correctly with components down.", "avoidWhen": "Reduced downtime is sufficient." }
+      ],
+      "differences": [
+        { "aspect": "Goal", "a": "Minimize downtime", "b": "Zero functional impact" },
+        { "aspect": "Typical example", "a": "Multi-AZ with failover", "b": "Active-active redundancy" },
+        { "aspect": "Cost", "a": "Medium", "b": "High" }
+      ],
+      "examClue": "\"Keeps working even if X fails\" = fault tolerance; \"recovers quickly\" = high availability.",
+      "services": [], "relatedLessons": ["L-1.1"], "relatedTasks": ["1.1"]
+    },
+    {
+      "id": "cmp-region-az-edge",
+      "title": "Region vs Availability Zone vs edge location",
+      "question": "Which infrastructure level answers the requirement?",
+      "options": [
+        { "id": "o1", "name": "Region", "useWhen": "Choosing where resources live (geography, data residency).", "avoidWhen": "The issue is a single data center failure or static content latency." },
+        { "id": "o2", "name": "Availability Zone", "useWhen": "Isolating the application from a data center failure (high availability).", "avoidWhen": "The requirement is surviving a full Region failure." },
+        { "id": "o3", "name": "Edge location", "useWhen": "Caching content close to end users (CloudFront).", "avoidWhen": "You need to run applications: edges do not host workloads." }
+      ],
+      "differences": [
+        { "aspect": "Hierarchy", "a": "Region contains several AZs", "b": "Edges: global cache points" },
+        { "aspect": "Protects against", "a": "AZ failure (multi-AZ)", "b": "Edges are cache, not protection" },
+        { "aspect": "Typical use", "a": "Deploying resources", "b": "CDN / static content" }
+      ],
+      "examClue": "\"Cache near the user\" = edge; \"survive a data center failure\" = multi-AZ; \"data in one country\" = Region.",
+      "services": ["amazon-cloudfront"], "relatedLessons": ["L-3.2"], "relatedTasks": ["3.2"]
+    },
+    {
+      "id": "cmp-ec2-lambda-containers",
+      "title": "EC2 vs Lambda vs containers (ECS/EKS + Fargate)",
+      "question": "Virtual machine, event-driven functions, or containers for your workload?",
+      "options": [
+        { "id": "o1", "name": "Amazon EC2 (VM)", "useWhen": "Full OS control, continuous and customized workloads.", "avoidWhen": "Brief event-driven tasks, or the team does not want to operate servers." },
+        { "id": "o2", "name": "AWS Lambda (serverless)", "useWhen": "Brief, intermittent functions triggered by events, with zero administration.", "avoidWhen": "Very long processes or high continuous usage." },
+        { "id": "o3", "name": "Containers (ECS/EKS/Fargate)", "useWhen": "Package the app with its dependencies and orchestrate multiple instances; Fargate avoids server management.", "avoidWhen": "A simple event function (Lambda is simpler) or full OS control (EC2)." }
+      ],
+      "differences": [
+        { "aspect": "Administration", "a": "EC2: high · Containers: medium · Fargate/Lambda: minimal", "b": "" },
+        { "aspect": "Billing", "a": "EC2: by time running", "b": "Lambda: per execution" },
+        { "aspect": "Orchestrator", "a": "ECS (AWS's own) vs EKS (Kubernetes)", "b": "Fargate = execution engine" }
+      ],
+      "examClue": "\"No servers\" + brief events = Lambda; \"Kubernetes\" = EKS; OS control = EC2.",
+      "services": ["amazon-ec2", "aws-lambda", "amazon-ecs", "amazon-eks", "aws-fargate"], "relatedLessons": ["L-3.3"], "relatedTasks": ["3.3"]
+    },
+    {
+      "id": "cmp-ecs-eks",
+      "title": "Amazon ECS vs Amazon EKS",
+      "question": "AWS's own orchestration or managed Kubernetes?",
+      "options": [
+        { "id": "o1", "name": "Amazon ECS", "useWhen": "You want simple container orchestration deeply integrated with AWS.", "avoidWhen": "The team already uses Kubernetes tools and manifests." },
+        { "id": "o2", "name": "Amazon EKS", "useWhen": "Migrating existing Kubernetes workloads or needing standard portability.", "avoidWhen": "There is no prior Kubernetes experience or requirement." }
+      ],
+      "differences": [
+        { "aspect": "API and tools", "a": "AWS-specific", "b": "Kubernetes standard" },
+        { "aspect": "Learning curve", "a": "Lower if you are already on AWS", "b": "Higher if you don't know K8s" },
+        { "aspect": "Exam keyword", "a": "—", "b": "Kubernetes → EKS" }
+      ],
+      "examClue": "When the question mentions Kubernetes, the answer is almost always EKS.",
+      "services": ["amazon-ecs", "amazon-eks"], "relatedLessons": ["L-3.3"], "relatedTasks": ["3.3"]
+    },
+    {
+      "id": "cmp-s3-ebs-efs",
+      "title": "S3 vs EBS vs EFS",
+      "question": "Objects with URLs, one instance's disk, or a shared file system?",
+      "options": [
+        { "id": "o1", "name": "Amazon S3 (object)", "useWhen": "Static files, backups, data lakes, access by URL/API.", "avoidWhen": "You need to mount a disk or a POSIX file system." },
+        { "id": "o2", "name": "Amazon EBS (block)", "useWhen": "Persistent disk for ONE instance (OS, databases, boot).", "avoidWhen": "Several instances must share the same files at once." },
+        { "id": "o3", "name": "Amazon EFS (file)", "useWhen": "Shared file system across MANY Linux instances (POSIX, elastic).", "avoidWhen": "One disk per instance (EBS) or object storage (S3)." }
+      ],
+      "differences": [
+        { "aspect": "Type", "a": "Objects", "b": "Blocks / Files" },
+        { "aspect": "Shared", "a": "S3: yes (via API)", "b": "EBS: no · EFS: yes (mounted)" },
+        { "aspect": "Persists when stopped", "a": "S3: n/a · EBS: yes", "b": "Instance store: no" }
+      ],
+      "examClue": "\"Many instances share folders\" = EFS; \"one instance's disk\" = EBS; \"files with URLs\" = S3.",
+      "services": ["amazon-s3", "amazon-ebs", "amazon-efs"], "relatedLessons": ["L-3.4"], "relatedTasks": ["3.6"]
+    },
+    {
+      "id": "cmp-rds-dynamodb",
+      "title": "RDS/Aurora vs DynamoDB",
+      "question": "Relational SQL or key-value NoSQL at scale?",
+      "options": [
+        { "id": "o1", "name": "Amazon RDS / Aurora", "useWhen": "Relational schema, joins, SQL transactions, MySQL/PostgreSQL compatibility.", "avoidWhen": "Flexible schema with massive traffic and millisecond latency at any scale." },
+        { "id": "o2", "name": "Amazon DynamoDB", "useWhen": "NoSQL key-value, flexible schema, massive scale without servers.", "avoidWhen": "You need joins and traditional SQL queries." }
+      ],
+      "differences": [
+        { "aspect": "Schema", "a": "Rigid (relational)", "b": "Flexible (key-value)" },
+        { "aspect": "Queries", "a": "SQL with joins", "b": "Access by key/index" },
+        { "aspect": "Scale", "a": "Vertical + replicas", "b": "Massive horizontal" }
+      ],
+      "examClue": "\"Profiles, sessions, flexible catalog, millions of requests\" = DynamoDB; \"SQL/relational queries\" = RDS.",
+      "services": ["amazon-rds", "amazon-dynamodb"], "relatedLessons": ["L-3.3"], "relatedTasks": ["3.4"]
+    },
+    {
+      "id": "cmp-sg-nacl",
+      "title": "Security groups vs network ACLs",
+      "question": "Stateful filter at the instance level or stateless at the subnet level?",
+      "options": [
+        { "id": "o1", "name": "Security group", "useWhen": "Controlling traffic at the instance level; default and stateful (responses flow automatically).", "avoidWhen": "You need explicit inbound and outbound rules at the subnet level." },
+        { "id": "o2", "name": "Network ACL", "useWhen": "Subnet-level filter, stateless, with numbered rules evaluated in order.", "avoidWhen": "The default per-instance firewall is enough." }
+      ],
+      "differences": [
+        { "aspect": "Level", "a": "Instance", "b": "Subnet" },
+        { "aspect": "State", "a": "Stateful", "b": "Stateless" },
+        { "aspect": "Rules", "a": "Allow only (implicit deny)", "b": "Allow and deny, numbered" }
+      ],
+      "examClue": "\"Subnet level\" or \"stateless\" = NACL; \"instance level\" or \"stateful\" = security group.",
+      "services": ["amazon-vpc"], "relatedLessons": ["L-3.4"], "relatedTasks": ["3.5"]
+    },
+    {
+      "id": "cmp-cloudwatch-cloudtrail-config",
+      "title": "CloudWatch vs CloudTrail vs Config",
+      "question": "Performance metrics, API auditing, or configuration history?",
+      "options": [
+        { "id": "o1", "name": "Amazon CloudWatch", "useWhen": "Monitoring performance and health: metrics, application logs, alarms.", "avoidWhen": "The question is \"who did what and when?\" or \"how was it configured?\"." },
+        { "id": "o2", "name": "AWS CloudTrail", "useWhen": "Auditing actions and API calls: who, what, when, from where.", "avoidWhen": "You need live system performance metrics." },
+        { "id": "o3", "name": "AWS Config", "useWhen": "Tracking resource configurations and their history, evaluating compliance rules.", "avoidWhen": "You need live metrics or user action logs." }
+      ],
+      "differences": [
+        { "aspect": "Question it answers", "a": "How is it performing?", "b": "Who did what? / How is it configured and did it change?" },
+        { "aspect": "Data type", "a": "Metrics and logs", "b": "API records / configuration snapshots" }
+      ],
+      "examClue": "Performance = CloudWatch; \"who created/deleted\" = CloudTrail; \"configuration changed\" = Config.",
+      "services": ["amazon-cloudwatch", "aws-cloudtrail", "aws-config"], "relatedLessons": ["L-2.2"], "relatedTasks": ["2.2"]
+    },
+    {
+      "id": "cmp-sns-sqs-eventbridge",
+      "title": "SNS vs SQS vs EventBridge",
+      "question": "Notify many, queue work, or route events with rules?",
+      "options": [
+        { "id": "o1", "name": "Amazon SNS", "useWhen": "Publish one message to MANY subscribers at once (push): email, SMS, Lambda.", "avoidWhen": "One consumer must process messages one by one from a queue." },
+        { "id": "o2", "name": "Amazon SQS", "useWhen": "Queue: producers enqueue and consumers pull (polling); decouple and absorb spikes.", "avoidWhen": "Simultaneous push delivery to several subscribers is required." },
+        { "id": "o3", "name": "Amazon EventBridge", "useWhen": "Event bus with rule-based routing and advanced filtering across services.", "avoidWhen": "Only a simple queue or a direct notification is needed." }
+      ],
+      "differences": [
+        { "aspect": "Model", "a": "Pub/sub push", "b": "Pull queue / events with rules" },
+        { "aspect": "Consumers", "a": "All subscribers", "b": "One per message (SQS) / per rules (EventBridge)" },
+        { "aspect": "Filtering", "a": "Basic per topic", "b": "SQS: none · EventBridge: advanced patterns" }
+      ],
+      "examClue": "\"Notify many\" = SNS; \"polled queue\" = SQS; \"route events by rules\" = EventBridge.",
+      "services": ["amazon-sns", "amazon-sqs", "amazon-eventbridge"], "relatedLessons": ["L-3.5"], "relatedTasks": ["3.8"]
+    },
+    {
+      "id": "cmp-shield-waf",
+      "title": "AWS Shield vs AWS WAF",
+      "question": "Volumetric network attack (DDoS) or web application exploits (HTTP)?",
+      "options": [
+        { "id": "o1", "name": "AWS Shield", "useWhen": "Protecting against DDoS: network/resource saturation. Standard included free.", "avoidWhen": "The attack is at the application layer: SQLi, XSS, malicious HTTP requests." },
+        { "id": "o2", "name": "AWS WAF", "useWhen": "Filtering HTTP requests with rules (SQL injection, XSS, geo-blocking).", "avoidWhen": "The problem is a volumetric network flood." }
+      ],
+      "differences": [
+        { "aspect": "Layer", "a": "Network/transport", "b": "Application (HTTP, layer 7)" },
+        { "aspect": "Threat", "a": "DDoS", "b": "Web exploits" },
+        { "aspect": "They work together", "a": "Yes: Shield mitigates the flood, WAF filters requests", "b": "" }
+      ],
+      "examClue": "DDoS → Shield; SQLi/XSS → WAF. They often appear together as distractors.",
+      "services": ["aws-shield", "aws-waf"], "relatedLessons": ["L-2.2"], "relatedTasks": ["2.2", "2.4"]
+    },
+    {
+      "id": "cmp-guardduty-inspector-macie",
+      "title": "GuardDuty vs Inspector vs Macie",
+      "question": "Active threats, software vulnerabilities, or sensitive data in S3?",
+      "options": [
+        { "id": "o1", "name": "Amazon GuardDuty", "useWhen": "Detecting anomalous behavior and active threats (suspicious access, unusual API usage).", "avoidWhen": "You are looking for software vulnerabilities or sensitive data." },
+        { "id": "o2", "name": "Amazon Inspector", "useWhen": "Scanning for unpatched software vulnerabilities and network exposures.", "avoidWhen": "The concern is ongoing threats or sensitive data." },
+        { "id": "o3", "name": "Amazon Macie", "useWhen": "Discovering and alerting on personal/sensitive data stored in S3.", "avoidWhen": "You need intrusion detection or vulnerability scanning." }
+      ],
+      "differences": [
+        { "aspect": "Verb", "a": "Detect threats", "b": "Assess vulnerabilities / discover sensitive data" },
+        { "aspect": "Analyzed object", "a": "Account events and network", "b": "Instance software / S3 objects" }
+      ],
+      "examClue": "Active threat = GuardDuty; vulnerability = Inspector; personal data in S3 = Macie.",
+      "services": ["aws-guardduty", "amazon-inspector", "amazon-macie"], "relatedLessons": ["L-2.2"], "relatedTasks": ["2.2", "2.4"]
+    },
+    {
+      "id": "cmp-budgets-explorer-calculator",
+      "title": "Budgets vs Cost Explorer vs Pricing Calculator",
+      "question": "Alert, analyze real spend, or estimate before deploying?",
+      "options": [
+        { "id": "o1", "name": "AWS Budgets", "useWhen": "Defining budgets and receiving alerts when a threshold is exceeded (or forecasted to be).", "avoidWhen": "You want to analyze trends of already incurred spend." },
+        { "id": "o2", "name": "AWS Cost Explorer", "useWhen": "Visualizing, grouping, and forecasting real spend (past and present).", "avoidWhen": "The architecture does not exist yet and a quote is needed." },
+        { "id": "o3", "name": "AWS Pricing Calculator", "useWhen": "Estimating the cost of an architecture BEFORE implementing it.", "avoidWhen": "You need budget alerts or real spend analysis." }
+      ],
+      "differences": [
+        { "aspect": "When", "a": "Before deploying", "b": "During/after spending" },
+        { "aspect": "Function", "a": "Estimate", "b": "Alert / analyze and forecast" },
+        { "aspect": "Data", "a": "Hypothetical model", "b": "Real billing" }
+      ],
+      "examClue": "\"Before implementing\" = Pricing Calculator; \"threshold alert\" = Budgets; \"where the money goes\" = Cost Explorer.",
+      "services": ["aws-budgets", "aws-cost-explorer", "aws-pricing-calculator"], "relatedLessons": ["L-4.2"], "relatedTasks": ["4.2"]
+    },
+    {
+      "id": "cmp-pricing-models",
+      "title": "On-Demand vs Reserved/Savings Plans vs Spot vs Dedicated Hosts",
+      "question": "Which purchasing option, based on stability and interruptibility of the workload?",
+      "options": [
+        { "id": "o1", "name": "On-Demand", "useWhen": "New, variable, or short-term workloads with no commitment.", "avoidWhen": "Stable, predictable long-term usage (you pay more)." },
+        { "id": "o2", "name": "Reserved / Savings Plans", "useWhen": "Constant, predictable usage with a 1-3 year commitment.", "avoidWhen": "The workload is intermittent or interruptible." },
+        { "id": "o3", "name": "Spot", "useWhen": "Flexible, interruptible jobs (batch, testing) with the largest discount.", "avoidWhen": "Critical workloads that cannot tolerate interruptions." },
+        { "id": "o4", "name": "Dedicated Hosts", "useWhen": "Per-socket/core licensing requirements or physical compliance.", "avoidWhen": "You only seek savings or logical isolation control." }
+      ],
+      "differences": [
+        { "aspect": "Commitment", "a": "None (On-Demand/Spot)", "b": "1-3 years (Reserved/Savings)" },
+        { "aspect": "Interruptible", "a": "Spot: yes (2-min notice)", "b": "Others: no" },
+        { "aspect": "Physical isolation", "a": "Hosts: whole dedicated server", "b": "Others: not dedicated" }
+      ],
+      "examClue": "Interruptible + max savings = Spot; stable 24/7 = Reserved/Savings; physical licensing = Dedicated Host.",
+      "services": ["amazon-ec2"], "relatedLessons": ["L-4.1"], "relatedTasks": ["4.1"]
+    },
+    {
+      "id": "cmp-rehost-replatform-refactor",
+      "title": "Rehost vs Replatform vs Refactor",
+      "question": "How much does the application change during migration?",
+      "options": [
+        { "id": "o1", "name": "Rehost (lift and shift)", "useWhen": "Migrate fast with no changes: replicate servers as they are.", "avoidWhen": "There is time or a mandate to modernize the platform." },
+        { "id": "o2", "name": "Replatform (lift, tinker and shift)", "useWhen": "Small, low-risk changes: e.g., moving the DB to Aurora with DMS.", "avoidWhen": "Zero changes are required or a full redesign is sought." },
+        { "id": "o3", "name": "Refactor / Re-architect", "useWhen": "Redesigning to maximize cloud benefits (microservices, serverless).", "avoidWhen": "Priority is migration speed and low risk." }
+      ],
+      "differences": [
+        { "aspect": "Change", "a": "None / small", "b": "Deep redesign" },
+        { "aspect": "Speed", "a": "Fast", "b": "Slow" },
+        { "aspect": "Long-term benefit", "a": "Lower", "b": "Higher" }
+      ],
+      "examClue": "\"No changes\" = Rehost; \"the DB engine changes\" = Replatform; \"microservices/redesign\" = Refactor.",
+      "services": [], "relatedLessons": ["L-1.3"], "relatedTasks": ["1.3"]
+    },
+    {
+      "id": "cmp-support-plans",
+      "title": "AWS Support plans",
+      "question": "Which plan for the criticality and size of the environment?",
+      "options": [
+        { "id": "o1", "name": "Basic support", "useWhen": "Documentation, whitepapers, forums, and re:Post. Included free.", "avoidWhen": "You need technical support from AWS people." },
+        { "id": "o2", "name": "Developer Support", "useWhen": "Test/development environments: email help during business hours.", "avoidWhen": "Production workloads requiring 24/7 support." },
+        { "id": "o3", "name": "Business Support", "useWhen": "Production: 24/7 phone/chat support with fast response times.", "avoidWhen": "Massive critical workloads that need a TAM." },
+        { "id": "o4", "name": "Enterprise / On-Ramp", "useWhen": "Large critical workloads: TAM, minute-level responses, concierge.", "avoidWhen": "Small budgets or non-critical workloads." }
+      ],
+      "differences": [
+        { "aspect": "Availability", "a": "Basic: documentation · Developer: business hours", "b": "Business/Enterprise: 24/7" },
+        { "aspect": "Production", "a": "Business is the minimum", "b": "" },
+        { "aspect": "TAM", "a": "Enterprise/On-Ramp only", "b": "" }
+      ],
+      "examClue": "\"Minimum 24/7 for production\" = Business; \"TAM/minute responses\" = Enterprise.",
+      "services": ["aws-support"], "relatedLessons": ["L-4.3"], "relatedTasks": ["4.3"]
+    }
+  ]
+}

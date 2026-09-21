@@ -2,6 +2,9 @@
   {
     "id": "L-1.1", "version": 1, "status": "verified", "language": "en", "domainId": 1, "taskStatements": ["1.1"],
     "title": "Benefits of the AWS Cloud",
+    "learningObjective": "Distinguish scalability, elasticity, high availability, fault tolerance, and agility in exam scenarios.",
+    "prerequisites": [],
+    "examClues": ["automatic adjustment to demand", "without buying hardware", "keeps operating if it fails", "deploy in minutes"],
     "summary": "The cloud offers global reach, high availability, elasticity, and agility: you provision resources in minutes and pay per use, without buying hardware.",
     "explanation": "Imagine that instead of buying a building for your business, you rent a space in any city in the world and pay only for the days you occupy it. That is what the cloud does with technology infrastructure.\n\nAWS has Regions (sets of data centers) on several continents. From the console, you can create a server in minutes in any Region, without buying or installing anything physical: that is agility and global reach.\n\nTwo concepts are often confused. Scalability is being able to handle more load by adding resources. Elasticity goes further: adjusting them automatically in both directions — growing when demand rises and shrinking when it falls. High availability means the system keeps operating even if part of it fails (for example, running the application across multiple Availability Zones). Fault tolerance goes beyond that: the system keeps working correctly despite failures. And disaster recovery (DR) is the strategy for recovering from a severe failure, sometimes by replicating to another Region.",
     "examRelevance": "Task 1.1 explicitly asks you to distinguish scalability, elasticity, high availability, resiliency, agility, and fault tolerance. Questions are usually scenarios where you pick the right term.",
@@ -37,6 +40,9 @@
   {
     "id": "L-1.2", "version": 1, "status": "verified", "language": "en", "domainId": 1, "taskStatements": ["1.2"],
     "title": "AWS Well-Architected Framework: the six pillars",
+    "learningObjective": "Recognize the six Well-Architected pillars and match each scenario to its pillar.",
+    "prerequisites": ["L-1.1"],
+    "examClues": ["pay only for what you use", "environmental impact", "automate changes", "recover from failures"],
     "summary": "AWS's framework defines six pillars for designing quality workloads: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability.",
     "explanation": "The AWS Well-Architected Framework is like a \"best practices\" checklist for designing systems in the cloud. It has six pillars and the exam expects you to identify which one matches each scenario.\n\nOperational Excellence: running and operating systems well — automating changes, documenting, learning from failures. Security: protecting data, systems, and identities. Reliability: recovering from failures and meeting availability requirements. Performance Efficiency: using the optimal computing resources for each need. Cost Optimization: eliminating waste and paying only for what is necessary. Sustainability: minimizing environmental impact (fewer idle resources, Regions with clean energy).\n\nStudy trick: when the scenario talks about money/waste → Cost Optimization; about failures and recovery → Reliability; about processes and operation automation → Operational Excellence; about the environment → Sustainability.",
     "examRelevance": "Task 1.2 requires recognizing the six pillars, their differences, and the scenarios associated with each. It is a very direct topic: learn the list and its \"keyword\".",
@@ -73,6 +79,9 @@
   {
     "id": "L-1.3", "version": 1, "status": "verified", "language": "en", "domainId": 1, "taskStatements": ["1.3"],
     "title": "Migrating to the cloud: AWS CAF and the 7 strategies",
+    "learningObjective": "Identify a scenario's migration strategy (7 Rs) and associate responsibilities with the AWS CAF perspectives.",
+    "prerequisites": ["L-1.1"],
+    "examClues": ["no changes", "lift and shift", "switch to SaaS", "small platform change", "CAF perspective"],
     "summary": "The AWS CAF guides adoption with 6 perspectives (Business, People, Governance, Platform, Security, Operations). The 7 migration strategies (7 Rs) define how to move each workload: Rehost, Replatform, Refactor, Repurchase, Relocate, Retain, Retire.",
     "explanation": "The AWS Cloud Adoption Framework (CAF) organizes the cloud transition into six perspectives. The three business-oriented ones: Business (justifies the investment and outcomes), People (culture, leadership, training), and Governance (processes, risk, budget). The three technology-oriented ones: Platform (architecture and solutions), Security (protecting the workload), and Operations (how to run things day to day).\n\nFor moving applications, AWS describes seven strategies (the \"7 Rs\"): Rehost — move as is (\"lift and shift\", fastest). Replatform — small useful changes, such as switching the database to Amazon Aurora. Refactor/Re-architect — redesign (microservices, serverless); the most expensive but most beneficial long term. Repurchase — drop the license and buy a SaaS (e.g., a CRM as a service). Relocate — move hypervisors/hardware as is (e.g., VMware Cloud on AWS). Retain — keep it where it is for now. Retire — decommission what is no longer used.\n\nTricks: \"no changes\" = Rehost; \"switch product to SaaS\" = Repurchase; \"change the DB engine\" = Replatform; \"stop using\" = Retire.",
     "examRelevance": "Task 1.3 asks you to identify the migration strategy of a scenario and associate responsibilities with the CAF perspectives. It often appears as one-sentence scenarios.",
@@ -111,6 +120,9 @@
   {
     "id": "L-1.4", "version": 1, "status": "verified", "language": "en", "domainId": 1, "taskStatements": ["1.4"],
     "title": "Cloud economics",
+    "learningObjective": "Apply CapEx/OpEx, economies of scale, rightsizing, and BYOL concepts to cost decisions.",
+    "prerequisites": ["L-1.1", "L-1.2"],
+    "examClues": ["pay per use", "capital expenditure", "wholesale buying", "underutilized instances", "reuse licenses"],
     "summary": "The cloud turns hardware investment (CapEx, fixed cost) into pay-per-use (OpEx, variable cost). Economies of scale, rightsizing, and managed services reduce total cost even further.",
     "explanation": "Buying servers is capital expenditure (CapEx): a large upfront investment in depreciating assets. Paying for consumption on AWS is operating expenditure (OpEx): a variable cost that follows real demand. Migrating to the cloud converts CapEx into OpEx — and also eliminates hidden data center costs: power, cooling, space, physical staff.\n\nEconomies of scale is the \"giant buyer\" advantage: AWS aggregates the demand of millions of customers, buys hardware and power at prices impossible for a single company, and shares that efficiency.\n\nRightsizing is adjusting each resource to its real demand: an instance at 15% CPU is paying for air. And managed services (RDS, Lambda) reduce total cost because they remove operational work: you don't patch, you don't manage servers; and serverless models bill only for real execution, with no idle capacity.\n\nIn licensing, BYOL (Bring Your Own License) lets you reuse licenses already purchased; license-included charges the software inside the hourly price.",
     "examRelevance": "Task 1.4 asks you to compare fixed vs variable cost, recognize CapEx/OpEx, economies of scale, rightsizing, automation, and BYOL. Typical questions: scenarios of \"company replaces hardware purchases with pay-per-use\".",
