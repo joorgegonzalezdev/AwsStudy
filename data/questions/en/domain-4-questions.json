@@ -1,0 +1,214 @@
+[
+  {
+    "id": "D4-T4.1-001", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.1",
+    "topic": "Compute purchasing options", "subtopic": "Spot Instances", "services": ["amazon-ec2"], "concepts": ["spot"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A team needs to process a large batch of images overnight. The job can be stopped and resumed without problems, and the goal is the lowest possible cost. Which EC2 purchasing option fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Spot Instances, with the biggest discount, suitable for interruptible workloads." },
+      { "id": "o2", "text": "On-Demand Instances, to guarantee absolute continuity." },
+      { "id": "o3", "text": "Dedicated Hosts, to comply with per-core licensing." },
+      { "id": "o4", "text": "On-Demand Capacity Reservations, to secure capacity in an AZ." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Spot Instances offer the largest discount (up to ~90% versus On-Demand) because AWS can reclaim them with a two-minute notice. They are ideal for flexible, interruptible batch jobs like this overnight processing.",
+    "optionExplanations": {
+      "o1": "Correct: interruptible job + minimum cost = Spot.",
+      "o2": "Incorrect: On-Demand pays full price for a workload that does not require guaranteed continuity.",
+      "o3": "Incorrect: Dedicated Hosts serve license control and compliance, not batch savings.",
+      "o4": "Incorrect: capacity reservations secure capacity availability, which is not the goal here."
+    },
+    "hint": "If the job can be interrupted, there is a purchasing option designed exactly for that.",
+    "lessonId": "L-4.1", "officialSources": [{ "title": "Amazon EC2 pricing options (Spot)", "url": "https://aws.amazon.com/ec2/pricing/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.1-002", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.1",
+    "topic": "Compute purchasing options", "subtopic": "Reserved Instances", "services": ["amazon-ec2"], "concepts": ["reserved-instances", "savings-plans"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company runs a database and a web server 24 hours a day, 7 days a week, with a stable, predictable load, and is willing to commit for 1 or 3 years. Which option reduces the cost most?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Spot Instances, because they are always the cheapest." },
+      { "id": "o2", "text": "Reserved Instances (or Savings Plans) for the constant 1- or 3-year usage commitment." },
+      { "id": "o3", "text": "On-Demand, because the traffic is stable." },
+      { "id": "o4", "text": "Buying physical servers and hosting them in the office." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "For stable, long-running workloads, Reserved Instances or Savings Plans provide significant discounts in exchange for a 1- or 3-year commitment. It is the classic choice for predictable 24/7 load.",
+    "optionExplanations": {
+      "o1": "Incorrect: Spot is for interruptible workloads; a production database must not be interrupted.",
+      "o2": "Correct: constant usage + term commitment = Reserved/Savings Plans.",
+      "o3": "Incorrect: On-Demand offers no commitment discount; it costs more long-term for constant load.",
+      "o4": "Incorrect: buying servers contradicts the scenario (they are on AWS) and reintroduces CapEx."
+    },
+    "hint": "Constant usage + term commitment = reservation discount.",
+    "lessonId": "L-4.1", "officialSources": [{ "title": "Amazon EC2 pricing options (Reserved)", "url": "https://aws.amazon.com/ec2/pricing/reserved-instances/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.1-003", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.1",
+    "topic": "Data transfer pricing", "subtopic": "Inbound vs outbound", "services": [], "concepts": ["data-transfer"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "Which of the following statements about AWS data transfer pricing is correct?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Inbound data transfer (into AWS) is typically free; outbound transfer to the internet has a cost." },
+      { "id": "o2", "text": "All data transfer, inbound and outbound, costs the same." },
+      { "id": "o3", "text": "Outbound data transfer to the internet is always free." },
+      { "id": "o4", "text": "AWS never charges for data transfer." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "As a general pricing concept, inbound transfer (into AWS) is typically free, while outbound transfer to the internet and transfer between Regions can incur charges. (Exact amounts change; check the official pricing page.)",
+    "optionExplanations": {
+      "o1": "Correct: inbound ≈ free, outbound = charged is the conceptual pattern the exam tests.",
+      "o2": "Incorrect: they do not cost the same; the asymmetric model is precisely what you must know.",
+      "o3": "Incorrect: data out to the internet is the main transfer charge.",
+      "o4": "Incorrect: there are transfer charges in several scenarios."
+    },
+    "hint": "Uploading to AWS vs downloading from AWS: which one usually costs?",
+    "lessonId": "L-4.1", "officialSources": [{ "title": "AWS pricing (data transfer)", "url": "https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.1-004", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.1",
+    "topic": "Compute purchasing options", "subtopic": "Spot vs dedicated", "services": ["amazon-ec2"], "concepts": ["spot"],
+    "difficulty": "basic", "type": "truefalse", "scenarioBased": false,
+    "question": "Agree or disagree: \"Spot Instances are the right option for a critical production database that cannot tolerate interruptions.\"",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "verdadero", "text": "True" },
+      { "id": "falso", "text": "False" }
+    ],
+    "correctAnswerIds": ["falso"],
+    "explanation": "False. Spot Instances can be reclaimed by AWS with a two-minute notice, so they only suit flexible, interruptible workloads. A critical production database requires stable capacity (On-Demand, Reserved, or Savings Plans).",
+    "optionExplanations": {
+      "verdadero": "Incorrect: Spot's interruption risk rules it out for critical workloads.",
+      "falso": "Correct: Spot = interruptible; critical production = guaranteed capacity."
+    },
+    "hint": "What does it mean that AWS can \"reclaim\" the instance?",
+    "lessonId": "L-4.1", "officialSources": [{ "title": "Amazon EC2 pricing options", "url": "https://aws.amazon.com/ec2/pricing/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 45, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.2-001", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.2",
+    "topic": "Cost tools", "subtopic": "AWS Budgets", "services": ["aws-budgets", "aws-cost-explorer"], "concepts": ["budgets"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A manager wants to receive an email alert when their team's monthly spend exceeds 500 USD. Which tool is specifically designed for this?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Budgets, which lets you define budget thresholds and alerts." },
+      { "id": "o2", "text": "AWS Pricing Calculator, which projects past spend." },
+      { "id": "o3", "text": "AWS CloudTrail, which logs issued invoices." },
+      { "id": "o4", "text": "AWS Trusted Advisor, which freezes spend when the limit is reached." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Budgets lets you define cost or usage budgets and receive alerts (email, SNS) when actual or forecasted spend exceeds the defined thresholds.",
+    "optionExplanations": {
+      "o1": "Correct: budget + threshold + alert is exactly what AWS Budgets does.",
+      "o2": "Incorrect: the Pricing Calculator estimates future architectures; it does not alert on real spend.",
+      "o3": "Incorrect: CloudTrail records API actions, not invoices.",
+      "o4": "Incorrect: Trusted Advisor recommends best practices; it does not freeze or alert on budgets."
+    },
+    "hint": "\"Threshold + alert\" is one tool's verb.",
+    "lessonId": "L-4.2", "officialSources": [{ "title": "AWS Budgets", "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.2-002", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.2",
+    "topic": "Cost tools", "subtopic": "AWS Pricing Calculator", "services": ["aws-pricing-calculator"], "concepts": ["estimation"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "Before implementing a new architecture (EC2 instances, S3, and CloudFront), a team wants to present management with an estimate of the monthly cost. Which tool matches?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Pricing Calculator, to estimate costs before deploying." },
+      { "id": "o2", "text": "AWS Cost Explorer, which analyzes the cost of architectures that do not exist yet." },
+      { "id": "o3", "text": "AWS CloudTrail, which predicts future costs." },
+      { "id": "o4", "text": "AWS Artifact, which calculates regulatory budgets." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Pricing Calculator lets you model and estimate the cost of an architecture before implementing it: you configure the planned services and get a projection to present and compare options.",
+    "optionExplanations": {
+      "o1": "Correct: pre-deployment estimation is the Pricing Calculator's function.",
+      "o2": "Incorrect: Cost Explorer analyzes already incurred spend and forecasts it; it does not model architectures that do not exist.",
+      "o3": "Incorrect: CloudTrail records API actions; it does not predict costs.",
+      "o4": "Incorrect: Artifact delivers compliance documents; it does not calculate budgets."
+    },
+    "hint": "\"Before implementing\" is the key: which tool needs no real resources?",
+    "lessonId": "L-4.2", "officialSources": [{ "title": "AWS Pricing Calculator", "url": "https://calculator.aws/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.2-003", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.2",
+    "topic": "Cost allocation tags", "subtopic": "Per-project allocation", "services": ["aws-organizations"], "concepts": ["cost-allocation-tags"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company with a single AWS bill wants to know how much each project (marketing, finance, R&D) spends on shared resources. Which mechanism lets it track spend per project?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Applying cost allocation tags (e.g., \"project\": \"marketing\") to resources and analyzing spend by tag." },
+      { "id": "o2", "text": "Renaming the instances with the project name." },
+      { "id": "o3", "text": "Creating a separate AWS account for every cost query." },
+      { "id": "o4", "text": "Asking each employee how much they consumed." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Cost allocation tags are key-value pairs applied to resources; once activated for billing, tools like Cost Explorer can group spend by project, department, or another business dimension.",
+    "optionExplanations": {
+      "o1": "Correct: cost allocation tags are the standard mechanism to track spend by business dimensions.",
+      "o2": "Incorrect: the resource's visible name does not feed billing reports.",
+      "o3": "Incorrect: splitting accounts for every query is overkill; tags solve this within the same account or organization.",
+      "o4": "Incorrect: cost reporting is automatic and verifiable, not survey-based."
+    },
+    "hint": "Key-value pairs on resources that reach all the way to the bill.",
+    "lessonId": "L-4.2", "officialSources": [{ "title": "AWS cost allocation tags", "url": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.3-001", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.3",
+    "topic": "Support plans", "subtopic": "Business Support", "services": ["aws-support"], "concepts": ["support-plans"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company runs critical production workloads and needs technical support available 24 hours a day, 7 days a week, with fast response times. What is the MINIMUM support plan that includes 24/7 support for production workloads?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Basic support, included in all accounts." },
+      { "id": "o2", "text": "AWS Developer Support, intended for test environments." },
+      { "id": "o3", "text": "AWS Business Support, which adds 24/7 support for production workloads." },
+      { "id": "o4", "text": "AWS re:Post, which guarantees AWS answers within an hour." }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "AWS Business Support is the minimum plan offering 24/7 technical support with fast response times for production workloads, plus architectural guidance and other benefits. Developer Support targets test environments and basic support is documentation and community only.",
+    "optionExplanations": {
+      "o1": "Incorrect: basic support includes documentation, whitepapers, and community, but not 24/7 technical support.",
+      "o2": "Incorrect: Developer Support is for test/development environments; it is not oriented to 24/7 production.",
+      "o3": "Correct: Business Support adds 24/7 support with SLAs for production workloads.",
+      "o4": "Incorrect: re:Post is a knowledge community; it does not offer AWS response SLAs."
+    },
+    "hint": "Order the plans: Basic → Developer → Business → Enterprise. Which one introduces 24/7 production?",
+    "lessonId": "L-4.3", "officialSources": [{ "title": "AWS Support plans", "url": "https://aws.amazon.com/premiumsupport/plans/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D4-T4.3-002", "version": 1, "status": "verified", "language": "en", "domain": 4, "taskStatement": "4.3",
+    "topic": "Technical and community resources", "subtopic": "Reporting abuse", "services": [], "concepts": ["trust-safety"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A customer detects that their email address and brand are being used fraudulently by AWS resources that do not belong to them. Which team should they report the AWS resource abuse to?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "The AWS Trust & Safety team, which investigates abuse of AWS resources." },
+      { "id": "o2", "text": "The AWS Health Dashboard, so it stops the abuse." },
+      { "id": "o3", "text": "AWS Trusted Advisor, which blocks offenders." },
+      { "id": "o4", "text": "AWS Organizations, which automatically removes abusive accounts." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "The AWS Trust & Safety team is the official channel for reporting abuse of AWS resources (spam, fraud, illicit content, brand misuse). The official form is available even if you are not an AWS customer.",
+    "optionExplanations": {
+      "o1": "Correct: Trust & Safety is the team in charge of investigating abuse reports.",
+      "o2": "Incorrect: the Health Dashboard reports service events; it does not handle abuse reports.",
+      "o3": "Incorrect: Trusted Advisor recommends best practices; it does not block offenders.",
+      "o4": "Incorrect: Organizations manages your own accounts; it does not remove third-party accounts."
+    },
+    "hint": "There is a team with a very literal name for this.",
+    "lessonId": "L-4.3", "officialSources": [{ "title": "AWS Trust & Safety (report abuse)", "url": "https://aws.amazon.com/trust-and-safety/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  }
+]

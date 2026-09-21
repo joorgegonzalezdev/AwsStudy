@@ -21,12 +21,27 @@ globalThis.fetch = async (url) => {
   return { ok: true, json: async () => JSON.parse(readFileSync(p, 'utf8')) };
 };
 
-const { loadContent } = await import('../js/content-loader.js');
-const content = await loadContent();
-console.log(`Contenido cargado: ${content.questions.length} preguntas, ${content.lessons.length} lecciones.`);
-
+const { loadContent, setActiveLanguage, getContent } = await import('../js/content-loader.js');
 const { selectQuestions, createAttempt } = await import('../js/quiz-engine.js');
 const { computeSummary } = await import('../js/scoring.js');
+
+/* Contenido bilingüe */
+const esContent = await loadContent('es');
+const enContent = await loadContent('en');
+console.log(`Contenido cargado: es ${esContent.questions.length} preguntas / en ${enContent.questions.length} preguntas.`);
+const esIds = new Set(esContent.questions.map((q) => q.id));
+const enIds = new Set(enContent.questions.map((q) => q.id));
+if (esIds.size !== enIds.size) console.error('  ✗ los bancos es/en difieren en tamaño');
+for (const id of esIds) if (!enIds.has(id)) console.error(`  ✗ falta en en: ${id}`);
+const sampleEn = enContent.questionsById.get('D1-T1.1-001');
+if (!sampleEn || !sampleEn.question.match(/^[A-Z]/)) console.error('  ✗ el contenido en no parece estar en inglés');
+const sampleEs = esContent.questionsById.get('D1-T1.1-001');
+if (!sampleEs || !/[áéíóúñ¿]/i.test(sampleEs.question)) console.warn('  ⚠ el contenido es no parece tener caracteres españoles');
+
+/* El motor usa el idioma activo */
+setActiveLanguage('en');
+if (getContent().lang !== 'en') console.error('  ✗ idioma activo no aplicado');
+setActiveLanguage('es');
 
 /* Simulacro: distribución por dominio */
 const exam = selectQuestions({ mode: 'exam', size: 65 });
@@ -64,7 +79,7 @@ const attempt = createAttempt({ mode: 'exam', config: { size: 65, timerSeconds: 
 console.log('Intento creado:', attempt.id, attempt.questionOrder.length, 'preguntas.');
 /* Responder correctamente la mitad, incorrectamente un cuarto */
 attempt.questionOrder.forEach((qid, i) => {
-  const q = content.questionsById.get(qid);
+  const q = getContent().questionsById.get(qid);
   if (i % 4 === 3) attempt.answers[qid] = { selectedIds: [], flagged: false };
   else if (i % 4 === 2) {
     const wrong = q.options.find((o) => !q.correctAnswerIds.includes(o.id)).id;
@@ -84,3 +99,4 @@ const saved = JSON.parse(localStorage.getItem('ruta-clf-c02:v1'));
 if (!saved.attempts[attempt.id]) console.error('  ✗ intento no persistido');
 
 console.log('✅ Smoke test completado.');
+

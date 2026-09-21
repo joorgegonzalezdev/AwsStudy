@@ -1,0 +1,196 @@
+[
+  {
+    "id": "L-3.1", "version": 1, "status": "verified", "language": "en", "domainId": 3, "taskStatements": ["3.1"],
+    "title": "Deploying and operating in AWS",
+    "summary": "You can operate AWS via the console (manual and visual), CLI, APIs/SDKs, and infrastructure as code (CloudFormation). Deployment models are cloud, hybrid, and on-premises. One-off operation → console; repeatable → automation.",
+    "explanation": "There are several ways to \"talk\" to AWS. The Management Console is the graphical interface: ideal for exploring, learning, and one-off changes. The AWS CLI lets you run commands from the terminal: fast and scriptable. APIs and SDKs integrate AWS from your code. Infrastructure as code (IaC) — with AWS CloudFormation as the exam's reference — describes the whole infrastructure in templates deployed repeatably and in a versioned way.\n\nThe decision rule: a single, manual operation → console; something that will repeat → automate (CLI, SDK, or IaC).\n\nDeployment models: cloud (everything on AWS), on-premises (everything in your facilities), and hybrid (both, connected — via VPN, Direct Connect, or AWS hardware on-premises like Outposts). Hybrid is common during gradual migrations.",
+    "examRelevance": "Task 3.1 asks you to compare console/CLI/APIs/SDKs/IaC and choose between manual and automated operations, plus recognize the three deployment models and the purpose of CloudFormation.",
+    "awsExample": "A team creates identical test environments with CloudFormation templates versioned in Git, instead of following manual console steps.",
+    "keyTerms": [
+      { "term": "IaC", "definition": "Infrastructure defined in repeatable code/templates." },
+      { "term": "AWS CLI", "definition": "Command-line tool for administering AWS." },
+      { "term": "Hybrid deployment", "definition": "On-premises infrastructure connected to the cloud." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Console vs CLI/IaC", "difference": "Manual and one-off / repeatable and automatable." },
+      { "withWhat": "Hybrid vs multi-Region", "difference": "Local+cloud connected / several AWS Regions." }
+    ],
+    "comparisons": [
+      {
+        "title": "Ways to operate AWS",
+        "rows": [
+          { "aspect": "Explore visually", "a": "Console", "b": "manual" },
+          { "aspect": "Script commands", "a": "CLI", "b": "repeatable" },
+          { "aspect": "Integrate into code", "a": "APIs / SDKs", "b": "" },
+          { "aspect": "Deploy whole environments", "a": "CloudFormation (IaC)", "b": "versioned and auditable" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D3-T3.1-001", "D3-T3.1-002", "D3-T3.1-003"],
+    "relatedServiceIds": ["aws-cloudformation", "aws-outposts", "aws-elastic-beanstalk", "aws-systems-manager"],
+    "estimatedMinutes": 10,
+    "sources": [{ "title": "AWS CloudFormation", "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-3.2", "version": 1, "status": "verified", "language": "en", "domainId": 3, "taskStatements": ["3.2"],
+    "title": "The AWS global infrastructure",
+    "summary": "Regions group Availability Zones that are independent of each other; edge locations cache content close to users (CloudFront). Multi-AZ improves availability; multi-Region responds to DR, latency, and data residency.",
+    "explanation": "The hierarchy is simple: a Region is a geographic area (e.g., Ireland) containing several Availability Zones (AZs). Each AZ is one or more data centers with independent power and networking, designed not to share single points of failure. Deploying your application across multiple AZs protects it from a data center failure: that is high availability.\n\nEdge locations are Amazon CloudFront points of presence, the AWS CDN: they cache static content close to users to reduce latency. They do not host your application: they only cache and serve content.\n\nWhen to use multiple Regions? Four reasons: disaster recovery and business continuity (if one Region fails), lower latency for distant users (deploy near them), and data residency/sovereignty (legal requirements to keep data in a territory).",
+    "examRelevance": "Task 3.2 asks you to describe the Region/AZ/edge relationship, explain why multi-AZ improves availability, and identify the reasons for multi-Region.",
+    "awsExample": "A global app serves images and videos from CloudFront (edge) and its API runs in two Regions: the primary one and a DR one, while also meeting European data residency.",
+    "keyTerms": [
+      { "term": "Region", "definition": "A geographic area with several AZs." },
+      { "term": "Availability Zone", "definition": "A group of independent data centers within a Region." },
+      { "term": "Edge location", "definition": "A content cache point near the user (CloudFront)." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "AZ vs Region", "difference": "The AZ is inside the Region; they are not synonyms." },
+      { "withWhat": "Edge vs Region", "difference": "The edge caches content; it does not run your applications." }
+    ],
+    "comparisons": [
+      {
+        "title": "Multi-AZ vs multi-Region",
+        "rows": [
+          { "aspect": "Protects against", "a": "A data center failure (AZ)", "b": "A whole Region failing" },
+          { "aspect": "Complexity", "a": "Low-medium", "b": "High (data replication)" },
+          { "aspect": "Main reason", "a": "High availability", "b": "DR, latency, data residency" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D3-T3.2-001", "D3-T3.2-002", "D3-T3.2-003"],
+    "relatedServiceIds": ["amazon-cloudfront", "amazon-route-53"],
+    "estimatedMinutes": 10,
+    "sources": [{ "title": "AWS Global Infrastructure", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-3.3", "version": 1, "status": "verified", "language": "en", "domainId": 3, "taskStatements": ["3.3", "3.4"],
+    "title": "Compute and databases",
+    "summary": "Compute: EC2 (VMs with full control), containers (ECS/EKS + Fargate), and serverless (Lambda). Databases: managed relational (RDS/Aurora), NoSQL (DynamoDB), caching (ElastiCache), and migration (DMS moves data; SCT converts schemas).",
+    "explanation": "Compute on AWS has three models. Virtual machines: Amazon EC2 gives you a server with full OS control; choose the category for the workload (compute-optimized for CPU-intensive, storage-optimized for high disk I/O, memory-optimized, etc.) and use Auto Scaling for elasticity and load balancers to distribute traffic. Containers: you package the app and its dependencies; Amazon ECS (AWS's own orchestration) or Amazon EKS (managed Kubernetes) orchestrate them, and AWS Fargate runs the containers without managing servers. Serverless: AWS Lambda runs functions on events, billing per execution — ideal for brief, intermittent tasks.\n\nDatabases: if you need SQL and relational schemas, Amazon RDS manages the engine (MySQL, PostgreSQL…) and Amazon Aurora offers MySQL/PostgreSQL compatibility with better performance and high availability. For NoSQL with a flexible schema and massive scale: Amazon DynamoDB (key-value). To speed up reads: Amazon ElastiCache (in-memory cache — not durable storage).\n\nFor database migrations: AWS DMS moves/replicates the data; AWS SCT converts schemas and code between different engines. Trick: SCT = schema, DMS = data.",
+    "examRelevance": "Tasks 3.3 and 3.4 concentrate the \"pick the service for the scenario\" questions. Master the VM/container/serverless and relational/NoSQL/cache distinctions, and the DMS/SCT pair.",
+    "awsExample": "An e-commerce site: catalog in DynamoDB, orders in Aurora, sessions in ElastiCache, image resizing in Lambda, and its portal on EC2 with Auto Scaling.",
+    "keyTerms": [
+      { "term": "Container", "definition": "Lightweight packaging of app + dependencies." },
+      { "term": "Serverless", "definition": "Running code without managing servers." },
+      { "term": "NoSQL", "definition": "Database without a rigid relational schema (key-value/document)." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "ECS vs EKS", "difference": "AWS's own orchestration / managed Kubernetes." },
+      { "withWhat": "DynamoDB vs RDS", "difference": "Flexible NoSQL at scale / relational with SQL and schema." },
+      { "withWhat": "DMS vs SCT", "difference": "Moves data / converts schemas." },
+      { "withWhat": "ElastiCache vs database", "difference": "Volatile cache to speed up / durable storage." }
+    ],
+    "comparisons": [
+      {
+        "title": "Compute models",
+        "rows": [
+          { "aspect": "OS control", "a": "EC2: full", "b": "Lambda: none" },
+          { "aspect": "Administration", "a": "EC2: high · Containers: medium", "b": "Lambda/Fargate: minimal" },
+          { "aspect": "Billing", "a": "EC2: by time running", "b": "Lambda: per execution" },
+          { "aspect": "Ideal for", "a": "Continuous, customized workloads", "b": "Brief, intermittent events" }
+        ]
+      },
+      {
+        "title": "Databases by need",
+        "rows": [
+          { "aspect": "SQL with joins and schema", "a": "RDS / Aurora", "b": "relational" },
+          { "aspect": "Massive scale and flexible schema", "a": "DynamoDB", "b": "NoSQL" },
+          { "aspect": "Speeding up reads", "a": "ElastiCache", "b": "in-memory cache" },
+          { "aspect": "Live data migration", "a": "AWS DMS", "b": "" },
+          { "aspect": "Converting schemas between engines", "a": "AWS SCT", "b": "" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D3-T3.3-001", "D3-T3.3-002", "D3-T3.3-003", "D3-T3.4-001", "D3-T3.4-002", "D3-T3.4-003"],
+    "relatedServiceIds": ["amazon-ec2", "aws-lambda", "aws-fargate", "amazon-ecs", "amazon-eks", "amazon-rds", "amazon-aurora", "amazon-dynamodb", "amazon-elasticache", "aws-dms", "aws-sct"],
+    "estimatedMinutes": 18,
+    "sources": [
+      { "title": "AWS compute products", "url": "https://aws.amazon.com/products/compute/", "type": "docs", "accessedAt": "2026-09-21" },
+      { "title": "AWS database products", "url": "https://aws.amazon.com/products/databases/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-3.4", "version": 1, "status": "verified", "language": "en", "domainId": 3, "taskStatements": ["3.5", "3.6"],
+    "title": "Networking and storage",
+    "summary": "VPC organizes subnets; security groups (stateful, instance) and network ACLs (stateless, subnet) filter traffic. Route 53 handles DNS; Direct Connect is a dedicated private link. Storage: S3 (object), EBS (block), EFS/FSx (file); S3 classes are chosen by access pattern.",
+    "explanation": "Amazon VPC is your private virtual network in AWS: inside it you define subnets (public, with internet access; private, without) and gateways. Two filters protect traffic: the security group acts at the instance level and is stateful (if you allow inbound, the response flows out automatically); the network ACL acts at the subnet level and is stateless (the response must also be allowed). For DNS: Amazon Route 53 translates domains to IPs and offers failover with health checks. To connect your office or data center: AWS VPN (encrypted over the internet, quick to set up) or AWS Direct Connect (dedicated private link, consistent bandwidth).\n\nStorage — learn the three categories: OBJECT (Amazon S3): files with URLs and metadata, ideal for websites, backups, and data lakes; its classes are chosen by access pattern (Standard = frequent, Standard-IA = infrequent with immediate access, Glacier = archive with hour/minute retrievals). BLOCK (Amazon EBS): virtual disks for EC2 instances, persistent and detachable; the instance store is ephemeral and its data is lost when the instance stops. FILE (Amazon EFS for Linux with shared POSIX; Amazon FSx for Windows/SMB and high-performance cases). Also: AWS Storage Gateway connects on-premises storage with the cloud (hybrid/cache) and AWS Backup centralizes backups. Lifecycle policies move objects between classes automatically to save money.",
+    "examRelevance": "Tasks 3.5 and 3.6 are heavily tested: SG vs NACL, VPN vs Direct Connect, and above all the object/block/file triad with their use cases.",
+    "awsExample": "A web app: traffic filtered by a security group that only opens 443; images live in S3 (with lifecycle to Glacier); the server's disk is EBS; the backend's shared files are on EFS.",
+    "keyTerms": [
+      { "term": "Subnet", "definition": "A segment of the VPC (public or private)." },
+      { "term": "Stateful / stateless", "definition": "Stateful: the response flows automatically (SG) / stateless: both directions must be allowed (NACL)." },
+      { "term": "Object / block / file", "definition": "The three storage categories: S3 / EBS / EFS-FSx." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Security group vs NACL", "difference": "Instance + stateful / subnet + stateless with numbered rules." },
+      { "withWhat": "S3 vs EBS vs EFS", "difference": "Objects with URLs / one instance's disk / shared file system." },
+      { "withWhat": "EBS vs instance store", "difference": "Persistent / ephemeral (lost when stopped)." }
+    ],
+    "comparisons": [
+      {
+        "title": "Storage categories",
+        "rows": [
+          { "aspect": "Type", "a": "Object: S3 (Classes: Standard, IA, Glacier…)", "b": "Block: EBS · File: EFS/FSx" },
+          { "aspect": "Access", "a": "HTTP API with URLs", "b": "Mounted as disk / file system" },
+          { "aspect": "Shared", "a": "S3: yes · EBS: one instance", "b": "EFS: many instances" },
+          { "aspect": "Persistence", "a": "S3/EFS: yes", "b": "Instance store: no" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D3-T3.5-001", "D3-T3.5-002", "D3-T3.5-003", "D3-T3.6-001", "D3-T3.6-002", "D3-T3.6-003", "D3-T3.6-004"],
+    "relatedServiceIds": ["amazon-vpc", "amazon-route-53", "aws-direct-connect", "aws-vpn", "amazon-s3", "amazon-s3-glacier", "amazon-ebs", "amazon-efs", "amazon-fsx", "aws-storage-gateway", "aws-backup"],
+    "estimatedMinutes": 18,
+    "sources": [
+      { "title": "Amazon VPC", "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html", "type": "docs", "accessedAt": "2026-09-21" },
+      { "title": "Amazon S3 storage classes", "url": "https://aws.amazon.com/s3/storage-classes/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-3.5", "version": 1, "status": "verified", "language": "en", "domainId": 3, "taskStatements": ["3.7", "3.8"],
+    "title": "Data, AI/ML, integration, and other services",
+    "summary": "Analytics: Athena queries S3 with SQL, Kinesis processes streams, Glue prepares data, QuickSight visualizes. AI/ML: SageMaker AI builds models; Lex creates chatbots. Integration: SQS (queue), SNS (pub/sub), EventBridge (events with rules). Business: Connect (call center), SES (email).",
+    "explanation": "Analytics — four verbs: Amazon Athena queries data in S3 with SQL, serverless. Amazon Kinesis ingests and processes continuous real-time streams. AWS Glue prepares, catalogs, and transforms data (ETL). Amazon QuickSight creates business dashboards. At awareness level: Redshift = data warehouse (large-scale BI).\n\nAI/ML — distinguish platform vs ready-made services: Amazon SageMaker AI is the platform to build, train, and deploy your own models. The ready-to-use services: Lex (chatbots), Polly (text→voice), Transcribe (voice→text), Translate (translation), Textract (extract text from documents), Rekognition (vision), Comprehend (language analysis), and Amazon Q (generative AI assistant).\n\nApplication integration — three patterns: Amazon SQS is a queue: consumers pull messages (decouples components). Amazon SNS is publish/subscribe: a message is delivered (push) to many subscribers. Amazon EventBridge is an event bus with filtering and routing rules. AWS Step Functions orchestrates multi-step workflows.\n\nBusiness and the rest: Amazon Connect = cloud contact center; Amazon SES = transactional/marketing email; AWS Amplify = web/mobile frontend development and deployment; AWS CodeBuild/CodePipeline = CI/CD (compile/orchestrate); AWS X-Ray = traces to debug distributed apps; Amazon WorkSpaces = virtual desktops; Amazon AppStream 2.0 = streaming applications; AWS IoT Core = connecting IoT devices.",
+    "examRelevance": "Tasks 3.7 and 3.8 ask you to pair a business requirement with a service. They do not require implementation: learn the \"need → service\" pattern and the SQS/SNS/EventBridge differences.",
+    "awsExample": "A complete flow: the app publishes events to SNS (email to support), enqueues orders in SQS for processing, Athena queries the logs in S3, and QuickSight shows dashboards to management.",
+    "keyTerms": [
+      { "term": "Queue (pull)", "definition": "Messages waiting to be consumed (SQS)." },
+      { "term": "Pub/sub (push)", "definition": "Delivery to all subscribers (SNS)." },
+      { "term": "Event bus", "definition": "Event routing by rules (EventBridge)." },
+      { "term": "ETL", "definition": "Extract, transform, and load data (Glue)." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "SQS vs SNS vs EventBridge", "difference": "Polled queue / push to many subscribers / events with filtering rules." },
+      { "withWhat": "Athena vs QuickSight", "difference": "SQL query over S3 / visualization with dashboards." },
+      { "withWhat": "SageMaker vs Lex", "difference": "Platform to build models / ready-to-use chatbot." },
+      { "withWhat": "SES vs SNS", "difference": "Email / general notifications (push)." }
+    ],
+    "comparisons": [
+      {
+        "title": "Need → service (quick guide)",
+        "rows": [
+          { "aspect": "SQL over data in S3", "a": "Athena", "b": "" },
+          { "aspect": "Real-time streams", "a": "Kinesis", "b": "" },
+          { "aspect": "Prepare/catalog data", "a": "Glue", "b": "" },
+          { "aspect": "Business dashboards", "a": "QuickSight", "b": "" },
+          { "aspect": "Chatbot", "a": "Lex", "b": "" },
+          { "aspect": "Contact center", "a": "Connect", "b": "" },
+          { "aspect": "Transactional email", "a": "SES", "b": "" },
+          { "aspect": "Web/mobile frontend apps", "a": "Amplify", "b": "" },
+          { "aspect": "Virtual desktops", "a": "WorkSpaces", "b": "AppStream = apps only" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D3-T3.7-001", "D3-T3.7-002", "D3-T3.8-001", "D3-T3.8-002"],
+    "relatedServiceIds": ["amazon-athena", "amazon-kinesis", "aws-glue", "amazon-quicksight", "amazon-sagemaker", "amazon-lex", "amazon-sqs", "amazon-sns", "amazon-eventbridge", "amazon-connect", "amazon-ses", "aws-amplify"],
+    "estimatedMinutes": 16,
+    "sources": [
+      { "title": "AWS analytics products", "url": "https://aws.amazon.com/products/analytics/", "type": "docs", "accessedAt": "2026-09-21" },
+      { "title": "AWS Machine Learning products", "url": "https://aws.amazon.com/products/machine-learning/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  }
+]

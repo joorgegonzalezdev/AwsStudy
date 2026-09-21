@@ -1,0 +1,478 @@
+[
+  {
+    "id": "D2-T2.1-001", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.1",
+    "topic": "AWS responsibilities", "subtopic": "Security OF the cloud", "services": [], "concepts": ["shared-responsibility"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "According to the AWS shared responsibility model, which of the following is an AWS responsibility?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Patching the operating system of the customer's Amazon EC2 instances." },
+      { "id": "o2", "text": "Protecting the data the customer stores and encrypting it according to their policy." },
+      { "id": "o3", "text": "Operating and protecting the hardware, data centers, and global infrastructure that run the services." },
+      { "id": "o4", "text": "Configuring the security groups of the customer's instances." }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "AWS is responsible for security OF the cloud: it protects the hardware, the software that runs the cloud services, the physical facilities, and the global infrastructure (Regions, AZs, edge locations).",
+    "optionExplanations": {
+      "o1": "Incorrect: on EC2 the operating system belongs to the customer-managed layer; patching it is the customer's responsibility.",
+      "o2": "Incorrect: protecting and encrypting your own data is the customer's responsibility — it is security IN the cloud.",
+      "o3": "Correct: security of the physical and global infrastructure is exclusively AWS's responsibility.",
+      "o4": "Incorrect: security groups are customer configuration; AWS does not define them."
+    },
+    "hint": "Security \"of\" the cloud vs security \"in\" the cloud.",
+    "lessonId": "L-2.1", "officialSources": [{ "title": "AWS Shared Responsibility Model", "url": "https://aws.amazon.com/compliance/shared-responsibility-model/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.1-002", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.1",
+    "topic": "Customer responsibilities", "subtopic": "Amazon EC2", "services": ["amazon-ec2"], "concepts": ["shared-responsibility"],
+    "difficulty": "basic", "type": "multiple", "scenarioBased": false,
+    "question": "A company runs its applications on Amazon EC2 instances with a Linux operating system. Which of the following are CUSTOMER responsibilities under the shared responsibility model?",
+    "selectionInstruction": "Choose TWO answers.",
+    "options": [
+      { "id": "o1", "text": "Applying patches to the instance operating systems." },
+      { "id": "o2", "text": "Replacing faulty hardware in the physical servers." },
+      { "id": "o3", "text": "Managing the users, permissions, and security groups of their instances." },
+      { "id": "o4", "text": "Maintaining the power and air conditioning of the data center." }
+    ],
+    "correctAnswerIds": ["o1", "o3"],
+    "explanation": "With EC2, the customer controls the operating system and everything above it: OS patching, user and permission management, firewall configuration (security groups), encryption, and data protection. AWS handles the physical layer and virtualization.",
+    "optionExplanations": {
+      "o1": "Correct: on EC2, the OS is the customer's responsibility, including its patching.",
+      "o2": "Incorrect: physical hardware is AWS's responsibility (security OF the cloud).",
+      "o3": "Correct: access management and system security configuration belong to the customer.",
+      "o4": "Incorrect: the physical data center facilities are operated by AWS."
+    },
+    "hint": "On EC2, everything \"above\" the hypervisor belongs to the customer.",
+    "lessonId": "L-2.1", "officialSources": [{ "title": "AWS Shared Responsibility Model", "url": "https://aws.amazon.com/compliance/shared-responsibility-model/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.1-003", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.1",
+    "topic": "AWS responsibilities", "subtopic": "Amazon RDS", "services": ["amazon-rds"], "concepts": ["shared-responsibility", "managed-services"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company uses Amazon RDS for its production PostgreSQL database. Under the shared responsibility model, who is responsible for installing patches on the underlying operating system?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "The customer, because the database contains their data." },
+      { "id": "o2", "text": "AWS, because RDS is a managed service that handles the operating system and database engine." },
+      { "id": "o3", "text": "The provider of the customer's application software." },
+      { "id": "o4", "text": "No one: RDS does not use an operating system." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Amazon RDS is a managed service: AWS handles the operating system, its patching, and database engine maintenance. The customer's responsibility drops to the data level, database accounts, and configuration (e.g., parameter groups).",
+    "optionExplanations": {
+      "o1": "Incorrect: containing the data does not mean managing the OS; with RDS the OS is managed by AWS.",
+      "o2": "Correct: in managed services AWS operates the OS and the engine, reducing the customer's burden.",
+      "o3": "Incorrect: the application vendor is not involved in operating RDS.",
+      "o4": "Incorrect: RDS does use an operating system, but AWS manages it completely."
+    },
+    "hint": "In managed services, the customer's responsibilities shrink.",
+    "lessonId": "L-2.1", "officialSources": [{ "title": "Amazon RDS", "url": "https://aws.amazon.com/rds/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.1-004", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.1",
+    "topic": "Customer responsibilities", "subtopic": "AWS Lambda", "services": ["aws-lambda"], "concepts": ["shared-responsibility", "serverless"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company uses AWS Lambda to process events. Which responsibilities remain with the customer (or are shared) in this serverless model?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Patching the operating system and managing the physical network." },
+      { "id": "o2", "text": "Writing and updating the function's code, and protecting the data the function processes." },
+      { "id": "o3", "text": "Managing the physical compute capacity of the Availability Zones." },
+      { "id": "o4", "text": "Patching the runtime environment at every layer." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "With AWS Lambda, AWS manages the entire infrastructure, the operating system, and the runtime environment. The customer keeps responsibility for the function's code, its configuration, and the protection of the data it processes (and of the permissions it grants).",
+    "optionExplanations": {
+      "o1": "Incorrect: OS patching and the physical network are AWS's responsibility in Lambda.",
+      "o2": "Correct: the code and the data remain the customer's responsibility even in the serverless model.",
+      "o3": "Incorrect: physical capacity and Availability Zones are AWS infrastructure.",
+      "o4": "Incorrect: the runtime environment and its patching are managed by AWS; only the code belongs to the customer."
+    },
+    "hint": "In serverless, the customer keeps \"their\" code and \"their\" data.",
+    "lessonId": "L-2.1", "officialSources": [{ "title": "AWS Lambda", "url": "https://aws.amazon.com/lambda/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.1-005", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.1",
+    "topic": "Customer responsibilities", "subtopic": "Amazon RDS", "services": ["amazon-rds"], "concepts": ["shared-responsibility"],
+    "difficulty": "basic", "type": "truefalse", "scenarioBased": false,
+    "question": "Agree or disagree: \"When using Amazon RDS, the customer is responsible for patching the underlying operating system.\"",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "verdadero", "text": "True" },
+      { "id": "falso", "text": "False" }
+    ],
+    "correctAnswerIds": ["falso"],
+    "explanation": "False. Amazon RDS is a managed service: AWS manages the underlying operating system and its patching. The customer's responsibilities with RDS are limited to the data, database accounts, and service configuration.",
+    "optionExplanations": {
+      "verdadero": "Incorrect: that would be true for a database installed on EC2, not for the managed RDS service.",
+      "falso": "Correct: OS patching is AWS's responsibility with RDS."
+    },
+    "hint": "Think about what changes compared to a database installed on EC2.",
+    "lessonId": "L-2.1", "officialSources": [{ "title": "AWS Shared Responsibility Model", "url": "https://aws.amazon.com/compliance/shared-responsibility-model/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 45, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.2-001", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.2",
+    "topic": "Compliance and AWS Artifact", "subtopic": "Compliance documents", "services": ["aws-artifact"], "concepts": ["compliance"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company's auditor needs access to AWS compliance reports (for example, ISO and PCI DSS certifications) to satisfy regulatory requirements. Where can they obtain them?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "In AWS Artifact, the portal for downloading AWS compliance documents." },
+      { "id": "o2", "text": "In Amazon CloudWatch, by querying the security metrics." },
+      { "id": "o3", "text": "By phone, requesting them from the regional technical support." },
+      { "id": "o4", "text": "In AWS Trusted Advisor, in the cost optimization tab." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Artifact is the self-service portal where customers can download AWS compliance reports (ISO, SOC, PCI) and sign agreements such as the Artifact NDA. It is the official source of compliance documentation.",
+    "optionExplanations": {
+      "o1": "Correct: AWS Artifact centralizes the compliance reports and agreements available to customers.",
+      "o2": "Incorrect: CloudWatch monitors operational metrics and logs; it contains no regulatory documentation.",
+      "o3": "Incorrect: compliance documents are available self-service in Artifact, with no phone calls.",
+      "o4": "Incorrect: Trusted Advisor provides best practice recommendations, not regulatory certifications."
+    },
+    "hint": "The service's name literally alludes to compliance \"artifacts\".",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS Artifact", "url": "https://aws.amazon.com/artifact/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.2-002", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.2",
+    "topic": "Governance, monitoring and auditing", "subtopic": "AWS CloudTrail", "services": ["aws-cloudtrail"], "concepts": ["auditing"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "An administrator wants to know which IAM user created a new user in the account, at what exact time, and from which IP address. Which AWS service provides that record?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon CloudWatch" },
+      { "id": "o2", "text": "AWS CloudTrail" },
+      { "id": "o3", "text": "AWS Config" },
+      { "id": "o4", "text": "AWS Shield" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "AWS CloudTrail records the API calls and actions made in the account: who, what, when, and from where. It is the go-to auditing tool for answering \"who performed this action?\".",
+    "optionExplanations": {
+      "o1": "Incorrect: CloudWatch monitors performance metrics, application logs, and alarms; it does not audit identities and API actions.",
+      "o2": "Correct: CloudTrail is the audit log of API actions in the account.",
+      "o3": "Incorrect: Config tracks resource configuration and its changes, not who made each API call.",
+      "o4": "Incorrect: Shield protects against DDoS attacks; it does not record user actions."
+    },
+    "hint": "\"Who did what and when?\" points to an auditing service.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS CloudTrail", "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.2-003", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.2",
+    "topic": "Governance, monitoring and auditing", "subtopic": "AWS Config", "services": ["aws-config"], "concepts": ["configuration", "compliance"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A security team wants a history of how their AWS resource configurations have changed (for example, whether a security group was opened to the world) and automatic evaluations against internal compliance rules. Which service fits?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Config" },
+      { "id": "o2", "text": "Amazon Inspector" },
+      { "id": "o3", "text": "AWS Artifact" },
+      { "id": "o4", "text": "AWS IAM Identity Center" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Config tracks resource configurations and their changes over time, and lets you evaluate them against rules (AWS Config Rules) to verify compliance with internal policies and standards.",
+    "optionExplanations": {
+      "o1": "Correct: configuration history + rule-based evaluation is the purpose of AWS Config.",
+      "o2": "Incorrect: Inspector scans software vulnerabilities, not configuration changes.",
+      "o3": "Incorrect: Artifact delivers AWS compliance documents; it does not evaluate the customer's resources.",
+      "o4": "Incorrect: IAM Identity Center manages human access; it does not audit configurations."
+    },
+    "hint": "The service literally named \"Config\" is about configurations.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS Config", "url": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.2-004", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.2",
+    "topic": "Security services", "subtopic": "Amazon Inspector", "services": ["amazon-inspector", "aws-guardduty"], "concepts": ["vulnerabilities", "threat-detection"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A team wants to automatically identify unpatched software vulnerabilities and unintended network exposures in its workloads. Which AWS service performs this function?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon GuardDuty" },
+      { "id": "o2", "text": "Amazon Inspector" },
+      { "id": "o3", "text": "AWS Shield" },
+      { "id": "o4", "text": "AWS Artifact" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Amazon Inspector is automated vulnerability management: it scans workloads for unpatched software and unintended network exposure. GuardDuty, in contrast, detects anomalous behavior and active threats.",
+    "optionExplanations": {
+      "o1": "Incorrect: GuardDuty is threat detection (anomalous behavior), not vulnerability scanning.",
+      "o2": "Correct: Inspector = automated vulnerability management and network exposure checks.",
+      "o3": "Incorrect: Shield protects against DDoS; it does not scan for vulnerabilities.",
+      "o4": "Incorrect: Artifact delivers compliance documents; it does not scan workloads."
+    },
+    "hint": "Vulnerabilities ≠ active threats. Each service has its own verb.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "Amazon Inspector", "url": "https://aws.amazon.com/inspector/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.2-005", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.2",
+    "topic": "Encryption", "subtopic": "Encryption in transit", "services": ["aws-kms"], "concepts": ["encryption"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company wants to protect user data while it travels between the browser and its web application on AWS. Which type of protection is appropriate?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Encryption in transit, for example using TLS/HTTPS." },
+      { "id": "o2", "text": "Encryption at rest of the Amazon S3 bucket." },
+      { "id": "o3", "text": "Longer passwords for the end users." },
+      { "id": "o4", "text": "Weekly snapshots of the database." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Encryption in transit protects data while it moves across the network, typically with TLS/HTTPS. Encryption at rest protects stored data; both are complementary, but for data traveling over the network, encryption in transit is the right answer.",
+    "optionExplanations": {
+      "o1": "Correct: TLS/HTTPS encrypts communication while data travels over the network.",
+      "o2": "Incorrect: encryption at rest protects stored data, not the transmission.",
+      "o3": "Incorrect: longer passwords improve authentication; they do not encrypt traffic.",
+      "o4": "Incorrect: snapshots are backups; they do not protect data in motion."
+    },
+    "hint": "\"While it travels\" = in transit.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS Key Management Service", "url": "https://aws.amazon.com/kms/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.3-001", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.3",
+    "topic": "Root user protection", "subtopic": "Tasks requiring root", "services": ["aws-iam"], "concepts": ["root-user"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": false,
+    "question": "Which of the following tasks requires signing in with the AWS account root user?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Creating an Amazon EC2 instance for a new application." },
+      { "id": "o2", "text": "Closing (canceling) the AWS account permanently." },
+      { "id": "o3", "text": "Running a query on an Amazon RDS database." },
+      { "id": "o4", "text": "Deploying an AWS CloudFormation template to production." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "The root user has unrestricted access to the account and should be used only for the few tasks that require it, such as closing the account, changing support settings, or modifying certain account settings. All other tasks should be performed with IAM users or roles.",
+    "optionExplanations": {
+      "o1": "Incorrect: creating EC2 instances can be done by any user/role with the necessary permissions.",
+      "o2": "Correct: closing the account is one of the tasks reserved for the root user.",
+      "o3": "Incorrect: database queries do not use the AWS account root user.",
+      "o4": "Incorrect: deploying CloudFormation templates is a normal IAM operation; it does not require root."
+    },
+    "hint": "Think of \"destructive account-level\" actions that cannot be delegated.",
+    "lessonId": "L-2.3", "officialSources": [{ "title": "IAM: tasks that require the root user", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.3-002", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.3",
+    "topic": "Root user protection", "subtopic": "Best practices", "services": ["aws-iam"], "concepts": ["root-user", "mfa"],
+    "difficulty": "basic", "type": "multiple", "scenarioBased": false,
+    "question": "Which of the following are best practices for protecting the root user of an AWS account?",
+    "selectionInstruction": "Choose TWO answers.",
+    "options": [
+      { "id": "o1", "text": "Enabling multi-factor authentication (MFA) on the root user." },
+      { "id": "o2", "text": "Sharing the root credentials with the whole operations team." },
+      { "id": "o3", "text": "Using IAM users or roles for day-to-day tasks and reserving root only for what is strictly necessary." },
+      { "id": "o4", "text": "Storing the root password in a spreadsheet on the internal network." }
+    ],
+    "correctAnswerIds": ["o1", "o3"],
+    "explanation": "Root user best practices are: enable MFA, do not create root access keys, do not use it for daily tasks, and manage the account with limited-permission IAM users/roles. Root credentials are never shared or stored insecurely.",
+    "optionExplanations": {
+      "o1": "Correct: MFA adds a second factor that protects the account even if the password leaks.",
+      "o2": "Incorrect: sharing root credentials multiplies the risk of compromise and is a serious bad practice.",
+      "o3": "Correct: daily use with limited IAM identities limits root exposure.",
+      "o4": "Incorrect: storing passwords in shared files exposes the account to anyone with network access."
+    },
+    "hint": "Two classic exam answers: MFA and \"don't use root for daily work\".",
+    "lessonId": "L-2.3", "officialSources": [{ "title": "IAM best practices", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.3-003", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.3",
+    "topic": "Principle of least privilege", "subtopic": "Applying it in practice", "services": ["aws-iam"], "concepts": ["least-privilege", "authorization"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A developer needs to read objects from one specific Amazon S3 bucket for their daily task. Following the principle of least privilege, which policy should they receive?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "A policy granting full administrator access to the account so they never lack permissions." },
+      { "id": "o2", "text": "A policy granting only read access to that specific bucket." },
+      { "id": "o3", "text": "No policy: it is better for them to ask for help every time they need something." },
+      { "id": "o4", "text": "A policy with read and write access to every bucket in the account." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "The principle of least privilege states that each identity should receive only the permissions strictly necessary for its task: read access to the specific bucket. Start with the minimum and expand only if needed, reducing the impact of errors or compromise.",
+    "optionExplanations": {
+      "o1": "Incorrect: granting full admin directly violates least privilege and enlarges the attack surface.",
+      "o2": "Correct: read-only on the specific resource needed is the correct application of the principle.",
+      "o3": "Incorrect: granting no permissions blocks the work; the principle seeks just-enough permissions, not zero.",
+      "o4": "Incorrect: read and write to all buckets greatly exceeds what is needed."
+    },
+    "hint": "Just enough for the task, nothing more.",
+    "lessonId": "L-2.3", "officialSources": [{ "title": "IAM best practices (least privilege)", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.3-004", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.3",
+    "topic": "AWS IAM", "subtopic": "IAM roles", "services": ["aws-iam", "amazon-ec2", "amazon-s3"], "concepts": ["roles"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "An application running on an Amazon EC2 instance needs to read objects from Amazon S3. What is the recommended way to grant that access without storing static credentials?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Attach an IAM role to the instance with the necessary permissions on the bucket." },
+      { "id": "o2", "text": "Write an IAM user's access keys into the application code." },
+      { "id": "o3", "text": "Share the root user's password with the application." },
+      { "id": "o4", "text": "Make the bucket public so the application can read without credentials." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "An IAM role provides temporary credentials that AWS rotates automatically: attach it to the EC2 instance and the application gets permissions without storing secrets. It avoids the risks of static access keys in code.",
+    "optionExplanations": {
+      "o1": "Correct: roles with temporary credentials are the recommended way to grant permissions to services and applications.",
+      "o2": "Incorrect: static keys in code are a bad practice — they can leak and do not rotate automatically.",
+      "o3": "Incorrect: the root user is never used by applications and is never shared.",
+      "o4": "Incorrect: making a bucket public exposes the data to anyone on the internet."
+    },
+    "hint": "The keywords are \"without storing static credentials\".",
+    "lessonId": "L-2.3", "officialSources": [{ "title": "IAM: using roles to grant permissions", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.3-005", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.3",
+    "topic": "AWS IAM", "subtopic": "Authentication vs authorization", "services": ["aws-iam"], "concepts": ["authentication", "authorization"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "A user signs in to the AWS console with their password and then enters a code generated on their MFA device. Which process does this second factor belong to?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Authorization: it defines which resources they will be able to access." },
+      { "id": "o2", "text": "Authentication: it verifies that the user is who they claim to be." },
+      { "id": "o3", "text": "Encryption: it protects the session from eavesdropping." },
+      { "id": "o4", "text": "Auditing: it logs the sign-in in CloudTrail." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Authentication verifies the identity of whoever accesses (something you know, have, or are). MFA adds a second identity-verification factor. Authorization, in contrast, determines what that identity can do once authenticated (IAM policies).",
+    "optionExplanations": {
+      "o1": "Incorrect: authorization happens afterwards and decides permissions; MFA grants no permissions.",
+      "o2": "Correct: verifying identity with a second factor is multi-factor authentication.",
+      "o3": "Incorrect: MFA does not encrypt the session; TLS/HTTPS handles channel encryption.",
+      "o4": "Incorrect: CloudTrail records the event, but MFA itself is not auditing."
+    },
+    "hint": "Authentication = \"who are you?\"; authorization = \"what can you do?\".",
+    "lessonId": "L-2.3", "officialSources": [{ "title": "IAM: using multi-factor authentication (MFA)", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.3-006", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.3",
+    "topic": "AWS IAM Identity Center", "subtopic": "Centralized access", "services": ["aws-iam-identity-center", "aws-organizations"], "concepts": ["federation", "sso"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "An organization manages several AWS accounts and wants employees to sign in once, with corporate credentials, and access accounts according to their team. Which service is designed for this?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS IAM Identity Center, for centralized federated access (SSO) across the organization." },
+      { "id": "o2", "text": "Amazon Cognito, for creating infrastructure administrator users." },
+      { "id": "o3", "text": "AWS Config, to synchronize passwords between accounts." },
+      { "id": "o4", "text": "AWS Shield, to protect corporate credentials." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS IAM Identity Center (formerly AWS SSO) centrally manages human access: single sign-on (SSO), optional federation with the corporate directory, and per-account permission assignment within AWS Organizations.",
+    "optionExplanations": {
+      "o1": "Correct: IAM Identity Center is the centralized federation/SSO service for multi-account organizations.",
+      "o2": "Incorrect: Cognito targets end users of applications, not AWS account administrators.",
+      "o3": "Incorrect: Config tracks resource configurations; it does not synchronize identities.",
+      "o4": "Incorrect: Shield protects against DDoS; it does not manage identities."
+    },
+    "hint": "Look for the SSO service for humans in a multi-account organization.",
+    "lessonId": "L-2.3", "officialSources": [{ "title": "AWS IAM Identity Center", "url": "https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.4-001", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.4",
+    "topic": "Protection services", "subtopic": "AWS WAF", "services": ["aws-waf"], "concepts": ["web-application-firewall"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company wants to block common SQL injection and malicious script (XSS) attempts against its public web application. Which service fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS WAF, the web application firewall that filters HTTP requests." },
+      { "id": "o2", "text": "AWS Shield, which protects against hardware failures." },
+      { "id": "o3", "text": "Amazon Inspector, which patches the application code." },
+      { "id": "o4", "text": "AWS Artifact, which signs web protection agreements." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS WAF is a web application firewall that protects against common HTTP exploits such as SQL injection and XSS, using rules that inspect incoming web requests.",
+    "optionExplanations": {
+      "o1": "Correct: WAF inspects HTTP requests and blocks application-layer attack patterns.",
+      "o2": "Incorrect: Shield protects against DDoS, not application exploits, and does not \"protect against hardware failures\".",
+      "o3": "Incorrect: Inspector detects vulnerabilities; it neither blocks attacks nor patches code.",
+      "o4": "Incorrect: Artifact is a compliance document portal; it does not protect applications."
+    },
+    "hint": "HTTP-layer attacks = application layer = a web application firewall.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS WAF", "url": "https://aws.amazon.com/waf/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.4-002", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.4",
+    "topic": "Protection services", "subtopic": "AWS Shield", "services": ["aws-shield"], "concepts": ["ddos"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company's website is receiving a distributed denial-of-service (DDoS) attack that saturates its bandwidth. Which AWS service is specifically designed to protect against this type of attack?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Shield" },
+      { "id": "o2", "text": "AWS Config" },
+      { "id": "o3", "text": "AWS Secrets Manager" },
+      { "id": "o4", "text": "Amazon CloudWatch" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Shield is the managed DDoS protection service. Shield Standard is included at no extra cost for all AWS customers, and Shield Advanced offers broader protection and response.",
+    "optionExplanations": {
+      "o1": "Correct: Shield protects applications against distributed denial-of-service attacks.",
+      "o2": "Incorrect: Config tracks resource configurations; it does not mitigate DDoS.",
+      "o3": "Incorrect: Secrets Manager stores secrets; it does not protect against volumetric attacks.",
+      "o4": "Incorrect: CloudWatch monitors metrics and could alert on the spike, but does not mitigate the attack."
+    },
+    "hint": "DDoS has a dedicated service whose purpose matches the name.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS Shield", "url": "https://aws.amazon.com/shield/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.4-003", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.4",
+    "topic": "Protection services", "subtopic": "AWS Trusted Advisor", "services": ["aws-trusted-advisor"], "concepts": ["best-practices"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "What is the general purpose of AWS Trusted Advisor?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Scanning application source code for errors." },
+      { "id": "o2", "text": "Suggesting improvements following AWS best practices in cost, security, performance, fault tolerance, and service limits." },
+      { "id": "o3", "text": "Recording every API call made in the account." },
+      { "id": "o4", "text": "Downloading regulatory compliance documents." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "AWS Trusted Advisor evaluates the environment and provides best practice recommendations in five categories: cost optimization, performance, security, fault tolerance, and service limits.",
+    "optionExplanations": {
+      "o1": "Incorrect: Trusted Advisor does not analyze source code; it works at the AWS resource and configuration level.",
+      "o2": "Correct: it is a \"trusted advisor\" that suggests optimizations based on AWS best practices.",
+      "o3": "Incorrect: recording API calls is the function of AWS CloudTrail.",
+      "o4": "Incorrect: downloading compliance documents is the function of AWS Artifact."
+    },
+    "hint": "Its name says it: it's an \"advisor\", not a scanner or a logger.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS Trusted Advisor", "url": "https://aws.amazon.com/premiumsupport/technology/trusted-advisor/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D2-T2.4-004", "version": 1, "status": "verified", "language": "en", "domain": 2, "taskStatement": "2.4",
+    "topic": "Protection services", "subtopic": "AWS Security Hub", "services": ["aws-security-hub"], "concepts": ["security-posture"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A security team receives alerts from GuardDuty, Inspector, and AWS Config in separate tools and wants a centralized view that aggregates and prioritizes security findings, plus posture evaluation against standards. Which service fits?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Security Hub" },
+      { "id": "o2", "text": "AWS IAM Identity Center" },
+      { "id": "o3", "text": "Amazon CloudFront" },
+      { "id": "o4", "text": "AWS Storage Gateway" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Security Hub aggregates findings from multiple security services and accounts, prioritizes them, and evaluates security posture against standards and compliance frameworks, providing a centralized view.",
+    "optionExplanations": {
+      "o1": "Correct: Security Hub is the centralized panel for findings and security posture.",
+      "o2": "Incorrect: IAM Identity Center manages human access; it does not aggregate security findings.",
+      "o3": "Incorrect: CloudFront is a CDN; it has no security aggregation function.",
+      "o4": "Incorrect: Storage Gateway connects on-premises storage with the cloud; it is unrelated to findings."
+    },
+    "hint": "The keywords are \"centralized view\" of findings.",
+    "lessonId": "L-2.2", "officialSources": [{ "title": "AWS Security Hub", "url": "https://aws.amazon.com/security-hub/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  }
+]

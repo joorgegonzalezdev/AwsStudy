@@ -1,12 +1,13 @@
-/* app.js — arranque, registro de rutas, inicio y pantalla de dominio. */
+/* app.js — arranque bilingüe, registro de rutas, inicio y pantalla de dominio. */
 
 import { loadContent, getContent, getDomain } from './content-loader.js';
 import * as state from './state.js';
 import { register, initRouter, navigate } from './router.js';
 import { escapeHtml, pct, formatDate } from './utils.js';
+import { t, initI18n, applyStaticI18n, isLang } from './i18n.js';
 import { initQuizEngine, startQuizSession, stopTimer, selectQuestions, createAttempt } from './quiz-engine.js';
 import { renderStudyConfig, startStudySession } from './study-mode.js';
-import { renderExamStart, startExamSession } from './exam-simulator.js';
+import { renderExamStart } from './exam-simulator.js';
 import { renderResults } from './scoring.js';
 import { renderReview, renderBookmarks } from './review.js';
 import { renderDashboard } from './dashboard.js';
@@ -41,15 +42,15 @@ function renderHome() {
   outlet.innerHTML = `
     <div class="card">
       <h1>Ruta CLF-C02</h1>
-      <p class="muted">Preparación para el examen AWS Certified Cloud Practitioner (CLF-C02), en español y a tu ritmo.</p>
-      <p class="notice mb0">Herramienta de estudio <b>no oficial</b>. No está afiliada a ni respaldada por AWS. Los resultados son estimaciones locales de estudio.</p>
+      <p class="muted">${escapeHtml(t('home.subtitle'))}</p>
+      <p class="notice mb0">${escapeHtml(t('home.unofficial'))}</p>
       ${unfinished ? `
       <div class="notice info mt">
-        Tienes una actividad sin terminar (${escapeHtml(unfinished.config?.label || unfinished.mode)}).
-        <a href="#/${unfinished.mode === 'exam' ? 'exam/session' : unfinished.mode === 'quiz' ? 'quiz/session' : 'study/session'}">Continuar donde quedaste →</a>
+        ${escapeHtml(t('home.unfinished', { label: t(`mode.${unfinished.mode}`) }))}
+        <a href="#/${unfinished.mode === 'exam' ? 'exam/session' : unfinished.mode === 'quiz' ? 'quiz/session' : 'study/session'}">${escapeHtml(t('home.resume'))}</a>
       </div>` : ''}
       <div class="mt">
-        <b>Progreso general: ${overall}%</b> · ${mastered} preguntas dominadas de ${verifiedTotal}
+        <b>${escapeHtml(t('home.overall', { pct: overall }))}</b> · ${escapeHtml(t('home.masteredOf', { mastered, total: verifiedTotal }))}
         <div class="progress-track"><div class="progress-fill" style="width:${overall}%"></div></div>
       </div>
     </div>
@@ -62,27 +63,27 @@ function renderHome() {
         return `
           <a class="card domain-card" href="#/domain/${d.id}">
             <h3>D${d.id} · ${escapeHtml(d.name)}</h3>
-            <p class="weight">Peso oficial: <b>${d.weight}%</b></p>
+            <p class="weight">${escapeHtml(t('home.weight'))} <b>${d.weight}%</b></p>
             <div class="progress-track"><div class="progress-fill ${cls}" style="width:${p}%"></div></div>
-            <p class="small muted mt">${v && v.total ? `${p}% de acierto en tu práctica` : 'Sin práctica todavía'}</p>
+            <p class="small muted mt">${v && v.total ? escapeHtml(t('home.practicePct', { pct: p })) : escapeHtml(t('home.noPractice'))}</p>
           </a>`;
       }).join('')}
     </div>
 
     <div class="card">
-      <h2>¿Cómo quieres estudiar hoy?</h2>
+      <h2>${escapeHtml(t('home.howTitle'))}</h2>
       <div class="hero-actions">
-        <a class="btn primary" href="#/study">📖 Modo estudio</a>
-        <a class="btn" href="#/quiz">⚡ Quiz rápido</a>
-        <a class="btn" href="#/exam">⏱ Simulacro de examen</a>
+        <a class="btn primary" href="#/study">${escapeHtml(t('home.actionStudy'))}</a>
+        <a class="btn" href="#/quiz">${escapeHtml(t('home.actionQuiz'))}</a>
+        <a class="btn" href="#/exam">${escapeHtml(t('home.actionExam'))}</a>
       </div>
       <div class="hero-actions">
-        <a class="btn" href="#/review">🔁 Repasar errores</a>
-        <a class="btn" href="#/bookmarks">☆ Marcadores</a>
-        <a class="btn" href="#/library">📚 Biblioteca</a>
-        <a class="btn" href="#/progress">📈 Progreso</a>
+        <a class="btn" href="#/review">${escapeHtml(t('home.actionReview'))}</a>
+        <a class="btn" href="#/bookmarks">${escapeHtml(t('home.actionBookmarks'))}</a>
+        <a class="btn" href="#/library">${escapeHtml(t('home.actionLibrary'))}</a>
+        <a class="btn" href="#/progress">${escapeHtml(t('home.actionProgress'))}</a>
       </div>
-      ${s.stats.lastStudiedAt ? `<p class="small muted">Última sesión: ${formatDate(s.stats.lastStudiedAt)}</p>` : ''}
+      ${s.stats.lastStudiedAt ? `<p class="small muted">${escapeHtml(t('home.lastSession', { date: formatDate(s.stats.lastStudiedAt) }))}</p>` : ''}
     </div>`;
 }
 
@@ -96,32 +97,31 @@ function renderDomain(params) {
   const attempts = state.listAttempts();
 
   outlet.innerHTML = `
-    <p><a href="#/">← Inicio</a></p>
+    <p><a href="#/">← ${escapeHtml(t('common.home'))}</a></p>
     <div class="card">
-      <h1>D${d.id} · ${escapeHtml(d.name)} <span class="badge info">${d.weight}% del examen</span></h1>
+      <h1>D${d.id} · ${escapeHtml(d.name)} <span class="badge info">${escapeHtml(t('domain.examWeight', { pct: d.weight }))}</span></h1>
       <p class="muted">${escapeHtml(d.description)}</p>
       <div class="btn-row">
-        <a class="btn primary" href="#/study">Estudiar este dominio</a>
-        <a class="btn" href="#/quiz">Quiz de este dominio</a>
-        <a class="btn" href="#/library">Ver lecciones</a>
+        <a class="btn primary" href="#/study">${escapeHtml(t('domain.practiceStudy'))}</a>
+        <a class="btn" href="#/quiz">${escapeHtml(t('domain.practiceQuiz'))}</a>
+        <a class="btn" href="#/library">${escapeHtml(t('domain.viewLessons'))}</a>
       </div>
     </div>
-    ${d.tasks.map((t) => {
-      const lessons = c.lessons.filter((l) => (l.taskStatements || []).includes(t.id));
-      /* precisión por tarea a partir de intentos completados */
+    ${d.tasks.map((tk) => {
+      const lessons = c.lessons.filter((l) => (l.taskStatements || []).includes(tk.id));
       let correct = 0, total = 0;
       attempts.forEach((a) => {
-        const v = a.resultSummary?.byTask?.[t.id];
+        const v = a.resultSummary?.byTask?.[tk.id];
         if (v) { correct += v.correct; total += v.total; }
       });
       const p = total ? pct(correct, total) : 0;
       const cls = !total ? '' : p >= 70 ? 'ok' : p >= 50 ? 'warn' : 'bad';
       return `
         <div class="card">
-          <h3>Tarea ${escapeHtml(t.id)} · ${escapeHtml(t.title)}</h3>
-          <p class="small muted">Precisión registrada: ${total ? `${p}% (${correct}/${total})` : 'sin datos'}</p>
+          <h3>${escapeHtml(t('common.task'))} ${escapeHtml(tk.id)} · ${escapeHtml(tk.title)}</h3>
+          <p class="small muted">${escapeHtml(t('domain.accuracy'))} ${total ? `${p}% (${correct}/${total})` : escapeHtml(t('common.noData'))}</p>
           <div class="progress-track"><div class="progress-fill ${cls}" style="width:${p}%"></div></div>
-          <div class="chips mt">${t.topics.map((tp) => `<span class="chip">${escapeHtml(tp)}</span>`).join('')}</div>
+          <div class="chips mt">${tk.topics.map((tp) => `<span class="chip">${escapeHtml(tp)}</span>`).join('')}</div>
           ${lessons.map((l) => `<p class="mt" style="margin-bottom:0">📖 <a href="#/library/lesson/${l.id}">${escapeHtml(l.title)}</a></p>`).join('')}
         </div>`;
     }).join('')}`;
@@ -135,12 +135,12 @@ function renderQuizConfig() {
   const outlet = $outlet();
   const settings = state.getSettings();
   outlet.innerHTML = `
-    <h1>Quiz rápido</h1>
-    <p class="muted">El cronómetro es <b>referencial</b>: no se entrega automáticamente al agotarse. Explicaciones al final.</p>
+    <h1>${escapeHtml(t('quiz.title'))}</h1>
+    <p class="muted">${escapeHtml(t('quiz.intro'))}</p>
     <div class="card">
       <div class="field">
-        <label>Número de preguntas</label>
-        <div class="btn-row" role="radiogroup" aria-label="Número de preguntas">
+        <label>${escapeHtml(t('quiz.size'))}</label>
+        <div class="btn-row" role="radiogroup" aria-label="${escapeHtml(t('quiz.sizeAria'))}">
           ${[10, 20, 30].map((n) => `
             <label class="option" style="flex:0 1 auto">
               <input type="radio" name="quiz-size" value="${n}" ${settings.defaultQuizSize === n ? 'checked' : ''}>
@@ -149,7 +149,7 @@ function renderQuizConfig() {
         </div>
       </div>
       <div class="field">
-        <label>Dominios (ninguno marcado = todos)</label>
+        <label>${escapeHtml(t('quiz.domains'))}</label>
         ${c.domains.map((d) => `
           <label class="check-row">
             <input type="checkbox" class="quiz-domain" value="${d.id}">
@@ -158,8 +158,8 @@ function renderQuizConfig() {
       </div>
       <p class="small muted" id="quiz-count"></p>
       <div class="btn-row">
-        <button type="button" class="btn primary" id="quiz-start">Comenzar quiz</button>
-        <a class="btn ghost" href="#/">Cancelar</a>
+        <button type="button" class="btn primary" id="quiz-start">${escapeHtml(t('quiz.start'))}</button>
+        <a class="btn ghost" href="#/">${escapeHtml(t('common.cancel'))}</a>
       </div>
     </div>`;
 
@@ -167,7 +167,7 @@ function renderQuizConfig() {
   function updateCount() {
     const domains = Array.from(outlet.querySelectorAll('.quiz-domain:checked')).map((i) => i.value);
     const n = Number(outlet.querySelector('input[name="quiz-size"]:checked')?.value || settings.defaultQuizSize);
-    countEl.textContent = `${selectQuestions({ mode: 'quiz', domains, size: n }).length} preguntas seleccionadas para esta configuración.`;
+    countEl.textContent = t('quiz.selected', { n: selectQuestions({ mode: 'quiz', domains, size: n }).length });
   }
   outlet.querySelectorAll('.quiz-domain, input[name="quiz-size"]').forEach((el) => el.addEventListener('change', updateCount));
   updateCount();
@@ -178,7 +178,7 @@ function renderQuizConfig() {
     const minutes = size === 10 ? 15 : size === 20 ? 30 : 45;
     createAttempt({
       mode: 'quiz',
-      config: { domains, tasks: [], size, timerSeconds: minutes * 60, label: 'Quiz rápido' },
+      config: { domains, tasks: [], size, timerSeconds: minutes * 60 },
     });
     navigate('/quiz/session');
   });
@@ -206,7 +206,7 @@ function registerRoutes() {
     const id = state.getCurrentAttemptId();
     const attempt = id && state.getAttempt(id);
     if (attempt && attempt.mode === 'quiz' && attempt.status === 'in_progress') {
-      startQuizSession(attempt.id, { label: 'Quiz rápido' });
+      startQuizSession(attempt.id);
     } else {
       renderQuizConfig();
     }
@@ -220,7 +220,7 @@ function registerRoutes() {
     const id = state.getCurrentAttemptId();
     const attempt = id && state.getAttempt(id);
     if (attempt && attempt.mode === 'exam' && attempt.status === 'in_progress') {
-      startExamSession(attempt.id);
+      startQuizSession(attempt.id);
     } else {
       renderExamStart();
     }
@@ -241,17 +241,20 @@ function registerRoutes() {
 
 async function boot() {
   state.applyPreferences();
+  const preferred = state.getSettings().language;
   try {
-    await loadContent();
+    await initI18n(isLang(preferred) ? preferred : 'es');
+    await loadContent(isLang(preferred) ? preferred : 'es');
   } catch (e) {
-    document.getElementById('outlet').innerHTML = `
+    $outlet().innerHTML = `
       <div class="card">
-        <h1>No se pudo cargar el contenido</h1>
+        <h1>${t('boot.loadFail')}</h1>
         <p class="muted">${String(e.message || e)}</p>
-        <p class="small muted">Si abres los archivos directamente desde el disco, sirve la aplicación con un servidor local, por ejemplo: <code>npx http-server</code> o <code>python -m http.server</code>.</p>
+        <p class="small muted">${t('boot.loadFailHint')}</p>
       </div>`;
     return;
   }
+  applyStaticI18n();
   initQuizEngine();
   registerRoutes();
   initRouter(document.getElementById('outlet'));

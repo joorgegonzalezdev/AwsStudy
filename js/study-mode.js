@@ -4,8 +4,10 @@
 
 import { getContent, getDomain, getLesson, getQuestion } from './content-loader.js';
 import * as state from './state.js';
-import { escapeHtml, shuffle, announce, pct } from './utils.js';
+import { escapeHtml, announce } from './utils.js';
+import { t } from './i18n.js';
 import { createAttempt } from './quiz-engine.js';
+import { computeSummary } from './scoring.js';
 import { navigate } from './router.js';
 
 /* ---------- Configurador ---------- */
@@ -14,32 +16,32 @@ export function renderStudyConfig() {
   const c = getContent();
   const outlet = document.getElementById('outlet');
   outlet.innerHTML = `
-    <h1>Modo estudio</h1>
-    <p class="muted">Sin cronómetro. Una pregunta a la vez, con explicación inmediata de cada respuesta.</p>
+    <h1>${escapeHtml(t('study.title'))}</h1>
+    <p class="muted">${escapeHtml(t('study.intro'))}</p>
     <div class="card">
       <div class="field">
-        <label for="study-domain">Dominio</label>
+        <label for="study-domain">${escapeHtml(t('study.domain'))}</label>
         <select id="study-domain">
-          <option value="">Todos los dominios</option>
+          <option value="">${escapeHtml(t('study.allDomains'))}</option>
           ${c.domains.map((d) => `<option value="${d.id}">D${d.id} · ${escapeHtml(d.name)} (${d.weight}%)</option>`).join('')}
         </select>
       </div>
       <div class="field">
-        <label for="study-task">Task statement (opcional)</label>
-        <select id="study-task"><option value="">Cualquiera del dominio elegido</option></select>
+        <label for="study-task">${escapeHtml(t('study.task'))}</label>
+        <select id="study-task"><option value="">${escapeHtml(t('study.anyTask'))}</option></select>
       </div>
       <div class="field">
-        <label for="study-size">Cantidad de preguntas</label>
+        <label for="study-size">${escapeHtml(t('study.size'))}</label>
         <select id="study-size">
-          <option value="10">10 preguntas</option>
-          <option value="20">20 preguntas</option>
-          <option value="30">30 preguntas</option>
-          <option value="0">Todas las disponibles</option>
+          <option value="10">${escapeHtml(t('study.sizeN', { n: 10 }))}</option>
+          <option value="20">${escapeHtml(t('study.sizeN', { n: 20 }))}</option>
+          <option value="30">${escapeHtml(t('study.sizeN', { n: 30 }))}</option>
+          <option value="0">${escapeHtml(t('study.sizeAll'))}</option>
         </select>
       </div>
       <div class="btn-row">
-        <button type="button" class="btn primary" id="study-start">Comenzar a estudiar</button>
-        <a class="btn ghost" href="#/">Cancelar</a>
+        <button type="button" class="btn primary" id="study-start">${escapeHtml(t('study.start'))}</button>
+        <a class="btn ghost" href="#/">${escapeHtml(t('common.cancel'))}</a>
       </div>
       <p class="small muted" id="study-count"></p>
     </div>`;
@@ -50,18 +52,18 @@ export function renderStudyConfig() {
 
   function updateTasks() {
     const d = Number(domainSel.value);
-    taskSel.innerHTML = '<option value="">Cualquiera del dominio elegido</option>' + (
-      d ? (getDomain(d)?.tasks || []).map((t) => `<option value="${t.id}">${t.id} · ${escapeHtml(t.title)}</option>`).join('') : ''
+    taskSel.innerHTML = `<option value="">${escapeHtml(t('study.anyTask'))}</option>` + (
+      d ? (getDomain(d)?.tasks || []).map((tk) => `<option value="${tk.id}">${tk.id} · ${escapeHtml(tk.title)}</option>`).join('') : ''
     );
     updateCount();
   }
   function updateCount() {
     const d = domainSel.value;
-    const t = taskSel.value;
+    const tk = taskSel.value;
     let pool = c.questions.filter((q) => q.status === 'verified');
     if (d) pool = pool.filter((q) => String(q.domain) === d);
-    if (t) pool = pool.filter((q) => q.taskStatement === t);
-    countEl.textContent = `${pool.length} preguntas disponibles con estos filtros.`;
+    if (tk) pool = pool.filter((q) => q.taskStatement === tk);
+    countEl.textContent = t('study.available', { n: pool.length });
   }
   domainSel.addEventListener('change', updateTasks);
   taskSel.addEventListener('change', updateCount);
@@ -71,12 +73,11 @@ export function renderStudyConfig() {
     const domains = domainSel.value ? [domainSel.value] : [];
     const tasks = taskSel.value ? [taskSel.value] : [];
     const size = Number(outlet.querySelector('#study-size').value) || 0;
-    const att = createAttempt({
+    createAttempt({
       mode: 'study',
-      config: { domains, tasks, size, timerSeconds: 0, label: 'Estudio' },
+      config: { domains, tasks, size, timerSeconds: 0 },
     });
     navigate('/study/session');
-    void att;
   });
 }
 
@@ -127,32 +128,32 @@ function renderStudyQuestion(attempt) {
 
   outlet.innerHTML = `
     <div class="quiz-header">
-      <span class="badge ${attempt.mode === 'review' ? 'warn' : 'info'}">${attempt.mode === 'review' ? 'Repaso de errores' : 'Estudio'}</span>
-      <span class="muted">Pregunta ${idx + 1} de ${total}</span>
+      <span class="badge ${attempt.mode === 'review' ? 'warn' : 'info'}">${escapeHtml(t(`mode.${attempt.mode}`))}</span>
+      <span class="muted">${escapeHtml(t('common.question'))} ${idx + 1} ${escapeHtml(t('common.of'))} ${total}</span>
       <span class="spacer" style="flex:1"></span>
-      <button type="button" class="btn small" data-study="exit">Salir</button>
+      <button type="button" class="btn small" data-study="exit">${escapeHtml(t('common.exit'))}</button>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${Math.round((idx / total) * 100)}%"></div></div>
     <div class="card mt">
       <div class="chips">
-        <span class="chip">Dominio ${q.domain}</span>
-        <span class="chip">Tarea ${q.taskStatement}</span>
+        <span class="chip">${escapeHtml(t('common.domain'))} ${q.domain}</span>
+        <span class="chip">${escapeHtml(t('common.task'))} ${q.taskStatement}</span>
         ${q.topic ? `<span class="chip">${escapeHtml(q.topic)}</span>` : ''}
-        <span class="chip">${q.difficulty === 'challenging' ? 'Desafiante' : q.difficulty === 'intermediate' ? 'Intermedio' : 'Básico'}</span>
+        <span class="chip">${escapeHtml(t(`difficulty.${q.difficulty}`))}</span>
       </div>
       <p class="q-text">${escapeHtml(q.question)}</p>
-      <p class="q-instruction">${escapeHtml(q.selectionInstruction || 'Elige UNA respuesta.')}</p>
+      <p class="q-instruction">${escapeHtml(q.selectionInstruction || t('common.chooseOne'))}</p>
       <div id="study-options">${optionsHtml}</div>
       ${!ans.revealed && q.hint ? `
         <div id="hint-zone" class="mt">
           ${ans.hintShown
             ? `<div class="notice info">💡 ${escapeHtml(q.hint)}</div>`
-            : '<button type="button" class="btn ghost" id="show-hint">Ver pista (no afecta tu puntuación)</button>'}
+            : `<button type="button" class="btn ghost" id="show-hint">${escapeHtml(t('study.hint'))}</button>`}
         </div>` : ''}
       ${!ans.revealed ? `
         <div class="btn-row mt">
-          <button type="button" class="btn primary" id="check-btn" ${(ans.selectedIds || []).length === 0 ? 'disabled' : ''}>Comprobar respuesta</button>
-          <button type="button" class="btn ghost" id="skip-btn">Saltar</button>
+          <button type="button" class="btn primary" id="check-btn" ${(ans.selectedIds || []).length === 0 ? 'disabled' : ''}>${escapeHtml(t('study.check'))}</button>
+          <button type="button" class="btn ghost" id="skip-btn">${escapeHtml(t('study.skip'))}</button>
         </div>` : ''}
       <div id="feedback-zone"></div>
       ${ans.revealed ? renderFeedback(attempt, q, ans, lesson) : ''}
@@ -160,27 +161,27 @@ function renderStudyQuestion(attempt) {
 
   bindStudyEvents(attempt, q, ans, multi);
   if (ans.revealed) {
-    announce(ans.isCorrect ? 'Respuesta correcta.' : 'Respuesta incorrecta.');
+    announce(ans.isCorrect ? t('notify.correct') : t('notify.incorrect'));
   }
 }
 
 function renderFeedback(attempt, q, ans, lesson) {
   return `
     <div class="feedback ${ans.isCorrect ? 'correct' : 'incorrect'}" role="status">
-      <div class="fb-title">${ans.isCorrect ? '✔ ¡Correcto!' : '✘ Incorrecto'}</div>
+      <div class="fb-title">${ans.isCorrect ? escapeHtml(t('study.correctTitle')) : escapeHtml(t('study.incorrectTitle'))}</div>
       <div class="fb-body">
-        ${!ans.isCorrect ? `<p><b>Respuesta correcta:</b> ${escapeHtml(q.correctAnswerIds.map((oid) => q.options.find((o) => o.id === oid)?.text).join(' · '))}</p>` : ''}
+        ${!ans.isCorrect ? `<p><b>${escapeHtml(t('common.correctAnswer'))}</b> ${escapeHtml(q.correctAnswerIds.map((oid) => q.options.find((o) => o.id === oid)?.text).join(' · '))}</p>` : ''}
         <p>${escapeHtml(q.explanation)}</p>
-        ${q.concepts?.length ? `<div class="chips">${q.concepts.map((cc) => `<span class="chip">Concepto: ${escapeHtml(cc)}</span>`).join('')}</div>` : ''}
-        ${lesson ? `<p class="mt"><a href="#/library/lesson/${lesson.id}">📖 Repasar la lección: ${escapeHtml(lesson.title)}</a></p>` : ''}
-        ${(q.officialSources || []).length ? `<p class="small">Fuente oficial: ${q.officialSources.map((s) => `<a href="${s.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.title)}</a>`).join(' · ')}</p>` : ''}
+        ${q.concepts?.length ? `<div class="chips">${q.concepts.map((cc) => `<span class="chip">${escapeHtml(t('common.concept'))} ${escapeHtml(cc)}</span>`).join('')}</div>` : ''}
+        ${lesson ? `<p class="mt"><a href="#/library/lesson/${lesson.id}">${escapeHtml(t('common.relatedLesson'))} ${escapeHtml(lesson.title)}</a></p>` : ''}
+        ${(q.officialSources || []).length ? `<p class="small">${escapeHtml(t('common.source'))} ${q.officialSources.map((s) => `<a href="${s.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.title)}</a>`).join(' · ')}</p>` : ''}
       </div>
     </div>
     <div class="btn-row mt">
-      <button type="button" class="btn small ${state.getQuestionState(q.id)?.difficult ? 'toggled' : ''}" data-study="difficult">⚑ Marcar como difícil</button>
-      <button type="button" class="btn small ${state.getQuestionState(q.id)?.bookmarked ? 'toggled' : ''}" data-study="bookmark">☆ Guardar pregunta</button>
+      <button type="button" class="btn small ${state.getQuestionState(q.id)?.difficult ? 'toggled' : ''}" data-study="difficult">${escapeHtml(t('common.markDifficult'))}</button>
+      <button type="button" class="btn small ${state.getQuestionState(q.id)?.bookmarked ? 'toggled' : ''}" data-study="bookmark">${escapeHtml(t('common.bookmark'))}</button>
       <span class="spacer" style="flex:1"></span>
-      <button type="button" class="btn primary" id="continue-btn">${attempt.currentIndex + 1 >= attempt.questionOrder.length ? 'Ver resumen' : 'Continuar ▶'}</button>
+      <button type="button" class="btn primary" id="continue-btn">${attempt.currentIndex + 1 >= attempt.questionOrder.length ? escapeHtml(t('study.seeSummary')) : escapeHtml(t('common.continue'))}</button>
     </div>`;
 }
 
@@ -262,7 +263,7 @@ function advance(attempt, skipped) {
 }
 
 function finishStudyAttempt(attempt) {
-  const summary = scoring.computeSummary(attempt);
+  const summary = computeSummary(attempt);
   const elapsed = Math.max(0, Math.round((Date.now() - new Date(attempt.startedAt).getTime()) / 1000));
   state.update((s) => {
     const a = s.attempts[attempt.id];
@@ -281,14 +282,14 @@ function renderStudySummary(attempt) {
   const outlet = document.getElementById('outlet');
   outlet.innerHTML = `
     <div class="card score-hero">
-      <h1>Sesión de ${attempt.mode === 'review' ? 'repaso' : 'estudio'} completada</h1>
+      <h1>${escapeHtml(attempt.mode === 'review' ? t('study.summaryReview') : t('study.summaryStudy'))}</h1>
       <div class="big">${s.correct}/${s.total}</div>
-      <p class="small muted">Correctas: ${s.correct} · Incorrectas: ${s.incorrect} · Saltadas: ${s.unanswered}</p>
-      <p class="muted">Las preguntas respondidas se han registrado en tu progreso. Volverán a aparecer en el repaso de errores si fallaste.</p>
+      <p class="small muted">${escapeHtml(t('common.correct'))}: ${s.correct} · ${escapeHtml(t('common.incorrect'))}: ${s.incorrect} · ${escapeHtml(t('common.skipped'))}: ${s.unanswered}</p>
+      <p class="muted">${escapeHtml(t('study.registered'))}</p>
       <div class="btn-row" style="justify-content:center">
-        <a class="btn primary" href="#/study">Otra sesión de estudio</a>
-        <a class="btn" href="#/progress">Ver progreso</a>
-        <a class="btn ghost" href="#/">Inicio</a>
+        <a class="btn primary" href="#/study">${escapeHtml(t('study.another'))}</a>
+        <a class="btn" href="#/progress">${escapeHtml(t('study.viewProgress'))}</a>
+        <a class="btn ghost" href="#/">${escapeHtml(t('common.home'))}</a>
       </div>
     </div>`;
 }

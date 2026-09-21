@@ -4,7 +4,7 @@ Herramienta **no oficial** de estudio en español para el examen **AWS Certified
 
 ## Qué es
 
-Aplicación web 100 % estática y sin backend:
+Aplicación web 100 % estática y sin backend, **bilingüe (español / inglés)**:
 
 - **Modo estudio** — preguntas una a una con explicación de cada opción, pistas y enlaces a lecciones.
 - **Quiz rápido** — 10/20/30 preguntas con cronómetro referencial y resultados por dominio.
@@ -12,6 +12,8 @@ Aplicación web 100 % estática y sin backend:
 - **Repaso de errores** — con regla de maestría (3 aciertos en días distintos).
 - **Biblioteca** — 15 lecciones, catálogo de servicios por nivel de aprendizaje y glosario.
 - **Progreso local** — todo se guarda en `localStorage`; exportación/importación JSON incluida.
+
+El idioma se cambia en Ajustes y afecta a la interfaz **y** al contenido. Los IDs de preguntas son compartidos entre idiomas: tu progreso se conserva al cambiar de idioma.
 
 Tecnología: HTML5 + CSS3 + JavaScript (ES modules) + JSON. Sin frameworks, sin backend, sin cuentas.
 

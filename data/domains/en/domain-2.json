@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "name": "Security and Compliance",
+  "weight": 30,
+  "description": "The AWS shared responsibility model, security, governance and compliance concepts, access management with IAM, and security components and resources.",
+  "tasks": [
+    { "id": "2.1", "title": "Understand the AWS shared responsibility model", "topics": ["Shared responsibility", "Customer responsibilities", "AWS responsibilities"] },
+    { "id": "2.2", "title": "Understand AWS Cloud security, governance, and compliance concepts", "topics": ["Compliance and AWS Artifact", "Encryption", "Security services", "Governance, monitoring and auditing"] },
+    { "id": "2.3", "title": "Identify AWS access management capabilities", "topics": ["AWS IAM", "Root user protection", "Principle of least privilege", "AWS IAM Identity Center"] },
+    { "id": "2.4", "title": "Identify components and resources for security", "topics": ["Protection services", "Security information resources"] }
+  ]
+}

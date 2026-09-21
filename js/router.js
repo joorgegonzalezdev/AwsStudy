@@ -1,5 +1,8 @@
 /* router.js — enrutador hash minimalista con soporte de parámetros. */
 
+import { t } from './i18n.js';
+import { escapeHtml } from './utils.js';
+
 const routes = new Map(); // patrón -> handler(params)
 let outlet = null;
 
@@ -43,9 +46,9 @@ function handleRoute() {
   }
   outlet.innerHTML = `
     <div class="card">
-      <h1>Página no encontrada</h1>
-      <p class="muted">La ruta <code>${path}</code> no existe.</p>
-      <a class="btn primary" href="#/">Volver al inicio</a>
+      <h1>${escapeHtml(t('router.notFound'))}</h1>
+      <p class="muted">${escapeHtml(t('router.notFoundDesc', { path }))}</p>
+      <a class="btn primary" href="#/">${escapeHtml(t('common.backHome'))}</a>
     </div>`;
 }
 
@@ -57,9 +60,9 @@ function render(handler, params) {
     console.error('Error al renderizar la ruta:', e);
     outlet.innerHTML = `
       <div class="card">
-        <h1>Algo salió mal</h1>
+        <h1>${escapeHtml(t('router.errorTitle'))}</h1>
         <p class="muted">${String(e && e.message ? e.message : e)}</p>
-        <a class="btn primary" href="#/">Volver al inicio</a>
+        <a class="btn primary" href="#/">${escapeHtml(t('common.backHome'))}</a>
       </div>`;
   }
 }

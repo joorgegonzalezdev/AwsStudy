@@ -1,0 +1,16 @@
+{
+  "id": 3,
+  "name": "Cloud Technology and Services",
+  "weight": 34,
+  "description": "Deployment and operating methods, the global infrastructure, and AWS services by category: compute, databases, networking, storage, AI/ML, analytics, integration, and more.",
+  "tasks": [
+    { "id": "3.1", "title": "Define methods of deploying and operating in the AWS Cloud", "topics": ["Ways to access AWS", "Infrastructure as code", "Deployment models"] },
+    { "id": "3.2", "title": "Define the AWS global infrastructure", "topics": ["Regions and Availability Zones", "Edge locations", "Multi-Region architectures"] },
+    { "id": "3.3", "title": "Identify AWS compute services", "topics": ["Amazon EC2", "Containers", "Serverless compute", "Scaling and load balancing"] },
+    { "id": "3.4", "title": "Identify AWS database services", "topics": ["Relational databases", "NoSQL databases", "Caching and database migration"] },
+    { "id": "3.5", "title": "Identify AWS network services", "topics": ["Amazon VPC", "Security groups and network ACLs", "DNS and connectivity"] },
+    { "id": "3.6", "title": "Identify AWS storage services", "topics": ["Object storage", "Block storage", "File storage", "Backups and lifecycle"] },
+    { "id": "3.7", "title": "Identify AWS AI, machine learning, and analytics services", "topics": ["AI and ML services", "Analytics services"] },
+    { "id": "3.8", "title": "Identify services from other in-scope categories", "topics": ["Application integration", "Business applications", "Developer tools", "End-user computing and frontend"] }
+  ]
+}

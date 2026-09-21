@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "Cloud Concepts",
+  "weight": 24,
+  "description": "Benefits of the AWS Cloud, AWS Well-Architected Framework design principles, migration strategies, and cloud economics.",
+  "tasks": [
+    { "id": "1.1", "title": "Define the benefits of the AWS Cloud", "topics": ["Cloud benefits", "Global infrastructure", "High availability and elasticity"] },
+    { "id": "1.2", "title": "Identify design principles of the AWS Cloud", "topics": ["AWS Well-Architected Framework", "Framework pillars"] },
+    { "id": "1.3", "title": "Understand the benefits of and strategies for migration to the AWS Cloud", "topics": ["AWS Cloud Adoption Framework", "The 7 migration strategies", "Migration resources"] },
+    { "id": "1.4", "title": "Understand concepts of cloud economics", "topics": ["Fixed vs variable costs", "CapEx and OpEx", "Rightsizing and licensing"] }
+  ]
+}

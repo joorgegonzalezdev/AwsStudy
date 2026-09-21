@@ -1,0 +1,553 @@
+[
+  {
+    "id": "D3-T3.1-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.1",
+    "topic": "Infrastructure as code", "subtopic": "AWS CloudFormation", "services": ["aws-cloudformation"], "concepts": ["iac"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A team needs to create the same complete environment (network, instances, databases) in several test environments in a repeatable, versioned way. Which approach best describes the solution?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Creating the resources manually in the console in each environment." },
+      { "id": "o2", "text": "Using AWS CloudFormation to define the infrastructure in templates and deploy it repeatedly (infrastructure as code)." },
+      { "id": "o3", "text": "Documenting the steps in a Word document and following them by hand." },
+      { "id": "o4", "text": "Hiring more staff to create the environments faster." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "AWS CloudFormation lets you describe infrastructure in templates (JSON/YAML) and provision it repeatably, auditably, and in a versioned way: infrastructure as code. It is ideal for recreating identical environments without error-prone manual steps.",
+    "optionExplanations": {
+      "o1": "Incorrect: manual creation is slow, error-prone, and not repeatable across environments.",
+      "o2": "Correct: CloudFormation templates are the classic representation of infrastructure as code on AWS.",
+      "o3": "Incorrect: a manual document does not guarantee consistency or versioning of the infrastructure.",
+      "o4": "Incorrect: more staff does not solve reproducibility; the problem is methodological, not human capacity."
+    },
+    "hint": "Repeatable + versioned = a well-known acronym.",
+    "lessonId": "L-3.1", "officialSources": [{ "title": "AWS CloudFormation (introduction)", "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.1-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.1",
+    "topic": "Ways to access AWS", "subtopic": "Console vs CLI", "services": ["aws-cli"], "concepts": ["console", "cli"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "An administrator needs to review the configuration of a single resource once, visually. What is the most appropriate way to do it?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "The AWS Management Console, ideal for manual, one-off operations." },
+      { "id": "o2", "text": "Writing a custom SDK for that resource." },
+      { "id": "o3", "text": "Opening an AWS Support case so they review it." },
+      { "id": "o4", "text": "Deploying AWS Outposts in the office." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "The AWS Management Console is the graphical interface, ideal for manual, one-off, exploratory operations. For repeatable or automated operations, prefer the CLI, SDKs, or infrastructure as code.",
+    "optionExplanations": {
+      "o1": "Correct: a visual, one-time review is the console's typical use case.",
+      "o2": "Incorrect: using an SDK means writing code; that is excessive for a one-time review.",
+      "o3": "Incorrect: opening a support case is unnecessary for reviewing your own configuration.",
+      "o4": "Incorrect: Outposts is on-premises hardware for hybrid workloads; it is not a review tool."
+    },
+    "hint": "Single manual operation → graphical interface.",
+    "lessonId": "L-3.1", "officialSources": [{ "title": "AWS Management Console", "url": "https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.1-003", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.1",
+    "topic": "Deployment models", "subtopic": "Hybrid", "services": ["aws-outposts", "aws-vpn"], "concepts": ["deployment-models"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company keeps part of its systems in its own data center and other workloads in AWS, and needs both environments to operate connected. What is this deployment model called?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Cloud deployment (everything on AWS)" },
+      { "id": "o2", "text": "On-premises deployment (everything local)" },
+      { "id": "o3", "text": "Hybrid deployment, connecting on-premises infrastructure with the cloud" },
+      { "id": "o4", "text": "Multi-Region deployment" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "A hybrid deployment combines on-premises infrastructure with cloud resources, connected via VPN or Direct Connect (or with AWS hardware on-premises, like Outposts). It is common during gradual migrations or for latency and regulatory requirements.",
+    "optionExplanations": {
+      "o1": "Incorrect: a cloud deployment means all resources are on AWS.",
+      "o2": "Incorrect: pure on-premises means nothing runs in the cloud.",
+      "o3": "Correct: local + cloud connected is the definition of a hybrid deployment.",
+      "o4": "Incorrect: multi-Region refers to several AWS Regions, not the local + cloud combination."
+    },
+    "hint": "Local + cloud together has a blend-type name.",
+    "lessonId": "L-3.1", "officialSources": [{ "title": "AWS Outposts (hybrid deployment)", "url": "https://aws.amazon.com/outposts/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.2-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.2",
+    "topic": "Regions and Availability Zones", "subtopic": "Infrastructure hierarchy", "services": [], "concepts": ["regions", "az", "edge-locations"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "Which correctly describes the relationship between AWS Regions, Availability Zones (AZs), and edge locations?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Each Region contains multiple AZs isolated from one another; edge locations cache content close to users." },
+      { "id": "o2", "text": "Each AZ contains several Regions that share a single point of failure." },
+      { "id": "o3", "text": "Edge locations are data centers where customers' databases are executed." },
+      { "id": "o4", "text": "Regions and AZs are synonyms with different names." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "The hierarchy is: each geographic Region contains multiple Availability Zones (one or more independent data centers with no shared single points of failure). In addition, edge locations distribute cached content close to users (CloudFront).",
+    "optionExplanations": {
+      "o1": "Correct: Region → multiple independent AZs; edges → content cache for lower latency.",
+      "o2": "Incorrect: it is the other way around (a Region contains AZs) and AZs are designed with no shared single points of failure.",
+      "o3": "Incorrect: edge locations cache content; they do not run customer workloads.",
+      "o4": "Incorrect: an AZ is inside a Region; they are not equivalent."
+    },
+    "hint": "Region ⊃ AZ; edge = cache near the user.",
+    "lessonId": "L-3.2", "officialSources": [{ "title": "AWS Global Infrastructure", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.2-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.2",
+    "topic": "Multi-Region architectures", "subtopic": "Data residency", "services": [], "concepts": ["data-residency", "multi-region"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "For legal reasons, a company must guarantee that its European customers' data remains stored in European territory. Which AWS characteristic lets it meet this requirement?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "The ability to choose specific Regions where to deploy and store data." },
+      { "id": "o2", "text": "The fact that AWS automatically replicates all data worldwide with no control option." },
+      { "id": "o3", "text": "Using Spot instances to reduce the regulatory cost." },
+      { "id": "o4", "text": "The requirement to use the root user to store data." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS lets you choose which Region your resources are deployed in and where data is stored. This geographic control enables data residency and sovereignty — one of the main reasons to use multiple Regions (along with DR, continuity, and latency).",
+    "optionExplanations": {
+      "o1": "Correct: choosing the deployment Region is exactly the control that data residency requires.",
+      "o2": "Incorrect: AWS does not replicate customer data worldwide without control; the customer chooses where.",
+      "o3": "Incorrect: Spot instances are a pricing model, unrelated to legal location requirements.",
+      "o4": "Incorrect: the root user has no relation to data location."
+    },
+    "hint": "The control lies in choosing the geographic location.",
+    "lessonId": "L-3.2", "officialSources": [{ "title": "AWS Global Infrastructure (Regions)", "url": "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.2-003", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.2",
+    "topic": "Edge locations", "subtopic": "Content delivery", "services": ["amazon-cloudfront"], "concepts": ["edge-locations", "cdn"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A news site with readers worldwide loads images and videos from the same central server, and distant users experience slowness. Which solution reduces latency for all readers?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Using Amazon CloudFront to cache content in edge locations close to users." },
+      { "id": "o2", "text": "Migrating the images to a relational database." },
+      { "id": "o3", "text": "Contracting more bandwidth on the central server." },
+      { "id": "o4", "text": "Asking users to connect during low-traffic hours." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon CloudFront is a content delivery network (CDN) that caches static content in edge locations spread around the world, serving it from the point closest to each user and reducing latency.",
+    "optionExplanations": {
+      "o1": "Correct: caching at edges near the user is CloudFront's central purpose.",
+      "o2": "Incorrect: a relational database does not move content closer to the user; the problem is distance.",
+      "o3": "Incorrect: more bandwidth at the origin does not shorten the physical distance data travels.",
+      "o4": "Incorrect: limiting schedules is not a technical latency solution."
+    },
+    "hint": "Content near the user = edge locations.",
+    "lessonId": "L-3.2", "officialSources": [{ "title": "Amazon CloudFront", "url": "https://aws.amazon.com/cloudfront/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.3-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.3",
+    "topic": "Serverless compute", "subtopic": "AWS Lambda", "services": ["aws-lambda"], "concepts": ["serverless"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "An application needs to run a short function (a few seconds) each time a user uploads a photo. Traffic is very intermittent and the team does not want to manage servers. Which service fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Lambda, which runs code on events without managing servers." },
+      { "id": "o2", "text": "A fleet of EC2 instances always on, waiting for the photos." },
+      { "id": "o3", "text": "Amazon Route 53 to process the images." },
+      { "id": "o4", "text": "Amazon S3 Standard-IA to run the processing." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Lambda runs code in response to events (like an S3 upload) without managing servers, billing only for execution time. It is ideal for brief, intermittent, event-driven tasks.",
+    "optionExplanations": {
+      "o1": "Correct: Lambda is event-driven serverless compute with no infrastructure management.",
+      "o2": "Incorrect: keeping instances on 24/7 for intermittent work wastes money and effort.",
+      "o3": "Incorrect: Route 53 is DNS; it does not process images.",
+      "o4": "Incorrect: S3 stores objects; it does not run processing code."
+    },
+    "hint": "Brief, intermittent events + no servers = a serverless service.",
+    "lessonId": "L-3.3", "officialSources": [{ "title": "AWS Lambda", "url": "https://aws.amazon.com/lambda/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.3-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.3",
+    "topic": "Amazon EC2", "subtopic": "Instance categories", "services": ["amazon-ec2"], "concepts": ["instance-families"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A workload needs very high, consistent sequential read/write disk performance with large data volumes (for example, certain NoSQL databases and data warehouses). Which EC2 instance category fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Compute-optimized instances, focused on faster processors." },
+      { "id": "o2", "text": "Storage-optimized instances, with high local disk throughput." },
+      { "id": "o3", "text": "General purpose instances, balanced across everything." },
+      { "id": "o4", "text": "Memory-optimized instances, with more RAM." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Storage-optimized instances offer very high sequential read/write access to large data sets on local storage, and are well suited to certain NoSQL databases and distributed data warehouses.",
+    "optionExplanations": {
+      "o1": "Incorrect: compute-optimized instances prioritize CPU for processing-intensive workloads, not disk I/O.",
+      "o2": "Correct: high sequential disk throughput = storage-optimized instances.",
+      "o3": "Incorrect: general purpose instances balance resources without maximizing disk I/O.",
+      "o4": "Incorrect: memory-optimized instances prioritize RAM for in-memory processing."
+    },
+    "hint": "The bottleneck here is the disk, not the CPU or RAM.",
+    "lessonId": "L-3.3", "officialSources": [{ "title": "Amazon EC2 instance types", "url": "https://aws.amazon.com/ec2/instance-types/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.3-003", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.3",
+    "topic": "Containers", "subtopic": "Amazon EKS", "services": ["amazon-eks", "amazon-ecs"], "concepts": ["containers", "kubernetes"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A development team already manages its applications with Kubernetes on-premises and wants to migrate to AWS keeping the same tools and configurations. Which service fits?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon EKS, AWS's managed Kubernetes service." },
+      { "id": "o2", "text": "Amazon S3, which stores Kubernetes configuration files." },
+      { "id": "o3", "text": "Amazon Route 53, to rename the containers." },
+      { "id": "o4", "text": "AWS Lambda, which runs containers without an orchestrator." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon EKS is AWS's managed Kubernetes service: it lets the team use the Kubernetes tools, APIs, and manifests they already know, with the control plane managed by AWS.",
+    "optionExplanations": {
+      "o1": "Correct: managed Kubernetes = EKS (ECS is AWS's own orchestration, not Kubernetes).",
+      "o2": "Incorrect: S3 stores objects; it does not orchestrate containers.",
+      "o3": "Incorrect: Route 53 is DNS; it does not manage containers.",
+      "o4": "Incorrect: Lambda runs event-driven functions; it does not orchestrate Kubernetes clusters."
+    },
+    "hint": "The keyword in the question is \"Kubernetes\".",
+    "lessonId": "L-3.3", "officialSources": [{ "title": "Amazon EKS", "url": "https://aws.amazon.com/eks/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.4-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.4",
+    "topic": "NoSQL databases", "subtopic": "Amazon DynamoDB", "services": ["amazon-dynamodb"], "concepts": ["nosql"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A mobile application needs to store user profiles with a flexible structure (attributes that vary between users), support millions of requests per second with millisecond latency, and scale without managing servers. Which service fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon DynamoDB, a serverless NoSQL key-value database." },
+      { "id": "o2", "text": "Amazon RDS for Oracle, with rigid schemas and traditional SQL." },
+      { "id": "o3", "text": "Amazon S3, storing each profile as an object." },
+      { "id": "o4", "text": "Amazon ElastiCache, storing profiles permanently." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "DynamoDB is a managed, serverless NoSQL key-value database with millisecond latency at any scale and a flexible schema: ideal for profiles with varying attributes and massive traffic.",
+    "optionExplanations": {
+      "o1": "Correct: NoSQL key-value + scale + flexible schema describes DynamoDB exactly.",
+      "o2": "Incorrect: a traditional relational database has a rigid schema and would require additional administration.",
+      "o3": "Incorrect: S3 is object storage; it does not offer fast queries by profile attribute.",
+      "o4": "Incorrect: ElastiCache is a volatile cache, not durable profile storage."
+    },
+    "hint": "Flexible schema + massive scale + no servers = NoSQL.",
+    "lessonId": "L-3.3", "officialSources": [{ "title": "Amazon DynamoDB", "url": "https://aws.amazon.com/dynamodb/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.4-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.4",
+    "topic": "Relational databases", "subtopic": "Amazon Aurora", "services": ["amazon-aurora", "amazon-rds"], "concepts": ["relational"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company uses MySQL on-premises and wants to migrate to a managed relational engine on AWS with better performance, automatic high availability, and MySQL compatibility, without changing application code. Which service fits?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon Aurora, compatible with MySQL/PostgreSQL with improved performance." },
+      { "id": "o2", "text": "Amazon DynamoDB, which accepts MySQL queries if configured." },
+      { "id": "o3", "text": "Amazon S3, storing the tables as files." },
+      { "id": "o4", "text": "AWS SCT as a production database." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Aurora is a managed relational engine (within the RDS family) compatible with MySQL and PostgreSQL, with an architecture that improves performance and availability; it allows migration without rewriting the application.",
+    "optionExplanations": {
+      "o1": "Correct: Aurora offers MySQL/PostgreSQL compatibility, improved performance, and managed high availability.",
+      "o2": "Incorrect: DynamoDB is NoSQL and does not accept MySQL SQL queries.",
+      "o3": "Incorrect: S3 is not a relational database.",
+      "o4": "Incorrect: SCT is a schema conversion tool, not a database."
+    },
+    "hint": "Relational + MySQL-compatible + managed + faster: there is a service with a specific name.",
+    "lessonId": "L-3.3", "officialSources": [{ "title": "Amazon Aurora", "url": "https://aws.amazon.com/rds/aurora/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.4-003", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.4",
+    "topic": "Caching and database migration", "subtopic": "AWS SCT vs AWS DMS", "services": ["aws-sct", "aws-dms"], "concepts": ["database-migration"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "During a migration from Oracle to Amazon Aurora, an engineer needs to convert the schemas, tables, and stored code (procedures) to the target engine. Which tool matches this task?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Schema Conversion Tool (SCT), which converts schemas between different engines." },
+      { "id": "o2", "text": "AWS DMS, which converts stored procedures into Lambda functions." },
+      { "id": "o3", "text": "Amazon ElastiCache, which translates queries automatically." },
+      { "id": "o4", "text": "AWS Glue, which rewrites the whole application." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Schema Conversion Tool (SCT) converts schemas, tables, and code objects (procedures, functions) between heterogeneous database engines, such as Oracle → Aurora. AWS DMS, in turn, moves/replicates the data.",
+    "optionExplanations": {
+      "o1": "Correct: SCT is the schema conversion tool between different engines.",
+      "o2": "Incorrect: DMS migrates data; it does not convert procedures into Lambda functions.",
+      "o3": "Incorrect: ElastiCache is an in-memory cache; it does not translate schemas.",
+      "o4": "Incorrect: Glue prepares data for analytics (ETL); it does not rewrite applications or transactional DB schemas."
+    },
+    "hint": "\"Convert schema\" ≠ \"move data\". Each tool handles half the job.",
+    "lessonId": "L-3.3", "officialSources": [{ "title": "AWS Schema Conversion Tool", "url": "https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP_Welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.5-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.5",
+    "topic": "Security groups and network ACLs", "subtopic": "Security groups vs NACLs", "services": ["amazon-vpc"], "concepts": ["security-groups", "nacl"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": false,
+    "question": "What is the fundamental difference between a security group and a network ACL in Amazon VPC?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "The security group operates at the instance level and is stateful; the network ACL operates at the subnet level and is stateless." },
+      { "id": "o2", "text": "The security group operates at the Region level and the ACL at the world level." },
+      { "id": "o3", "text": "They are identical; they can be used interchangeably." },
+      { "id": "o4", "text": "The network ACL encrypts traffic and the security group compresses it." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Security groups act at the instance (ENI) level and are stateful: if you allow inbound traffic, the response flows automatically. Network ACLs act at the subnet level and are stateless: response traffic must be explicitly allowed with numbered rules.",
+    "optionExplanations": {
+      "o1": "Correct: instance + stateful vs subnet + stateless is the classic exam distinction.",
+      "o2": "Incorrect: both operate within a VPC; the distinction is instance vs subnet.",
+      "o3": "Incorrect: they have different purposes and operating levels.",
+      "o4": "Incorrect: neither encrypts nor compresses traffic; they are filters."
+    },
+    "hint": "Instance vs subnet; stateful vs stateless.",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "Amazon VPC: comparing security groups and network ACLs", "url": "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.5-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.5",
+    "topic": "DNS and connectivity", "subtopic": "Amazon Route 53", "services": ["amazon-route-53"], "concepts": ["dns"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company registered its product's domain and needs that name to resolve to its application, with health checks and failover between endpoints. Which service provides managed DNS with these capabilities?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon Route 53" },
+      { "id": "o2", "text": "Amazon S3" },
+      { "id": "o3", "text": "AWS IAM" },
+      { "id": "o4", "text": "Amazon Kinesis" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Route 53 is AWS's managed DNS service: it translates domain names to IP addresses, allows domain registration, and offers routing with health checks and failover.",
+    "optionExplanations": {
+      "o1": "Correct: Route 53 is managed DNS with domain registration and intelligent routing.",
+      "o2": "Incorrect: S3 stores objects; it does not resolve domain names.",
+      "o3": "Incorrect: IAM manages permissions; it does not do DNS.",
+      "o4": "Incorrect: Kinesis processes data streams; it does not resolve domains."
+    },
+    "hint": "Translating \"mydomain.com\" into an IP is a specific service's job.",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "Amazon Route 53", "url": "https://aws.amazon.com/route53/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.5-003", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.5",
+    "topic": "DNS and connectivity", "subtopic": "Direct Connect vs VPN", "services": ["aws-direct-connect", "aws-vpn"], "concepts": ["hybrid-connectivity"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company transfers large volumes of data between its data center and AWS every day and needs consistent, predictable bandwidth with a dedicated private network connection. Which solution fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS Direct Connect, a dedicated private link between the premises and AWS." },
+      { "id": "o2", "text": "The administrator's home internet connection." },
+      { "id": "o3", "text": "Amazon CloudFront to accelerate the private connection." },
+      { "id": "o4", "text": "AWS Budgets to limit the traffic." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "AWS Direct Connect provides a dedicated, private network connection between the customer's premises and AWS, with consistent bandwidth. Site-to-Site VPN is faster to set up and encrypts over the internet, but depends on the public internet.",
+    "optionExplanations": {
+      "o1": "Correct: a dedicated private link with predictable bandwidth is the definition of Direct Connect.",
+      "o2": "Incorrect: a home connection offers no dedication, consistency, or guaranteed privacy.",
+      "o3": "Incorrect: CloudFront caches content for end users; it does not create private network links.",
+      "o4": "Incorrect: Budgets budgets costs; it does not manage network traffic."
+    },
+    "hint": "\"Private + dedicated + predictable\" describes a specific kind of link.",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "AWS Direct Connect", "url": "https://aws.amazon.com/directconnect/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.6",
+    "topic": "Object storage", "subtopic": "S3 storage classes", "services": ["amazon-s3-glacier", "amazon-s3"], "concepts": ["s3-classes"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company must retain legal records for 10 years. They are almost never accessed and, when one is needed, retrieval can take hours. Which Amazon S3 class minimizes cost?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "S3 Standard, for frequent, immediate access." },
+      { "id": "o2", "text": "S3 Glacier Deep Archive, the cheapest class for long-term archiving with retrievals in hours." },
+      { "id": "o3", "text": "Amazon EBS gp3, mounted on an EC2 instance." },
+      { "id": "o4", "text": "S3 Standard-IA, for data accessed about once a month." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "S3 Glacier Deep Archive is S3's cheapest class, designed for long-term (years) archiving of data that is almost never accessed and where retrieval in hours is acceptable.",
+    "optionExplanations": {
+      "o1": "Incorrect: S3 Standard is the most expensive class, designed for frequent access; it would be waste for an archive.",
+      "o2": "Correct: long-term archive + extremely rare access + hours-long retrieval = Deep Archive.",
+      "o3": "Incorrect: EBS is block storage attached to an instance, not a cheap archive.",
+      "o4": "Incorrect: Standard-IA is for infrequent but immediate access; it is more expensive than Deep Archive."
+    },
+    "hint": "Almost never touched + can wait hours = the cheapest archive class.",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "Amazon S3 storage classes", "url": "https://aws.amazon.com/s3/storage-classes/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.6",
+    "topic": "Block storage", "subtopic": "EBS vs instance store", "services": ["amazon-ebs"], "concepts": ["block"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A team needs a disk for its EC2 instance whose data persists when the instance is stopped and which can be detached and re-attached to another instance. Which option matches?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon EBS, a persistent block volume independent of the instance's life cycle." },
+      { "id": "o2", "text": "The instance store, which is ephemeral." },
+      { "id": "o3", "text": "Amazon Route 53, which stores virtual disks." },
+      { "id": "o4", "text": "AWS Budgets, which freezes the data when the instance stops." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon EBS provides persistent block volumes: data survives the instance stopping, and the volume can be detached and attached to another instance. The instance store is physical and ephemeral: its data is lost when the instance stops or terminates.",
+    "optionExplanations": {
+      "o1": "Correct: persistence + detachability describes EBS exactly.",
+      "o2": "Incorrect: instance store loses data when the instance stops or terminates.",
+      "o3": "Incorrect: Route 53 is DNS; it does not store disks.",
+      "o4": "Incorrect: Budgets manages budgets; it has nothing to do with disks."
+    },
+    "hint": "\"Persists when the instance stops\" is the decisive clue.",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "Amazon EBS", "url": "https://aws.amazon.com/ebs/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-003", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.6",
+    "topic": "File storage", "subtopic": "Amazon EFS", "services": ["amazon-efs"], "concepts": ["file"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "Several EC2 Linux instances must read and write simultaneously to the same shared file system, with standard POSIX folders and permissions, and it must grow automatically. Which service fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon EFS, an elastic shared file system for Linux instances." },
+      { "id": "o2", "text": "Amazon S3, because it is also shared by many." },
+      { "id": "o3", "text": "Amazon EBS, attaching the same volume to all instances." },
+      { "id": "o4", "text": "AWS Shield, which synchronizes files across zones." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon EFS is an elastic, shared NFS file system: many instances can mount it simultaneously with standard file semantics (POSIX), and it grows and shrinks automatically.",
+    "optionExplanations": {
+      "o1": "Correct: a shared, elastic, multi-instance file system is the definition of EFS.",
+      "o2": "Incorrect: S3 is object storage with an API; it is not mounted as a file system with POSIX.",
+      "o3": "Incorrect: an EBS volume attaches to one instance at a time; it is not a multi-instance share.",
+      "o4": "Incorrect: Shield protects against DDoS; it does not synchronize files."
+    },
+    "hint": "\"Many instances + folders + POSIX\" points to file storage.",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "Amazon EFS", "url": "https://aws.amazon.com/efs/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.6-004", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.6",
+    "topic": "Block storage", "subtopic": "Storage categories", "services": ["amazon-ebs", "amazon-s3"], "concepts": ["block", "object"],
+    "difficulty": "basic", "type": "truefalse", "scenarioBased": false,
+    "question": "Agree or disagree: \"Amazon EBS is an object storage service similar to Amazon S3.\"",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "verdadero", "text": "True" },
+      { "id": "falso", "text": "False" }
+    ],
+    "correctAnswerIds": ["falso"],
+    "explanation": "False. Amazon EBS is BLOCK storage: virtual disks attached to EC2 instances. Amazon S3 is the OBJECT storage service, with an HTTP API and global scope. They are different categories with different uses.",
+    "optionExplanations": {
+      "verdadero": "Incorrect: EBS does not store objects with an HTTP API; it is a block disk for instances.",
+      "falso": "Correct: EBS = blocks; S3 = objects. The object/block/file distinction is key on the exam."
+    },
+    "hint": "A virtual hard drive or a repository of files with URLs?",
+    "lessonId": "L-3.4", "officialSources": [{ "title": "Amazon EBS", "url": "https://aws.amazon.com/ebs/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 45, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.7-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.7",
+    "topic": "Analytics services", "subtopic": "Amazon Athena", "services": ["amazon-athena", "amazon-s3"], "concepts": ["analytics"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "An analyst needs to run ad-hoc SQL queries over CSV files stored in Amazon S3, without provisioning or managing any servers. Which service fits best?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon Athena, which queries data in S3 with standard SQL in a serverless way." },
+      { "id": "o2", "text": "Amazon QuickSight, because it also works with data." },
+      { "id": "o3", "text": "Amazon Route 53, because queries need a domain." },
+      { "id": "o4", "text": "AWS Lambda, because every query needs a function." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Athena is a serverless interactive query service that lets you analyze data directly in S3 using standard SQL, paying only for the queries executed.",
+    "optionExplanations": {
+      "o1": "Correct: serverless SQL over data in S3 is exactly Athena's purpose.",
+      "o2": "Incorrect: QuickSight visualizes data (dashboards); Athena queries it with SQL.",
+      "o3": "Incorrect: Route 53 is DNS; it does not run analytical queries.",
+      "o4": "Incorrect: Lambda is event-driven compute; it is not the SQL query tool over S3."
+    },
+    "hint": "SQL + data in S3 + no servers.",
+    "lessonId": "L-3.5", "officialSources": [{ "title": "Amazon Athena", "url": "https://aws.amazon.com/athena/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.7-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.7",
+    "topic": "AI and ML services", "subtopic": "Amazon SageMaker AI", "services": ["amazon-sagemaker"], "concepts": ["machine-learning"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A data science team needs to build, train, and deploy its own machine learning models with full control over the process. Which service provides this platform?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon SageMaker AI" },
+      { "id": "o2", "text": "Amazon Lex, which trains general language models." },
+      { "id": "o3", "text": "Amazon Connect, which offers phone models." },
+      { "id": "o4", "text": "Amazon S3, which trains models when data is uploaded." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon SageMaker AI is the managed platform to build, train, and deploy your own machine learning models, covering the entire ML life cycle.",
+    "optionExplanations": {
+      "o1": "Correct: SageMaker AI is AWS's complete ML platform.",
+      "o2": "Incorrect: Lex creates chatbots with ready-made services; it is not a platform for training your own models.",
+      "o3": "Incorrect: Connect is a contact center; it does not train models.",
+      "o4": "Incorrect: S3 stores data; it does not train models."
+    },
+    "hint": "A platform to \"do\" ML ≠ ready-to-use ML services.",
+    "lessonId": "L-3.5", "officialSources": [{ "title": "Amazon SageMaker AI", "url": "https://aws.amazon.com/sagemaker/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.8-001", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.8",
+    "topic": "Application integration", "subtopic": "SQS and SNS", "services": ["amazon-sqs", "amazon-sns", "amazon-eventbridge"], "concepts": ["messaging"],
+    "difficulty": "intermediate", "type": "multiple", "scenarioBased": true,
+    "question": "An architecture needs, on one hand, a queue that stores orders until workers process them (consumers poll the queue), and on the other, a mechanism that notifies several subscribers simultaneously (email, Lambda) when an event occurs. Which pair of services matches each need?",
+    "selectionInstruction": "Choose TWO answers.",
+    "options": [
+      { "id": "o1", "text": "Amazon SQS for the order queue consumed by the workers." },
+      { "id": "o2", "text": "Amazon SNS to publish the event to several subscribers." },
+      { "id": "o3", "text": "Amazon Route 53 to route messages between systems." },
+      { "id": "o4", "text": "AWS Step Functions to store the orders permanently." }
+    ],
+    "correctAnswerIds": ["o1", "o2"],
+    "explanation": "Amazon SQS is a message queue: producers enqueue and consumers pull (poll). Amazon SNS is publish/subscribe: a message is delivered (push) to all subscribers. They are the two fundamental messaging patterns.",
+    "optionExplanations": {
+      "o1": "Correct: a polled queue = SQS.",
+      "o2": "Correct: push delivery to multiple subscribers = SNS.",
+      "o3": "Incorrect: Route 53 is DNS; it does not route application messages.",
+      "o4": "Incorrect: Step Functions orchestrates workflows; it is not a queue and does not store orders."
+    },
+    "hint": "One is \"a queue you poll\" and the other \"notifying many at once\".",
+    "lessonId": "L-3.5", "officialSources": [
+      { "title": "Amazon SQS", "url": "https://aws.amazon.com/sqs/", "type": "docs", "accessedAt": "2026-09-21" },
+      { "title": "Amazon SNS", "url": "https://aws.amazon.com/sns/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "estimatedTimeSeconds": 90, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D3-T3.8-002", "version": 1, "status": "verified", "language": "en", "domain": 3, "taskStatement": "3.8",
+    "topic": "Business applications", "subtopic": "Amazon Connect", "services": ["amazon-connect", "amazon-ses"], "concepts": ["business-applications"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company wants to implement a cloud-based customer contact center, with voice menus (IVR), call routing to agents, and operational metrics. Which AWS service is designed for this?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Amazon Connect" },
+      { "id": "o2", "text": "Amazon SES, because it manages voice calls." },
+      { "id": "o3", "text": "Amazon WorkSpaces, which streams calls to the browser." },
+      { "id": "o4", "text": "AWS IoT Core, which connects phones as devices." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Amazon Connect is the cloud contact center service: IVR, contact routing, agents, and operational analytics, with easy integration with other AWS services.",
+    "optionExplanations": {
+      "o1": "Correct: Connect is AWS's managed contact center (call center).",
+      "o2": "Incorrect: SES handles email, not voice calls.",
+      "o3": "Incorrect: WorkSpaces provides virtual desktops; it is not a call center system.",
+      "o4": "Incorrect: IoT Core connects IoT devices; call-center phones do not work that way."
+    },
+    "hint": "\"Cloud contact center\" is the literal description of one service.",
+    "lessonId": "L-3.5", "officialSources": [{ "title": "Amazon Connect", "url": "https://aws.amazon.com/connect/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  }
+]

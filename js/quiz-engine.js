@@ -5,7 +5,8 @@ import { getContent, getQuestion } from './content-loader.js';
 import * as state from './state.js';
 import { shuffle, uid, escapeHtml, formatTime, announce, confirmDialog } from './utils.js';
 import { computeSummary, setsEqual } from './scoring.js';
-import { navigate, setActiveNav } from './router.js';
+import { t } from './i18n.js';
+import { navigate } from './router.js';
 
 const EXAM_WEIGHTS = { 1: 24, 2: 30, 3: 34, 4: 12 };
 const EXAM_SIZE = 65;
@@ -52,7 +53,6 @@ function stratifiedCounts(pool, weights, size) {
     counts[r.key] = Math.min(r.available, Math.floor(r.exact));
     assigned += counts[r.key];
   });
-  // mayor resto, respetando disponibilidad
   const rest = raw.map((r) => ({ ...r, frac: r.exact - Math.floor(r.exact) }))
     .sort((a, b) => b.frac - a.frac);
   let i = 0;
@@ -80,7 +80,6 @@ function sampleWithCap(list, n, cap, recent) {
     if (used < cap) { usedSub.set(key, used + 1); picked.push(q); }
     else rest.push(q);
   }
-  // rellenar ignorando el tope si faltan (pools pequeños)
   for (const q of rest) {
     if (picked.length >= n) break;
     picked.push(q);
@@ -107,7 +106,6 @@ export function selectQuestions({ mode, domains = [], tasks = [], size }) {
     }
     return shuffle(picked);
   }
-  // quiz / study: sin estratificación por peso; muestreo con tope por subtema
   const capped = mode === 'quiz' ? 2 : Infinity;
   const n = size || pool.length;
   return sampleWithCap(pool, n, capped, recent);
@@ -149,10 +147,10 @@ export function getAttempt(id) {
 
 /* ---------- Sesión (quiz / exam) ---------- */
 
-export function startQuizSession(attemptId, { label } = {}) {
+export function startQuizSession(attemptId) {
   const attempt = state.getAttempt(attemptId);
   if (!attempt) return;
-  renderQuizQuestion(attempt, { label });
+  renderQuizQuestion(attempt);
   startTimer(attempt);
 }
 
@@ -163,14 +161,14 @@ function isMulti(q) {
 function questionChips(q) {
   return `
     <div class="chips">
-      <span class="chip">Dominio ${q.domain}</span>
-      <span class="chip">Tarea ${q.taskStatement}</span>
+      <span class="chip">${escapeHtml(t('common.domain'))} ${q.domain}</span>
+      <span class="chip">${escapeHtml(t('common.task'))} ${q.taskStatement}</span>
       ${q.topic ? `<span class="chip">${escapeHtml(q.topic)}</span>` : ''}
-      <span class="chip">${q.difficulty === 'challenging' ? 'Desafiante' : q.difficulty === 'intermediate' ? 'Intermedio' : 'Básico'}</span>
+      <span class="chip">${escapeHtml(t(`difficulty.${q.difficulty}`))}</span>
     </div>`;
 }
 
-function renderQuizQuestion(attempt, { label } = {}) {
+function renderQuizQuestion(attempt) {
   const idx = attempt.currentIndex;
   const qid = attempt.questionOrder[idx];
   const q = getQuestion(qid);
@@ -193,15 +191,16 @@ function renderQuizQuestion(attempt, { label } = {}) {
   const isExam = attempt.mode === 'exam';
   const outlet = document.getElementById('outlet');
   const answeredCount = attempt.questionOrder.filter((id) => (attempt.answers[id]?.selectedIds || []).length > 0).length;
+  const modeLabel = t(`mode.${attempt.mode}`);
 
   outlet.innerHTML = `
     <div class="quiz-header">
-      <span class="badge ${isExam ? 'info' : 'neutral'}">${escapeHtml(label || (isExam ? 'Simulacro de examen (no oficial)' : 'Quiz rápido'))}</span>
-      <span class="muted">Pregunta ${idx + 1} de ${total}</span>
+      <span class="badge ${isExam ? 'info' : 'neutral'}">${escapeHtml(modeLabel)}</span>
+      <span class="muted">${escapeHtml(t('common.question'))} ${idx + 1} ${escapeHtml(t('common.of'))} ${total}</span>
       <span class="spacer"></span>
       <span class="timer" id="timer-display" data-remaining="${attempt.config.timerSeconds || 0}">--:--</span>
     </div>
-    <div class="progress-track" role="progressbar" aria-valuenow="${Math.round(((idx + 1) / total) * 100)}" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso del quiz">
+    <div class="progress-track" role="progressbar" aria-valuenow="${Math.round(((idx + 1) / total) * 100)}" aria-valuemin="0" aria-valuemax="100" aria-label="${escapeHtml(modeLabel)}">
       <div class="progress-fill" style="width:${Math.round(((idx + 1) / total) * 100)}%"></div>
     </div>
     <div class="quiz-layout mt">
@@ -209,35 +208,35 @@ function renderQuizQuestion(attempt, { label } = {}) {
         <div class="card">
           ${questionChips(q)}
           <p class="q-text">${escapeHtml(q.question)}</p>
-          <p class="q-instruction">${escapeHtml(q.selectionInstruction || 'Elige UNA respuesta.')}</p>
+          <p class="q-instruction">${escapeHtml(q.selectionInstruction || t('common.chooseOne'))}</p>
           <div id="options">${optionsHtml}</div>
           <div class="btn-row mt">
-            <button type="button" class="btn" data-action="quiz-prev" ${idx === 0 ? 'disabled' : ''}>◀ Anterior</button>
-            <button type="button" class="btn" data-action="quiz-next" ${idx === total - 1 ? 'disabled' : ''}>Siguiente ▶</button>
+            <button type="button" class="btn" data-action="quiz-prev" ${idx === 0 ? 'disabled' : ''}>${escapeHtml(t('common.previous'))}</button>
+            <button type="button" class="btn" data-action="quiz-next" ${idx === total - 1 ? 'disabled' : ''}>${escapeHtml(t('common.next'))}</button>
             <span class="spacer" style="flex:1"></span>
-            <button type="button" class="btn small ${ans.flagged ? 'toggled' : ''}" data-action="quiz-flag" aria-pressed="${!!ans.flagged}">⚑ Marcar para revisar</button>
-            <button type="button" class="btn small ${state.getQuestionState(qid)?.bookmarked ? 'toggled' : ''}" data-action="quiz-bookmark" aria-pressed="${!!state.getQuestionState(qid)?.bookmarked}">☆ Guardar</button>
+            <button type="button" class="btn small ${ans.flagged ? 'toggled' : ''}" data-action="quiz-flag" aria-pressed="${!!ans.flagged}">${escapeHtml(t('common.flagForReview'))}</button>
+            <button type="button" class="btn small ${state.getQuestionState(qid)?.bookmarked ? 'toggled' : ''}" data-action="quiz-bookmark" aria-pressed="${!!state.getQuestionState(qid)?.bookmarked}">${escapeHtml(t('common.bookmark'))}</button>
           </div>
         </div>
       </div>
       <div class="quiz-side">
         ${isExam ? `
         <div class="card">
-          <h3>Navegador de preguntas</h3>
-          <div class="navigator" role="group" aria-label="Navegador de preguntas">
+          <h3>${escapeHtml(t('quiz.navigator'))}</h3>
+          <div class="navigator" role="group" aria-label="${escapeHtml(t('quiz.navigator'))}">
             ${attempt.questionOrder.map((id, i) => {
               const a = attempt.answers[id];
               const n = (a?.selectedIds || []).length;
-              return `<button type="button" data-action="quiz-goto" data-idx="${i}" class="${n > 0 ? 'answered' : ''} ${a?.flagged ? 'flagged' : ''} ${i === idx ? 'current' : ''}" aria-label="Pregunta ${i + 1}${n > 0 ? ', respondida' : ''}${a?.flagged ? ', marcada' : ''}">${i + 1}</button>`;
+              return `<button type="button" data-action="quiz-goto" data-idx="${i}" class="${n > 0 ? 'answered' : ''} ${a?.flagged ? 'flagged' : ''} ${i === idx ? 'current' : ''}" aria-label="${escapeHtml(t('common.question'))} ${i + 1}${n > 0 ? ', ' + escapeHtml(t('common.answered').toLowerCase()) : ''}">${i + 1}</button>`;
             }).join('')}
           </div>
-          <p class="legend"><span>■ respondida</span><span>⚑ marcada</span><span>□ sin responder</span></p>
+          <p class="legend"><span>${escapeHtml(t('quiz.legendAnswered'))}</span><span>${escapeHtml(t('quiz.legendFlagged'))}</span><span>${escapeHtml(t('quiz.legendUnanswered'))}</span></p>
         </div>` : ''}
         <div class="card">
-          <h3>Resumen</h3>
-          <p class="small muted">Respondidas: <b>${answeredCount}</b> de ${total}</p>
-          <button type="button" class="btn primary" data-action="quiz-submit">Terminar y ver resultados</button>
-          <p class="small muted mt">Tus respuestas se guardan automáticamente. Puedes cerrar y continuar después desde el inicio.</p>
+          <h3>${escapeHtml(t('quiz.summary'))}</h3>
+          <p class="small muted">${escapeHtml(t('quiz.answeredOf', { n: answeredCount, total }))}</p>
+          <button type="button" class="btn primary" data-action="quiz-submit">${escapeHtml(t('quiz.finish'))}</button>
+          <p class="small muted mt">${escapeHtml(t('quiz.autosave'))}</p>
         </div>
       </div>
     </div>`;
@@ -257,11 +256,11 @@ function startTimer(attempt) {
       el.classList.add('expired');
       if (isExam) {
         stopTimer();
-        announce('Tiempo agotado. El examen se entrega automáticamente.');
+        announce(t('notify.examAutoSubmitted'));
         finishQuizAttempt(state.getCurrentAttemptId(), { auto: true });
       } else if (!el.dataset.warned) {
         el.dataset.warned = '1';
-        announce('Tiempo agotado. El cronómetro es solo referencial; puedes continuar.');
+        announce(t('notify.timeUpAdvisory'));
       }
     }
   }, 500);
@@ -279,9 +278,10 @@ async function finishQuizAttempt(attemptId, { auto = false } = {}) {
     let ok = true;
     if (unanswered.length > 0) {
       ok = await confirmDialog({
-        title: 'Terminar el intento',
-        message: `Tienes ${unanswered.length} pregunta(s) sin responder. Las preguntas sin responder cuentan como incorrectas. ¿Terminar ahora?`,
-        okText: 'Terminar',
+        title: t('confirm.finishTitle'),
+        message: t('confirm.finishMsg', { n: unanswered.length }),
+        okText: t('confirm.finishOk'),
+        cancelText: t('common.cancel'),
       });
     }
     if (!ok) return;
@@ -303,7 +303,6 @@ export function finishAttempt(attemptId) {
     a.durationSeconds = elapsed;
     s.stats.totalTimeSeconds += elapsed;
   });
-  // registrar resultados por pregunta (maestría, historial)
   attempt.questionOrder.forEach((qid) => {
     const q = getQuestion(qid);
     const ans = attempt.answers[qid];
@@ -337,12 +336,11 @@ export function initQuizEngine() {
     if (!multi) selected = selected.slice(-1);
     attempt.answers[qid] = { ...(attempt.answers[qid] || {}), selectedIds: selected, flagged: attempt.answers[qid]?.flagged || false };
     state.saveAttempt(attempt);
-    // actualizar clase visual sin re-render completo
     document.querySelectorAll(`#options .option`).forEach((label) => {
       const val = label.querySelector('input')?.value;
       label.classList.toggle('selected', selected.includes(val));
     });
-    if (!multi) renderQuizQuestion(state.getAttempt(attemptId), {});
+    if (!multi) renderQuizQuestion(state.getAttempt(attemptId));
   });
 
   document.addEventListener('click', async (e) => {
@@ -358,28 +356,28 @@ export function initQuizEngine() {
       case 'quiz-prev':
         attempt.currentIndex = Math.max(0, attempt.currentIndex - 1);
         state.saveAttempt(attempt);
-        renderQuizQuestion(attempt, {});
+        renderQuizQuestion(attempt);
         break;
       case 'quiz-next': {
         attempt.currentIndex = Math.min(attempt.questionOrder.length - 1, attempt.currentIndex + 1);
         state.saveAttempt(attempt);
-        renderQuizQuestion(attempt, {});
+        renderQuizQuestion(attempt);
         break;
       }
       case 'quiz-goto':
         attempt.currentIndex = Number(btn.dataset.idx) || 0;
         state.saveAttempt(attempt);
-        renderQuizQuestion(attempt, {});
+        renderQuizQuestion(attempt);
         break;
       case 'quiz-flag': {
         attempt.answers[qid] = { selectedIds: attempt.answers[qid]?.selectedIds || [], flagged: !attempt.answers[qid]?.flagged };
         state.saveAttempt(attempt);
-        renderQuizQuestion(attempt, {});
+        renderQuizQuestion(attempt);
         break;
       }
       case 'quiz-bookmark': {
         state.toggleBookmark(qid);
-        renderQuizQuestion(state.getAttempt(attemptId), {});
+        renderQuizQuestion(state.getAttempt(attemptId));
         break;
       }
       case 'quiz-submit':

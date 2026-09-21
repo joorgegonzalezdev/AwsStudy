@@ -1,0 +1,107 @@
+[
+  {
+    "id": "L-4.1", "version": 1, "status": "verified", "language": "en", "domainId": 4, "taskStatements": ["4.1"],
+    "title": "AWS pricing models",
+    "summary": "On-Demand pays full price per use; Reserved/Savings Plans discount for a 1-3 year commitment (stable load); Spot gives the biggest discount but can be interrupted (flexible workloads). Data: inbound ≈ free; outbound and between Regions cost money. In storage, the class depends on the access pattern.",
+    "explanation": "Amazon EC2 offers several purchasing options, and the exam asks when to use each one. On-Demand: pay per second/hour with no commitment — ideal for new, variable, or short-term workloads. Reserved Instances and Savings Plans: commit to 1 or 3 years of stable usage and get significant discounts — ideal for predictable 24/7 load. Spot: surplus capacity with the largest discount, but AWS can reclaim it with two minutes' notice — only for flexible, interruptible jobs (batch, testing). Dedicated Hosts/Dedicated Instances: physically dedicated servers or instances, relevant for licensing or compliance. On-Demand Capacity Reservations: reserve capacity in a specific AZ.\n\nData transfer (concept, no memorizing prices): INBOUND transfer into AWS is typically free; OUTBOUND transfer to the internet and transfer between Regions can incur charges.\n\nIn storage the same logic as compute applies: the right class depends on the access pattern — S3 Standard for frequent access, Standard-IA for infrequent, Glacier/Deep Archive for archives (the rule: fewer accesses → colder class → lower cost). The exam does NOT require memorizing exact prices, which change.",
+    "examRelevance": "Task 4.1 is the most tested in Domain 4: purchasing scenarios (Spot vs Reserved vs On-Demand), data transfer concepts, and storage class selection.",
+    "awsExample": "A company: its 24/7 database on Reserved, its website on On-Demand with Auto Scaling, nightly video rendering on Spot, and its 10-year backups moved by lifecycle to Glacier Deep Archive.",
+    "keyTerms": [
+      { "term": "On-Demand", "definition": "Pay per use, no commitment." },
+      { "term": "Reserved / Savings Plans", "definition": "Discount for a 1-3 year commitment." },
+      { "term": "Spot", "definition": "Deeply discounted, interruptible capacity." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Spot for critical production", "difference": "No: Spot is interruptible; stable production = Reserved/Savings Plans." },
+      { "withWhat": "Inbound vs outbound", "difference": "Uploading to AWS is usually free; downloading from AWS costs." },
+      { "withWhat": "Reserved vs Dedicated Host", "difference": "Discount for commitment / physical dedication for licensing-compliance." }
+    ],
+    "comparisons": [
+      {
+        "title": "EC2 purchasing options",
+        "rows": [
+          { "aspect": "No commitment, full price", "a": "On-Demand", "b": "variable/new workloads" },
+          { "aspect": "1-3 year commitment, discount", "a": "Reserved / Savings Plans", "b": "stable 24/7 load" },
+          { "aspect": "Biggest discount, interruptible", "a": "Spot", "b": "batch, testing" },
+          { "aspect": "Whole physical server", "a": "Dedicated Host", "b": "licensing/compliance" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D4-T4.1-001", "D4-T4.1-002", "D4-T4.1-003", "D4-T4.1-004"],
+    "relatedServiceIds": ["amazon-ec2", "amazon-s3"],
+    "estimatedMinutes": 12,
+    "sources": [{ "title": "Amazon EC2 pricing", "url": "https://aws.amazon.com/ec2/pricing/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-4.2", "version": 1, "status": "verified", "language": "en", "domainId": 4, "taskStatements": ["4.2"],
+    "title": "Billing, budgeting, and cost management",
+    "summary": "Pricing Calculator estimates before deploying; Budgets alerts when thresholds are exceeded; Cost Explorer analyzes and forecasts real spend; CUR reports in full detail. AWS Organizations consolidates multi-account billing and allocation tags track spend per project.",
+    "explanation": "Each cost tool answers a different question — and the exam compares these questions:\n\n\"How much will this architecture cost BEFORE creating it?\" → AWS Pricing Calculator: model future services and get an estimate.\n\"What alert do I want if spend exceeds a threshold?\" → AWS Budgets: budgets with email/SNS alerts.\n\"Where is my money going, and how will it continue?\" → AWS Cost Explorer: visualize, group, and forecast real spend.\n\"I want the most detailed report possible\" → AWS Cost and Usage Reports (CUR): full report delivered to S3.\n\nAWS Organizations lets you manage multiple accounts under one organization: with consolidated billing you pay a single invoice, and quotas/discounts are shared across accounts. Cost allocation tags (key-value pairs like \"project\": \"marketing\") let you track spend by business dimension in the reports.",
+    "examRelevance": "Task 4.2 explicitly asks you to distinguish forecasting, estimating, budgeting, alerting, exploring, and detailed reporting — that is, pair the tool with the need.",
+    "awsExample": "A CFO reviews: the new architecture's estimate in the Pricing Calculator, Budgets alerts at 80% of budget, team trends in Cost Explorer (grouped by project tags).",
+    "keyTerms": [
+      { "term": "AWS Budgets", "definition": "Budgets with threshold alerts." },
+      { "term": "Cost Explorer", "definition": "Analysis and forecasting of real spend." },
+      { "term": "CUR", "definition": "The most detailed cost and usage report." },
+      { "term": "Allocation tags", "definition": "Key-value pairs to track spend by project/department." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Budgets vs Cost Explorer", "difference": "Threshold alert / analysis and forecasting of spend." },
+      { "withWhat": "Pricing Calculator vs Cost Explorer", "difference": "Estimate a future architecture / analyze past and present spend." }
+    ],
+    "comparisons": [
+      {
+        "title": "Question → cost tool",
+        "rows": [
+          { "aspect": "How much will it cost before creating it?", "a": "Pricing Calculator", "b": "" },
+          { "aspect": "Alert when exceeding a threshold?", "a": "AWS Budgets", "b": "" },
+          { "aspect": "Where is the money going? And tomorrow?", "a": "Cost Explorer", "b": "" },
+          { "aspect": "Report in maximum detail?", "a": "CUR", "b": "" },
+          { "aspect": "One bill for several accounts?", "a": "Organizations (consolidated)", "b": "" },
+          { "aspect": "Spend per project?", "a": "Allocation tags", "b": "" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D4-T4.2-001", "D4-T4.2-002", "D4-T4.2-003"],
+    "relatedServiceIds": ["aws-budgets", "aws-cost-explorer", "aws-pricing-calculator", "aws-organizations"],
+    "estimatedMinutes": 12,
+    "sources": [{ "title": "AWS Cost Management", "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-4.3", "version": 1, "status": "verified", "language": "en", "domainId": 4, "taskStatements": ["4.3"],
+    "title": "Technical resources and AWS Support",
+    "summary": "Support plans scale from basic (documentation) to Developer (testing), Business (24/7 production), and Enterprise (TAM). Trusted Advisor recommends best practices; the Health Dashboard reports service events; abuse is reported to Trust & Safety. re:Post and the Knowledge Center are knowledge resources.",
+    "explanation": "Support plans (from lowest to highest): Basic Support — included free: documentation, whitepapers, forums, and re:Post. Developer Support — for test/development environments: email help during business hours. Business Support — the minimum for production: 24/7 phone/chat support with fast response times and architectural guidance. Enterprise On-Ramp and Enterprise — for large critical workloads, with a Technical Account Manager (TAM) and responses in minutes.\n\nTwo services the exam distinguishes: AWS Trusted Advisor recommends best practices in five categories (cost, performance, security, fault tolerance, service limits). The AWS Health Dashboard reports events and problems in AWS services affecting your account (is the problem AWS's or mine?).\n\nOther resources: AWS Knowledge Center (answered FAQs), AWS re:Post (knowledge community), AWS Prescriptive Guidance (best practice guides). To report abuse of AWS resources (fraud, spam, brand misuse): the AWS Trust & Safety team. AWS Partners, ISVs (software vendors), and AWS Marketplace (third-party software catalog) extend the ecosystem; AWS Professional Services and solutions architects provide expert technical assistance.",
+    "examRelevance": "Task 4.3 asks you to recognize support plans and their positioning, distinguish Trusted Advisor from the Health Dashboard, and know where to report abuse (Trust & Safety) and where to seek technical help.",
+    "awsExample": "After a night incident, the team checks the Health Dashboard (is it an AWS event?), reviews Trusted Advisor recommendations, and opens a Business Support case with 24/7 response.",
+    "keyTerms": [
+      { "term": "Business Support", "definition": "Minimum plan with 24/7 production support." },
+      { "term": "Trusted Advisor", "definition": "Best practice recommendations." },
+      { "term": "Health Dashboard", "definition": "AWS service events affecting your account." },
+      { "term": "Trust & Safety", "definition": "Team that investigates abuse reports." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Trusted Advisor vs Health Dashboard", "difference": "Optimization recommendations / service status and events." },
+      { "withWhat": "Developer vs Business", "difference": "Test environments / 24/7 production." },
+      { "withWhat": "Abuse → Trust & Safety", "difference": "Not Support Center or re:Post: there is a specific team." }
+    ],
+    "comparisons": [
+      {
+        "title": "Support plans",
+        "rows": [
+          { "aspect": "Documentation and community", "a": "Basic", "b": "included free" },
+          { "aspect": "Test environments", "a": "Developer", "b": "business hours" },
+          { "aspect": "24/7 production", "a": "Business", "b": "minimum for production" },
+          { "aspect": "Critical with TAM", "a": "Enterprise / On-Ramp", "b": "minute-level response" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D4-T4.3-001", "D4-T4.3-002"],
+    "relatedServiceIds": ["aws-support", "aws-trusted-advisor", "aws-health-dashboard"],
+    "estimatedMinutes": 12,
+    "sources": [{ "title": "AWS Support plans", "url": "https://aws.amazon.com/premiumsupport/plans/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  }
+]

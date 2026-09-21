@@ -1,0 +1,120 @@
+[
+  {
+    "id": "L-2.1", "version": 1, "status": "verified", "language": "en", "domainId": 2, "taskStatements": ["2.1"],
+    "title": "The shared responsibility model",
+    "summary": "AWS protects security OF the cloud (hardware, data centers, global infrastructure); the customer protects security IN the cloud (data, identity, configuration). The more managed the service, the less responsibility the customer has.",
+    "explanation": "Think of an apartment building: the owner is responsible for the structure, the building's locks, and common security (that is AWS: security OF the cloud). But what you do inside your apartment — locking your door, not lending your keys — is up to you (that is you: security IN the cloud).\n\nResponsibility changes with the service. With Amazon EC2, the customer manages the operating system: patching it, configuring its firewall, managing users. With Amazon RDS (a managed service), AWS handles the OS and the database engine; the customer only manages their data, database accounts, and configuration. With AWS Lambda, AWS manages everything infrastructural and the customer is left with their code and data.\n\nMnemonics: EC2 = many customer responsibilities; RDS = few; Lambda = almost only code and data. \"Patching the OS\" is the classic question: on EC2 it is the customer's, on RDS it is AWS's.",
+    "examRelevance": "Task 2.1 is one of the most guaranteed exam topics: you must distinguish AWS/customer/shared responsibilities and compare EC2 vs RDS vs Lambda.",
+    "awsExample": "After an audit, a company documents: AWS replaces faulty hardware; the team patches its Linux on EC2, enables encryption on RDS, and reviews the code of its Lambda functions.",
+    "keyTerms": [
+      { "term": "Security OF the cloud", "definition": "AWS's responsibility: physical infrastructure, hardware, cloud software." },
+      { "term": "Security IN the cloud", "definition": "Customer's responsibility: data, IAM, configuration, OS (when applicable)." },
+      { "term": "Managed service", "definition": "A service where AWS operates more layers (RDS, Lambda), reducing customer responsibilities." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "EC2 vs RDS: OS patching", "difference": "EC2: customer. RDS: AWS. It is the classic exam example." },
+      { "withWhat": "\"AWS is responsible for my data\"", "difference": "No: AWS protects the infrastructure; protecting and encrypting the data is the customer's job." }
+    ],
+    "comparisons": [
+      {
+        "title": "Who does what? EC2 vs RDS vs Lambda",
+        "rows": [
+          { "aspect": "Hardware and data centers", "a": "AWS (always)", "b": "" },
+          { "aspect": "Operating system", "a": "EC2: customer · RDS/Lambda: AWS", "b": "" },
+          { "aspect": "Database engine", "a": "RDS: AWS · EC2 (own DB): customer", "b": "" },
+          { "aspect": "Data and encryption", "a": "Customer (always)", "b": "" },
+          { "aspect": "Application code", "a": "Customer (always)", "b": "" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D2-T2.1-001", "D2-T2.1-002", "D2-T2.1-003", "D2-T2.1-004", "D2-T2.1-005"],
+    "relatedServiceIds": ["amazon-ec2", "amazon-rds", "aws-lambda"],
+    "estimatedMinutes": 12,
+    "sources": [{ "title": "AWS Shared Responsibility Model", "url": "https://aws.amazon.com/compliance/shared-responsibility-model/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-2.2", "version": 1, "status": "verified", "language": "en", "domainId": 2, "taskStatements": ["2.2", "2.4"],
+    "title": "AWS security, governance, and compliance",
+    "summary": "AWS Artifact delivers compliance documents; encryption in transit (TLS) and at rest protect data; and each security service has its own verb: detect (GuardDuty), assess vulnerabilities (Inspector), aggregate findings (Security Hub), mitigate DDoS (Shield), filter HTTP (WAF). CloudTrail audits API, CloudWatch monitors, and Config tracks configuration.",
+    "explanation": "Compliance: when an auditor asks for AWS certifications (ISO, PCI DSS), they are downloaded from AWS Artifact — a self-service portal. Remember that compliance requirements vary by country, industry, and service.\n\nEncryption: in transit protects data while it travels (TLS/HTTPS); at rest protects stored data (disks, buckets). Both are complementary and the exam distinguishes them by the context of the question.\n\nSecurity services — learn each one's \"verb\": Amazon GuardDuty detects threats (anomalous behavior). Amazon Inspector assesses vulnerabilities (unpatched software, network exposures). AWS Security Hub aggregates and prioritizes findings and evaluates posture against standards. AWS Shield mitigates DDoS. AWS WAF filters HTTP requests (SQL injection, XSS). AWS Firewall Manager applies WAF/firewall rules centrally across the organization. AWS Trusted Advisor recommends best practices (costs, security, performance, fault tolerance, service limits).\n\nGovernance and auditing — the classic trio: AWS CloudTrail records API actions (who did what and when?). Amazon CloudWatch monitors metrics, logs, and alarms (how is the system performing?). AWS Config tracks configurations and evaluates them against rules (how is it configured, and did it change?).",
+    "examRelevance": "Tasks 2.2 and 2.4 together form the largest block of security services on the exam. The most frequent questions distinguish CloudTrail/CloudWatch/Config and GuardDuty/Inspector/Security Hub/Shield/WAF.",
+    "awsExample": "After an incident, the team checks CloudTrail (who changed the permissions), CloudWatch (attack metrics), Config (which security rule changed), and Security Hub consolidates the GuardDuty and Inspector findings.",
+    "keyTerms": [
+      { "term": "AWS Artifact", "definition": "Portal of AWS compliance documents." },
+      { "term": "Encryption in transit", "definition": "Protecting data in motion (TLS)." },
+      { "term": "Encryption at rest", "definition": "Protecting stored data." },
+      { "term": "Security posture", "definition": "The overall security state of an environment; Security Hub evaluates it." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "CloudTrail vs CloudWatch vs Config", "difference": "API auditing / performance metrics and logs / resource configuration." },
+      { "withWhat": "GuardDuty vs Inspector", "difference": "Detects active threats / assesses vulnerabilities." },
+      { "withWhat": "Shield vs WAF", "difference": "DDoS (network) / HTTP exploits like SQLi and XSS (application)." }
+    ],
+    "comparisons": [
+      {
+        "title": "Security services: each one's verb",
+        "rows": [
+          { "aspect": "Detect threats", "a": "Amazon GuardDuty", "b": "" },
+          { "aspect": "Assess vulnerabilities", "a": "Amazon Inspector", "b": "" },
+          { "aspect": "Centralize findings", "a": "AWS Security Hub", "b": "" },
+          { "aspect": "Mitigate DDoS", "a": "AWS Shield", "b": "" },
+          { "aspect": "Filter HTTP (SQLi/XSS)", "a": "AWS WAF", "b": "" },
+          { "aspect": "Manage WAF across the organization", "a": "AWS Firewall Manager", "b": "" },
+          { "aspect": "Recommend best practices", "a": "AWS Trusted Advisor", "b": "" }
+        ]
+      },
+      {
+        "title": "Governance: CloudTrail vs CloudWatch vs Config",
+        "rows": [
+          { "aspect": "Who did what and when?", "a": "CloudTrail", "b": "API auditing" },
+          { "aspect": "How is the system performing?", "a": "CloudWatch", "b": "metrics, logs, alarms" },
+          { "aspect": "How is it configured, and did it change?", "a": "Config", "b": "tracking + rules" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D2-T2.2-001", "D2-T2.2-002", "D2-T2.2-003", "D2-T2.2-004", "D2-T2.2-005", "D2-T2.4-001", "D2-T2.4-002", "D2-T2.4-003", "D2-T2.4-004"],
+    "relatedServiceIds": ["aws-artifact", "aws-guardduty", "amazon-inspector", "aws-security-hub", "aws-shield", "aws-waf", "aws-cloudtrail", "amazon-cloudwatch", "aws-config", "aws-trusted-advisor", "aws-kms"],
+    "estimatedMinutes": 18,
+    "sources": [
+      { "title": "AWS Security Blog", "url": "https://aws.amazon.com/blogs/security/", "type": "blog", "accessedAt": "2026-09-21" },
+      { "title": "AWS Artifact", "url": "https://aws.amazon.com/artifact/", "type": "docs", "accessedAt": "2026-09-21" }
+    ],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  },
+  {
+    "id": "L-2.3", "version": 1, "status": "verified", "language": "en", "domainId": 2, "taskStatements": ["2.3"],
+    "title": "Access management: IAM, root, and least privilege",
+    "summary": "IAM manages users, groups, roles, and policies. Authentication verifies identity; authorization defines permissions. The root user is protected with MFA and used only when strictly necessary. Least privilege grants only what is needed. IAM Identity Center centralizes multi-account human access.",
+    "explanation": "AWS IAM manages access to your account. Its pieces: users (identities for a person or app), groups (collections of users with common permissions), roles (assumable identities with temporary credentials — the recommended way to grant permissions to services and applications), and policies (JSON documents defining what can be done).\n\nTwo concepts the exam separates precisely: authentication is verifying who you are (password, MFA, federation); authorization is deciding what you can do (IAM policies). MFA adds a second authentication factor.\n\nThe root user has absolute power: protect it with MFA, don't create access keys for it, and use it only for tasks that require it (like closing the account). For daily work, use users or roles with the principle of least privilege: start with no permissions and add only what is needed. Avoid static access keys (leak risk); use roles with temporary credentials and AWS Secrets Manager for secrets.\n\nFor human teams, AWS IAM Identity Center offers centralized access with single sign-on (SSO) and federation with the corporate directory, ideal for multi-account organizations.",
+    "examRelevance": "Task 2.3 expects: distinguishing authentication/authorization, recognizing roles vs users, applying least privilege in scenarios, identifying tasks that require root and protecting it, and recognizing IAM Identity Center and the risks of long-lived credentials.",
+    "awsExample": "An application on EC2 reads S3 through a role attached to the instance (no keys in code); developers sign in with IAM Identity Center; root, with MFA, was used once to close account configuration.",
+    "keyTerms": [
+      { "term": "IAM role", "definition": "Assumable identity with temporary credentials; ideal for services." },
+      { "term": "Least privilege", "definition": "Granting only the necessary permissions." },
+      { "term": "MFA", "definition": "A second authentication factor." },
+      { "term": "Identity federation", "definition": "Allowing access with external identities (SSO, corporate directory)." }
+    ],
+    "commonConfusions": [
+      { "withWhat": "Authentication vs authorization", "difference": "Verifying identity / defining permissions." },
+      { "withWhat": "User vs role", "difference": "Permanent identity with credentials (avoid for apps) / assumable temporary credentials (preferred)." },
+      { "withWhat": "IAM vs IAM Identity Center", "difference": "IAM manages all account access; Identity Center centralizes human access in multi-account organizations." }
+    ],
+    "comparisons": [
+      {
+        "title": "Authentication methods and their use",
+        "rows": [
+          { "aspect": "Password + MFA", "a": "Human users", "b": "always protect root with MFA" },
+          { "aspect": "Roles (temporary credentials)", "a": "Services and applications", "b": "avoid static keys" },
+          { "aspect": "Federation / SSO", "a": "Teams with a corporate directory", "b": "IAM Identity Center" },
+          { "aspect": "Access keys", "a": "Last resort", "b": "risk: long-lived credentials" }
+        ]
+      }
+    ],
+    "knowledgeCheckQuestionIds": ["D2-T2.3-001", "D2-T2.3-002", "D2-T2.3-003", "D2-T2.3-004", "D2-T2.3-005", "D2-T2.3-006"],
+    "relatedServiceIds": ["aws-iam", "aws-iam-identity-center", "aws-secrets-manager", "aws-systems-manager"],
+    "estimatedMinutes": 15,
+    "sources": [{ "title": "IAM best practices", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "lastReviewedAt": "2026-09-21", "reviewer": "content-team", "examGuideVersion": "CLF-C02"
+  }
+]

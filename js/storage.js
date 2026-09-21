@@ -12,6 +12,7 @@ export function defaults() {
       theme: 'system',            // 'light' | 'dark' | 'system'
       reducedMotion: false,
       defaultQuizSize: 10,        // 10 | 20 | 30
+      language: 'es',             // 'es' | 'en'
     },
     session: { currentAttemptId: null },
     questionStates: {},           // qid -> { seenCount, correctCount, incorrectCount, consecutiveCorrect, separateCorrectDates:[], mastery, lastResult, lastAttemptAt, bookmarked, difficult, note, hintUsedCount }

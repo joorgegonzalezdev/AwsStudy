@@ -2,10 +2,10 @@
    distribución aproximada por pesos de dominio, navegador de preguntas,
    auto-entrega al agotar el tiempo. SIEMPRE no oficial. */
 
-import { selectQuestions, createAttempt, startQuizSession, stopTimer } from './quiz-engine.js';
-import { getContent } from './content-loader.js';
+import { selectQuestions, createAttempt } from './quiz-engine.js';
 import * as state from './state.js';
-import { escapeHtml, announce } from './utils.js';
+import { escapeHtml } from './utils.js';
+import { t } from './i18n.js';
 import { navigate } from './router.js';
 
 const EXAM_SIZE = 65;
@@ -18,40 +18,34 @@ export function renderExamStart() {
   const partial = available < EXAM_SIZE;
 
   outlet.innerHTML = `
-    <h1>Simulacro de examen</h1>
-    <div class="notice"><b>Aviso:</b> este simulacro es una herramienta de estudio <b>no oficial</b>. No reproduce el examen real de AWS ni su algoritmo de puntuación. Tu resultado es una estimación local de estudio.</div>
+    <h1>${escapeHtml(t('exam.title'))}</h1>
+    <div class="notice"><b>${escapeHtml(t('exam.notice'))}</b></div>
     <div class="card">
-      <h2>Formato</h2>
+      <h2>${escapeHtml(t('exam.format'))}</h2>
       <ul>
-        <li><b>${partial ? available : EXAM_SIZE} preguntas</b> de selección única y de respuesta múltiple${partial ? ' (banco en crecimiento: simulacro reducido)' : ''}.</li>
-        <li><b>90 minutos</b> de tiempo total. Al agotarse, el examen se entrega automáticamente.</li>
-        <li>Distribución aproximada por dominio: D1 24% · D2 30% · D3 34% · D4 12%.</li>
-        <li>Puedes avanzar, retroceder y marcar preguntas para revisar.</li>
-        <li>Las respuestas se muestran solo al final; sin responder cuenta como incorrecta; no hay penalización por adivinar.</li>
+        <li>${escapeHtml(t('exam.f1', { n: partial ? available : EXAM_SIZE, suffix: partial ? t('exam.f1Suffix') : '' }))}</li>
+        <li>${escapeHtml(t('exam.f2'))}</li>
+        <li>${escapeHtml(t('exam.f3'))}</li>
+        <li>${escapeHtml(t('exam.f4'))}</li>
+        <li>${escapeHtml(t('exam.f5'))}</li>
       </ul>
-      ${partial ? '<div class="notice info">El banco de preguntas verificadas aún no llega a 65; el simulacro se ofrecerá con el número disponible hasta completar el banco.</div>' : ''}
+      ${partial ? `<div class="notice info">${escapeHtml(t('exam.partial'))}</div>` : ''}
       <div class="btn-row">
-        <button type="button" class="btn primary" id="exam-start">Comenzar el simulacro</button>
-        <a class="btn ghost" href="#/">Cancelar</a>
+        <button type="button" class="btn primary" id="exam-start">${escapeHtml(t('exam.start'))}</button>
+        <a class="btn ghost" href="#/">${escapeHtml(t('common.cancel'))}</a>
       </div>
     </div>`;
 
   outlet.querySelector('#exam-start').addEventListener('click', () => {
-    const att = createAttempt({
+    createAttempt({
       mode: 'exam',
       config: {
         domains: [],
         tasks: [],
         size: EXAM_SIZE,
         timerSeconds: EXAM_SECONDS,
-        label: 'Simulacro de examen (no oficial)',
       },
     });
     navigate('/exam/session');
-    void att;
   });
-}
-
-export function startExamSession(attemptId) {
-  startQuizSession(attemptId, { label: 'Simulacro de examen (no oficial)' });
 }

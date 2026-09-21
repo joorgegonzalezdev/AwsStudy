@@ -1,0 +1,11 @@
+{
+  "id": 4,
+  "name": "Billing, Pricing, and Support",
+  "weight": 12,
+  "description": "AWS pricing models, billing, budgeting and cost management tools, and technical resources and support options.",
+  "tasks": [
+    { "id": "4.1", "title": "Compare AWS pricing models", "topics": ["Compute purchasing options", "Storage tiers", "Data transfer pricing"] },
+    { "id": "4.2", "title": "Understand resources for billing, budgeting, and cost management", "topics": ["Cost tools", "AWS Organizations", "Cost allocation tags"] },
+    { "id": "4.3", "title": "Identify AWS technical resources and AWS Support options", "topics": ["Support plans", "Technical and community resources", "Partners and AWS Marketplace"] }
+  ]
+}

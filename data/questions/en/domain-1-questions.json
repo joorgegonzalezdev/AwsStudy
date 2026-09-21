@@ -1,0 +1,430 @@
+[
+  {
+    "id": "D1-T1.1-001", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.1",
+    "topic": "Cloud benefits", "subtopic": "Global infrastructure", "services": [], "concepts": ["global-infrastructure", "agility"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "What is the main benefit of the AWS global infrastructure regarding application deployment speed?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "It lets you provision resources in new Regions within minutes, without buying or installing physical hardware." },
+      { "id": "o2", "text": "It eliminates the need to test applications before launching them to production." },
+      { "id": "o3", "text": "It guarantees that applications will never experience failures or interruptions." },
+      { "id": "o4", "text": "It reduces the cost of developing application code." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "The AWS global infrastructure lets you provision resources (servers, databases, networks) in minutes across multiple Regions worldwide, without the upfront investment and waiting of buying and installing physical hardware. This delivers agility and global reach.",
+    "optionExplanations": {
+      "o1": "Correct: creating resources globally in minutes without prior physical investment is the core deployment benefit of the cloud.",
+      "o2": "Incorrect: testing remains a necessary best practice; the cloud does not remove it.",
+      "o3": "Incorrect: no provider guarantees zero failures; the cloud offers tools (multi-AZ, multi-Region) to tolerate them.",
+      "o4": "Incorrect: the global infrastructure affects infrastructure deployment, not the cost of writing application code."
+    },
+    "hint": "Think of the contrast between waiting weeks for hardware and creating a server in minutes.",
+    "lessonId": "L-1.1", "officialSources": [{ "title": "AWS: What is cloud computing?", "url": "https://aws.amazon.com/what-is-cloud-computing/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-002", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.1",
+    "topic": "High availability and elasticity", "subtopic": "Elasticity", "services": ["aws-auto-scaling"], "concepts": ["elasticity"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company runs an e-commerce application whose traffic multiplies during sales campaigns and drops very low overnight. The company wants compute capacity to adjust automatically without paying for idle resources. Which cloud benefit is it asking for?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "High availability" },
+      { "id": "o2", "text": "Elasticity" },
+      { "id": "o3", "text": "Agility" },
+      { "id": "o4", "text": "Disaster recovery" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Elasticity is the ability of the infrastructure to grow and shrink automatically to match real demand. AWS Auto Scaling can add instances during peaks and remove them when demand falls, so the company pays only for what it uses.",
+    "optionExplanations": {
+      "o1": "Incorrect: high availability keeps the system running through failures; it is not about matching capacity to demand volume.",
+      "o2": "Correct: automatically adjusting capacity up and down with demand is exactly the definition of elasticity.",
+      "o3": "Incorrect: agility is about speed to innovate and deploy changes, not automatic capacity adjustment.",
+      "o4": "Incorrect: disaster recovery is about recovering from a severe failure; here there is no failure, just demand variation."
+    },
+    "hint": "The keywords are \"automatic adjustment to demand\".",
+    "lessonId": "L-1.1", "officialSources": [{ "title": "Six advantages of cloud computing (AWS Overview whitepaper)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html", "type": "whitepaper", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-003", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.1",
+    "topic": "High availability and elasticity", "subtopic": "Scalability vs elasticity", "services": [], "concepts": ["scalability", "elasticity"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": false,
+    "question": "What is the fundamental difference between scalability and elasticity?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Scalability is manual and elasticity is always manual." },
+      { "id": "o2", "text": "Scalability is the ability to handle more load by adding resources; elasticity also removes resources automatically when demand drops." },
+      { "id": "o3", "text": "Scalability refers to system security and elasticity to its performance." },
+      { "id": "o4", "text": "There is no difference: they are two names for the same concept." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Scalability is the ability of a system to handle more load by adding resources (more of them, or bigger ones). Elasticity includes that ability but adds automatic two-way adjustment: growing when demand rises and shrinking when it falls, optimizing cost.",
+    "optionExplanations": {
+      "o1": "Incorrect: both can be achieved manually or automatically; that is not the difference between the concepts.",
+      "o2": "Correct: elasticity = scalability + automatic adjustment downward as demand drops.",
+      "o3": "Incorrect: both terms describe capacity and sizing, not security.",
+      "o4": "Incorrect: they are related but not identical; elasticity implies two-way automatic adjustment."
+    },
+    "hint": "One of them includes \"shrinking when demand drops\".",
+    "lessonId": "L-1.1", "officialSources": [{ "title": "AWS Well-Architected Framework: Reliability Pillar (scaling)", "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-004", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.1",
+    "topic": "High availability and elasticity", "subtopic": "High availability", "services": [], "concepts": ["high-availability", "fault-tolerance"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company requires its application to keep operating even if an entire data center stops working. Which architecture best describes that goal?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Running the whole application on a single, very powerful instance." },
+      { "id": "o2", "text": "Deploying the application across multiple Availability Zones within one Region." },
+      { "id": "o3", "text": "Storing copies of the technical documentation in Amazon S3." },
+      { "id": "o4", "text": "Using a more powerful instance every time traffic increases." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Availability Zones (AZs) are designed to be independent of one another, with no shared single point of failure. Deploying the application across multiple AZs keeps it running if one zone fails: that is high availability.",
+    "optionExplanations": {
+      "o1": "Incorrect: a single instance, however powerful, is a single point of failure.",
+      "o2": "Correct: multiple AZs isolate the application from a data center failure, achieving high availability.",
+      "o3": "Incorrect: backing up documentation does not keep an application operating.",
+      "o4": "Incorrect: increasing instance size addresses performance, not continuity through a data center failure."
+    },
+    "hint": "Look for the option that removes a single geographic point of failure.",
+    "lessonId": "L-1.1", "officialSources": [{ "title": "AWS Global Infrastructure", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.1-005", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.1",
+    "topic": "Cloud benefits", "subtopic": "Global reach", "services": [], "concepts": ["global-infrastructure"],
+    "difficulty": "basic", "type": "truefalse", "scenarioBased": false,
+    "question": "Agree or disagree: \"With AWS, a company can deploy its application close to users on several continents without building its own data centers in each country.\"",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "verdadero", "text": "True" },
+      { "id": "falso", "text": "False" }
+    ],
+    "correctAnswerIds": ["verdadero"],
+    "explanation": "True. The AWS global infrastructure (Regions on several continents and CloudFront edge locations) lets you deploy and serve content close to users worldwide without the company investing in its own data centers, achieving immediate global reach.",
+    "optionExplanations": {
+      "verdadero": "Correct: this is a classic cloud benefit — global reach with no physical investment in each country.",
+      "falso": "Incorrect: the existence of Regions and edge locations is precisely what removes the need to build your own infrastructure."
+    },
+    "hint": "Remember what Regions and edge locations are for.",
+    "lessonId": "L-1.1", "officialSources": [{ "title": "AWS Global Infrastructure", "url": "https://aws.amazon.com/about-aws/global-infrastructure/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 45, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-001", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.2",
+    "topic": "Framework pillars", "subtopic": "Cost optimization", "services": [], "concepts": ["well-architected"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A team reviews its architecture and decides to remove underutilized servers, paying only for the capacity it actually consumes. Which AWS Well-Architected Framework pillar does this improvement represent?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Operational Excellence" },
+      { "id": "o2", "text": "Reliability" },
+      { "id": "o3", "text": "Cost Optimization" },
+      { "id": "o4", "text": "Sustainability" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "The Cost Optimization pillar is about eliminating waste: right-sizing resources, avoiding idle capacity, and paying only for what you consume. Removing underutilized servers is a classic example.",
+    "optionExplanations": {
+      "o1": "Incorrect: Operational Excellence focuses on running and monitoring systems, automating changes, and continuously improving processes.",
+      "o2": "Incorrect: Reliability focuses on recovering from failures and meeting availability requirements.",
+      "o3": "Correct: minimizing waste and paying only for what you use is the essence of Cost Optimization.",
+      "o4": "Incorrect: Sustainability focuses on reducing the environmental impact of workloads; the economic saving is a consequence, not the pillar."
+    },
+    "hint": "The pillar is about \"paying only for what you use\".",
+    "lessonId": "L-1.2", "officialSources": [{ "title": "AWS Well-Architected Framework", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-002", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.2",
+    "topic": "Framework pillars", "subtopic": "Sustainability", "services": [], "concepts": ["well-architected"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company wants to minimize the environmental impact of its workloads: it removed idle instances and chose Regions powered by renewable energy. Which Well-Architected Framework pillar is it applying?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Security" },
+      { "id": "o2", "text": "Sustainability" },
+      { "id": "o3", "text": "Performance Efficiency" },
+      { "id": "o4", "text": "Operational Excellence" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "The Sustainability pillar focuses on minimizing the environmental impact of workloads: reducing resource consumption, maximizing utilization, and preferring Regions with clean energy. It is the sixth pillar, added in 2021.",
+    "optionExplanations": {
+      "o1": "Incorrect: the Security pillar protects information and systems; it does not address environmental impact.",
+      "o2": "Correct: reducing consumption, maximizing utilization, and choosing renewable energy are Sustainability pillar practices.",
+      "o3": "Incorrect: Performance Efficiency is about using computing resources optimally for speed, not environmental impact.",
+      "o4": "Incorrect: Operational Excellence is about processes, automation, and continuous operational improvement."
+    },
+    "hint": "The clues are \"environmental impact\" and \"renewable energy\".",
+    "lessonId": "L-1.2", "officialSources": [{ "title": "Sustainability Pillar – AWS Well-Architected Framework", "url": "https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-003", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.2",
+    "topic": "Framework pillars", "subtopic": "Operational Excellence", "services": ["aws-cloudformation"], "concepts": ["well-architected"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A team wants to automate infrastructure changes, document procedures, and continuously learn from operational failures. Which pillar guides these practices?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Operational Excellence" },
+      { "id": "o2", "text": "Cost Optimization" },
+      { "id": "o3", "text": "Security" },
+      { "id": "o4", "text": "Reliability" }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "The Operational Excellence pillar is about the ability to run and monitor systems to deliver business value and continuously improve processes: automating changes, documenting operations, and learning from failures.",
+    "optionExplanations": {
+      "o1": "Correct: change automation, documented procedures, and continuous improvement are the core of Operational Excellence.",
+      "o2": "Incorrect: Cost Optimization removes economic waste; it is not about improving operational processes.",
+      "o3": "Incorrect: Security protects information, systems, and assets through risk assessments.",
+      "o4": "Incorrect: Reliability centers on failure recovery and availability, not on operational process management."
+    },
+    "hint": "Think of processes, automation, and continuous operational improvement.",
+    "lessonId": "L-1.2", "officialSources": [{ "title": "Operational Excellence Pillar – AWS Well-Architected", "url": "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.2-004", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.2",
+    "topic": "AWS Well-Architected Framework", "subtopic": "The six pillars", "services": [], "concepts": ["well-architected"],
+    "difficulty": "basic", "type": "multiple", "scenarioBased": false,
+    "question": "Which of the following are pillars of the AWS Well-Architected Framework?",
+    "selectionInstruction": "Choose TWO answers.",
+    "options": [
+      { "id": "o1", "text": "Security" },
+      { "id": "o2", "text": "Agility" },
+      { "id": "o3", "text": "Reliability" },
+      { "id": "o4", "text": "Economies of scale" }
+    ],
+    "correctAnswerIds": ["o1", "o3"],
+    "explanation": "The six Well-Architected pillars are: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability. \"Security\" and \"Reliability\" are pillars; \"Agility\" and \"Economies of scale\" are cloud benefits/concepts, not pillars.",
+    "optionExplanations": {
+      "o1": "Correct: Security is one of the six pillars.",
+      "o2": "Incorrect: agility is a cloud benefit (task 1.1), not a framework pillar.",
+      "o3": "Correct: Reliability is one of the six pillars.",
+      "o4": "Incorrect: economies of scale is a cloud economics concept (task 1.4), not a pillar."
+    },
+    "hint": "Remember the list: Operational, Security, Reliability, Performance, Cost, Sustainability.",
+    "lessonId": "L-1.2", "officialSources": [{ "title": "AWS Well-Architected Framework: the pillars of the framework", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-001", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.3",
+    "topic": "The 7 migration strategies", "subtopic": "Rehost", "services": ["aws-application-migration-service"], "concepts": ["7rs"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company wants to move its on-premises virtual servers to AWS as fast as possible, without changing the operating system, the code, or the application architecture. Which migration strategy fits?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Refactor / Re-architect" },
+      { "id": "o2", "text": "Rehost (\"lift and shift\")" },
+      { "id": "o3", "text": "Retire" },
+      { "id": "o4", "text": "Repurchase" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Rehost (\"lift and shift\") means moving applications to the cloud without significant changes: the servers are replicated as they are, typically onto Amazon EC2. It is the fastest strategy with the lowest initial risk.",
+    "optionExplanations": {
+      "o1": "Incorrect: refactoring implies redesigning the application (e.g., breaking it into microservices), the slowest and most expensive option.",
+      "o2": "Correct: moving without changes is the definition of Rehost.",
+      "o3": "Incorrect: Retire means decommissioning applications that are no longer needed; here they must be moved.",
+      "o4": "Incorrect: Repurchase means dropping an existing license and buying a different SaaS solution."
+    },
+    "hint": "No code or architecture changes = \"lift and shift\".",
+    "lessonId": "L-1.3", "officialSources": [{ "title": "7 R's of migration (AWS Prescriptive Guidance)", "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-database-migration/overview.html", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-002", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.3",
+    "topic": "The 7 migration strategies", "subtopic": "Repurchase", "services": [], "concepts": ["7rs"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company runs a customer relationship management (CRM) system on its own servers with a perpetual license. To modernize, it decides to drop that system and subscribe to a CRM SaaS solution instead. Which migration strategy does this represent?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Replatform" },
+      { "id": "o2", "text": "Relocate" },
+      { "id": "o3", "text": "Repurchase" },
+      { "id": "o4", "text": "Retain" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "Repurchase means dropping an existing licensed product and buying a new one, typically moving to a SaaS model. The classic example is replacing an on-premises CRM with a CRM as a service.",
+    "optionExplanations": {
+      "o1": "Incorrect: Replatform moves the same application to the cloud with small changes (e.g., swapping the database for a managed one); the product does not change.",
+      "o2": "Incorrect: Relocate moves physical servers or hypervisors (e.g., VMware Cloud on AWS) without changing anything; it does not apply to moving to SaaS.",
+      "o3": "Correct: replacing the product with a SaaS version is Repurchase.",
+      "o4": "Incorrect: Retain means keeping the application where it is (for regulatory or priority reasons), not replacing it."
+    },
+    "hint": "Key phrase: \"drop the license and buy a SaaS\".",
+    "lessonId": "L-1.3", "officialSources": [{ "title": "AWS Cloud Adoption Framework: perspectives and outcomes", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-cloud-adoption-framework/welcome.html", "type": "whitepaper", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-003", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.3",
+    "topic": "The 7 migration strategies", "subtopic": "Replatform", "services": ["amazon-aurora", "aws-dms"], "concepts": ["7rs", "database-migration"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "During a migration, a company decides to move its Oracle database to Amazon Aurora, taking advantage of data replication tools, without rewriting the rest of the application. Which strategy does this small platform change represent?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Rehost" },
+      { "id": "o2", "text": "Replatform (\"lift, tinker and shift\")" },
+      { "id": "o3", "text": "Relocate" },
+      { "id": "o4", "text": "Retire" }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Replatform involves making small, low-risk changes during the migration — such as switching the database to a managed engine (Aurora), often using AWS DMS to replicate the data — without changing the application's core architecture.",
+    "optionExplanations": {
+      "o1": "Incorrect: Rehost would move the database exactly as is (same engine) with no changes.",
+      "o2": "Correct: changing the database engine to a managed one is a typical small Replatform change.",
+      "o3": "Incorrect: Relocate applies to moving hypervisors or hardware without changes, not changing the database engine.",
+      "o4": "Incorrect: Retire means decommissioning an application; here the database is modernized, not dropped."
+    },
+    "hint": "A small, low-risk change during migration (managed database engine) has a specific name.",
+    "lessonId": "L-1.3", "officialSources": [{ "title": "AWS Database Migration Service", "url": "https://aws.amazon.com/dms/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.3-004", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.3",
+    "topic": "AWS Cloud Adoption Framework", "subtopic": "CAF perspectives", "services": [], "concepts": ["aws-caf"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "In a company adopting the cloud, the human resources area needs a framework to assess culture, leadership, and staff readiness. Which AWS Cloud Adoption Framework (CAF) perspective covers these aspects?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Governance perspective" },
+      { "id": "o2", "text": "Platform perspective" },
+      { "id": "o3", "text": "People perspective" },
+      { "id": "o4", "text": "Operations perspective" }
+    ],
+    "correctAnswerIds": ["o3"],
+    "explanation": "The six AWS CAF perspectives are: Business, People, Governance, Platform, Security, and Operations. The People perspective focuses on organizational culture, leadership, human resources, and staff readiness for change.",
+    "optionExplanations": {
+      "o1": "Incorrect: Governance aligns cloud strategy with business processes, risk, and budget.",
+      "o2": "Incorrect: Platform focuses on technology solutions and cloud architecture.",
+      "o3": "Correct: culture, leadership, and staff readiness belong to the People perspective.",
+      "o4": "Incorrect: Operations focuses on how to run and support workloads day to day."
+    },
+    "hint": "The perspective whose subject is staff and culture has a very direct name.",
+    "lessonId": "L-1.3", "officialSources": [{ "title": "AWS Cloud Adoption Framework (People perspective)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-cloud-adoption-framework/people-perspective.html", "type": "whitepaper", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-001", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.4",
+    "topic": "Fixed vs variable costs", "subtopic": "CapEx and OpEx", "services": [], "concepts": ["capex", "opex"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company used to buy servers every three years with a large upfront investment. Now it pays AWS only for the resources it consumes each month. How is this economic transformation described?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "It converts operating expenses (OpEx) into capital expenses (CapEx)." },
+      { "id": "o2", "text": "It converts capital expenses (CapEx) into operating expenses (OpEx)." },
+      { "id": "o3", "text": "It eliminates all of the company's technology costs." },
+      { "id": "o4", "text": "It converts a variable cost into a fixed monthly cost." }
+    ],
+    "correctAnswerIds": ["o2"],
+    "explanation": "Buying servers is capital expenditure (CapEx): an upfront investment in physical assets that depreciate. Paying monthly for consumption in the cloud is operating expenditure (OpEx). Migrating to the cloud typically converts CapEx into OpEx and turns fixed costs into variable ones.",
+    "optionExplanations": {
+      "o1": "Incorrect: it is exactly the opposite — asset investment (CapEx) is replaced by pay-per-use (OpEx).",
+      "o2": "Correct: moving from buying hardware to paying for consumption is the CapEx → OpEx conversion.",
+      "o3": "Incorrect: technology costs do not disappear; they change in nature and become variable.",
+      "o4": "Incorrect: the transformation goes from fixed cost (investment) to variable cost (pay per use)."
+    },
+    "hint": "Invest upfront or pay for what you consume?",
+    "lessonId": "L-1.4", "officialSources": [{ "title": "Six advantages of cloud computing (AWS Overview whitepaper)", "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html", "type": "whitepaper", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-002", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.4",
+    "topic": "Fixed vs variable costs", "subtopic": "Economies of scale", "services": [], "concepts": ["economies-of-scale"],
+    "difficulty": "basic", "type": "single", "scenarioBased": false,
+    "question": "How do economies of scale allow AWS to reduce costs for its customers?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "AWS aggregates the demand of hundreds of thousands of customers, buys infrastructure at massive scale, and achieves lower unit costs than any customer could obtain alone." },
+      { "id": "o2", "text": "AWS passes its data center operating costs on to customers with no benefit." },
+      { "id": "o3", "text": "AWS requires multi-year contracts in order to offer prices." },
+      { "id": "o4", "text": "AWS reduces costs by removing security and availability redundancy." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Economies of scale arise because AWS aggregates the demand of an enormous number of customers: it buys hardware, power, and bandwidth at massive scale, obtains lower prices, and shares that efficiency with customers, who pay less than equivalent self-managed infrastructure would cost.",
+    "optionExplanations": {
+      "o1": "Correct: that aggregation of demand and bulk purchasing is the definition of economies of scale applied to the cloud.",
+      "o2": "Incorrect: the benefit is that customers pay less per unit; more cost is not transferred to them.",
+      "o3": "Incorrect: much of AWS consumption is on-demand, with no term contracts.",
+      "o4": "Incorrect: security and availability redundancy is one reason for AWS costs, not something removed."
+    },
+    "hint": "\"Buying wholesale and sharing the efficiency\".",
+    "lessonId": "L-1.4", "officialSources": [{ "title": "AWS: What is cloud computing? (economics)", "url": "https://aws.amazon.com/what-is-cloud-computing/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 60, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-003", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.4",
+    "topic": "Rightsizing and licensing", "subtopic": "Rightsizing", "services": ["aws-compute-optimizer"], "concepts": ["rightsizing"],
+    "difficulty": "basic", "type": "single", "scenarioBased": true,
+    "question": "A company detects that its EC2 instances use only 15% of the contracted CPU and memory for most of the day. Which cost optimization action should it apply?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Switch to smaller instances that match actual usage (rightsizing)." },
+      { "id": "o2", "text": "Double the instance size to prepare for future peaks." },
+      { "id": "o3", "text": "Keep the current size and pay for the idle capacity as a precaution." },
+      { "id": "o4", "text": "Buy more software licenses for the instances." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Rightsizing means adjusting resource size to real demand. 15% utilization signals over-provisioning: moving to smaller instances (helped by tools like AWS Compute Optimizer) reduces cost without affecting the required performance.",
+    "optionExplanations": {
+      "o1": "Correct: adjusting capacity to actual usage is exactly the goal of rightsizing.",
+      "o2": "Incorrect: doubling the size would increase waste and cost, not optimize it.",
+      "o3": "Incorrect: paying for idle capacity contradicts the principle of paying only for what you need.",
+      "o4": "Incorrect: buying more licenses does not solve compute over-provisioning."
+    },
+    "hint": "15% utilization = too much capacity.",
+    "lessonId": "L-1.4", "officialSources": [{ "title": "AWS Compute Optimizer", "url": "https://aws.amazon.com/compute-optimizer/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-004", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.4",
+    "topic": "Rightsizing and licensing", "subtopic": "BYOL vs license-included", "services": ["aws-license-manager"], "concepts": ["byol"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A company already owns database software licenses purchased for its on-premises servers and plans to migrate those workloads to AWS. Which licensing model can help reduce its total cost in the cloud?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "BYOL (Bring Your Own License): reusing its existing licenses in the cloud." },
+      { "id": "o2", "text": "License-included: paying for the software bundled into the instance hourly price." },
+      { "id": "o3", "text": "Buying new licenses for every instance it creates." },
+      { "id": "o4", "text": "Operating without any software licensing." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "BYOL lets you reuse software licenses already purchased on AWS instead of paying for instances with the license included. For companies with prior license investments, this can reduce the total cost of migration.",
+    "optionExplanations": {
+      "o1": "Correct: BYOL reuses existing licenses and avoids paying twice for the same software.",
+      "o2": "Incorrect: license-included charges the software inside the hourly price, doubling the spend for someone who already owns licenses.",
+      "o3": "Incorrect: buying unnecessary new licenses does not reduce cost.",
+      "o4": "Incorrect: running commercial software without licensing is neither legal nor possible."
+    },
+    "hint": "The company ALREADY owns licenses: it should leverage them.",
+    "lessonId": "L-1.4", "officialSources": [{ "title": "AWS License Manager", "url": "https://aws.amazon.com/license-manager/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  },
+  {
+    "id": "D1-T1.4-005", "version": 1, "status": "verified", "language": "en", "domain": 1, "taskStatement": "1.4",
+    "topic": "Fixed vs variable costs", "subtopic": "Managed services and automation", "services": ["aws-lambda"], "concepts": ["managed-services"],
+    "difficulty": "intermediate", "type": "single", "scenarioBased": true,
+    "question": "A startup processes images that users upload to its website. Processing takes a few seconds per image and traffic is unpredictable. Why does a managed, serverless service like AWS Lambda usually reduce costs in this case?",
+    "selectionInstruction": "Choose ONE answer.",
+    "options": [
+      { "id": "o1", "text": "Because it bills only for the executions and compute time actually used, with no idle servers." },
+      { "id": "o2", "text": "Because it removes the need to encrypt data." },
+      { "id": "o3", "text": "Because it guarantees a fixed monthly cost regardless of usage." },
+      { "id": "o4", "text": "Because code runs faster than on any other service." }
+    ],
+    "correctAnswerIds": ["o1"],
+    "explanation": "Managed, serverless services like Lambda eliminate idle capacity: you are billed per invocation and per duration. For intermittent, unpredictable workloads this avoids paying for servers running all day, and it also reduces operational effort (no OS to patch).",
+    "optionExplanations": {
+      "o1": "Correct: paying only for real execution and avoiding idle servers is the key economic benefit of the serverless model.",
+      "o2": "Incorrect: encryption remains the customer's responsibility; Lambda does not remove it.",
+      "o3": "Incorrect: the serverless model is precisely variable cost, not fixed.",
+      "o4": "Incorrect: execution speed is not guaranteed to be the fastest; the benefit is economic and operational."
+    },
+    "hint": "What happens to costs when there are no servers idling, waiting for work?",
+    "lessonId": "L-1.4", "officialSources": [{ "title": "AWS Lambda", "url": "https://aws.amazon.com/lambda/", "type": "docs", "accessedAt": "2026-09-21" }],
+    "estimatedTimeSeconds": 75, "createdAt": "2026-09-21", "lastReviewedAt": "2026-09-21"
+  }
+]
